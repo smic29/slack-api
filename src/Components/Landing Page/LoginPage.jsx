@@ -1,9 +1,9 @@
 import './LoginPage.css'
-import { useData } from '../Context/DataProvider'
+import { useData } from '../../Context/DataProvider'
 import { useState } from 'react';
 
 function LoginPage() {
-    const { userData, handleLogin } = useData();
+    const { userData, handleLogin, handleActiveModal } = useData();
     const [ username, setUsername ] = useState('');
     const [ password, setPassword ] = useState('');
     const [ visibility, setVisibility ] = useState(false);
@@ -52,6 +52,8 @@ function LoginPage() {
                 {visibility ? 'visibility': 'visibility_off'}
                 </span>
             </fieldset>
+            <p
+            onClick={() => handleActiveModal('newUser')}>Create a new account!</p>
             <input type='submit' 
             value='Login'/>
         </form>

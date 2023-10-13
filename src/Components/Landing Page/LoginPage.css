@@ -31,3 +31,11 @@
     position: absolute;
     right: 7.5%;
 }
+
+.login-form p {
+    margin: 0;
+    margin-bottom: 1rem;
+    cursor: pointer;
+    font-size: 0.75rem;
+    text-decoration: double underline;
+}

@@ -1,0 +1,23 @@
+.newUser-form legend{
+    text-align: start;
+}
+
+.newUser-form fieldset {
+    display: flex;
+    flex-direction: column;
+    text-align: start;
+}
+
+.field-box {
+    display: flex;
+}
+
+.newUser-form {
+    position: relative;
+}
+
+.newUser-form button {
+    position: absolute;
+    left: 0;
+    bottom: 0;
+}

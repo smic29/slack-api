@@ -4,7 +4,7 @@
 - React
 
 ## Project Requirements
-- [ ] User is able to create his/her account with email and password
+- [x] User is able to create his/her account with email and password
 - [x] User is able to login his/her credentials
 - [ ] User is able to create new channel
 - [ ] User is able to add users on a channel

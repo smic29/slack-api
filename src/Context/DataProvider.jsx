@@ -23,6 +23,9 @@ const DataProvider = ({children}) => {
             username: 'Spicy',
             password: 'mikpot',
             email: 'ic@spicy.com',
+            firstName: 'Ian',
+            lastName: 'Sibulo',
+            nickName: 'Spicy',
             createdChannels: [],
             joinedChannels: [],
             messages: [],
@@ -37,11 +40,21 @@ const DataProvider = ({children}) => {
         setUserData((prevData) => [...prevData, newUser])
     }
 
+    
+    //Modal Switch
+    const [ activeModal, setActiveModal ] = useState('');
+
+    const handleActiveModal = (modalName) => {
+        setActiveModal(modalName)
+    }
+
+
     return (
         <DataContext.Provider value={
             {isLoggedIn, handleLogin, handleLogout,
             handleAddNewUser, setLoginUser,
-            userData, user}}>
+            userData, user,
+            activeModal, handleActiveModal}}>
             {children}
         </DataContext.Provider>
     )
