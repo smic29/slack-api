@@ -1,24 +1,28 @@
-import logo from './logo.svg';
 import './App.css';
+import Home from './Components/Home/Home';
+import Channels from './Components/Channels/Channels';
+import Dms from './Components/DMs/Dms';
+import NotFound from './Components/NotFound';
+import Navigation from './Components/Navigation/Navigation';
+import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import DataProvider from './Context/DataProvider';
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <DataProvider>
+      <div className="App">
+        <BrowserRouter>
+          <Routes>
+            <Route path='/' element={<Navigation />}>
+              <Route index element={<Home />} />
+              <Route path='channels' element={<Channels />} />
+              <Route path='dms' element={<Dms />} />
+              <Route path='*' element={<NotFound />} />
+            </Route>
+          </Routes>
+        </BrowserRouter>
+      </div>
+      </DataProvider>
   );
 }
 

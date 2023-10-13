@@ -1,0 +1,33 @@
+.user-legend, .pass-legend {
+    text-align: start;
+}
+
+.login-form fieldset {
+    border-left: none;
+    border-right: none;
+    border-bottom: none;
+}
+
+.login-form input {
+    border: none;
+    padding: 5px;
+}
+
+.login-form input[type='submit']{
+    padding: 5px;
+    border: 2px solid;
+    border-radius: 0.25rem;
+}
+
+.login-form input[type='submit']:hover{
+    background-color: lightgray;
+}
+
+.pw-field {
+    position: relative;
+}
+
+.pw-field .material-symbols-outlined {
+    position: absolute;
+    right: 7.5%;
+}
