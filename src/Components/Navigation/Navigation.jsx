@@ -21,7 +21,9 @@ function Navigation() {
                     >Logout</button>
                 </div>
             </header>
+            <div className="outlet">
             {isLoggedIn ? (<Outlet />) : (<ModalTemplate />)}
+            </div>
         </div>
     )
 }

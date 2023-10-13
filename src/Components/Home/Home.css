@@ -1,0 +1,8 @@
+.home-container {
+    display: flex;
+    flex-direction: column;
+}
+
+.information-box p {
+    text-align: left;
+}

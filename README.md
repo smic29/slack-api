@@ -18,3 +18,7 @@
 ## Added Challenges
 - [ ] Have tests for each component
 - [ ] Themes for different users
+
+## Personal Challenges
+- [ ] Settings for which name to use (firstname, nickname, or username).
+- [ ] Reactions for Chat

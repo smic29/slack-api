@@ -1,4 +1,13 @@
+.navigation {
+    display: grid;
+    grid-template-areas: "navbar outlet";
+    grid-template-columns: 5% 90%;
+    justify-content: space-between;
+    height: 100vh;
+}
+
 .navbar-header {
+    grid-area: navbar;
     background-color: lightblue;
     width: 100%;
     display: flex;
@@ -17,12 +26,6 @@
     align-items: baseline;
 }
 
-.navigation {
-    display: grid;
-    grid-template-columns: 5% 95%;
-    height: 100vh;
-}
-
 .item {
     margin-inline: 10px;
     margin-bottom: 20px;
@@ -31,4 +34,8 @@
 
 .item:hover {
     background-color: lightgray;
+}
+
+.outlet {
+    grid-area: outlet;
 }

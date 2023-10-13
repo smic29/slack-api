@@ -1,0 +1,28 @@
+.channel-chatbox {
+    display: grid;
+    grid-template-rows: 90% 10%;
+    height: 89vh;
+    justify-content: center;
+}
+
+.msg-box {
+    border: 2px solid black;
+    border-radius: 1rem;
+}
+
+.channel-chatbox input[type="textarea"] {
+    width: 85vw;
+}
+
+.create-channel {
+    margin: 0;
+    position: fixed;
+    top: 6.5%;
+    left: 50%;
+    cursor: pointer;
+    text-decoration: double underline;
+}
+
+.create-channel:hover {
+    color: lightgreen;
+}
