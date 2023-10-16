@@ -14,30 +14,26 @@ const DataProvider = ({children}) => {
     const handleLogout = () => {
         setisLoggedIn(false);
         setUser('');
+        setUserHeaders('');
     }
 
     //User Related
     const [ user, setUser ] = useState('');
-    const [ userData, setUserData ] = useState([
-        {
-            username: 'Spicy',
-            password: 'mikpot',
-            email: 'ic@spicy.com',
-            firstName: 'Ian',
-            lastName: 'Sibulo',
-            nickName: 'Spicy',
-            createdChannels: [],
-            joinedChannels: [],
-            messages: [],
-        }
-    ])
+    const [ userHeaders, setUserHeaders ] = useState('')
 
     const setLoginUser = (user) => {
         setUser(user);
     } 
 
-    const handleAddNewUser = (newUser) => {
-        setUserData((prevData) => [...prevData, newUser])
+    const handleHeaders = (header) => {
+        const updatedHeader = {
+            'access-token': header['access-token'],
+            uid: header.uid,
+            expiry: header.expiry,
+            client: header.client,
+        }
+        setUserHeaders(updatedHeader)
+        // setUserHeaders(header)
     }
 
     
@@ -52,8 +48,8 @@ const DataProvider = ({children}) => {
     return (
         <DataContext.Provider value={
             {isLoggedIn, handleLogin, handleLogout,
-            handleAddNewUser, setLoginUser,
-            userData, user,
+            handleHeaders, setLoginUser,
+            userHeaders, user,
             activeModal, handleActiveModal}}>
             {children}
         </DataContext.Provider>

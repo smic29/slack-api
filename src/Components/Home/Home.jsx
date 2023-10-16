@@ -1,27 +1,47 @@
+import { useEffect, useState } from "react";
 import { useData } from "../../Context/DataProvider"
 import './Home.css'
+import axios from "axios";
 
 function Home() {
-    const { user } = useData();
+    const { user, userHeaders } = useData();
+    const [ channelData, setChannelData ] = useState([]);
+
+    useEffect(() => {
+        const fetchChannels = async () => {
+            try {
+                const url = 'http://206.189.91.54/api/v1/channels'
+                const response = await axios.get(url, {headers: userHeaders})
+
+                setChannelData(response.data)
+            } catch (error) {
+                alert(`Failed: ${error}`)
+                console.log(userHeaders)
+            }
+        }
+        fetchChannels();
+    }, [])
 
     return (
         <div className="home-container">
-            <h1>Welcome to your home page, {user.username}!</h1>
+            <h1>Welcome to your home page, {user.name}!</h1>
             <fieldset className="information-box">
                 <legend>Information</legend>
-                <p>Name: {user.firstName} {user.lastName}</p>
-                <p>Nickname: {user.nickName} </p>
-                <p>Username: {user.username} </p>
-                <p>Email: {user.email} </p>
             </fieldset>
             <fieldset>
                 <legend>Channels</legend>
-                <p>Created Channels: {user.createdChannels.length === 0 ? 'No Created Channels, Create one!' : user.createdChannels.length}</p>
-                <p>Joined Channels: {user.joinedChannels.length === 0 ? 'No joined channels. Go and join one!' : user.joinedChannels.length}</p>
+                <p>Total number of Channels: {channelData.data.length}</p>
+                {channelData.data.map(channel => (
+                    <div key={channel.id}>
+                    <p>Channel: {channel.name}</p>
+                    <span>Channel ID: {channel.id}</span>
+                    <span>Created: {channel.created_at}</span>
+                    <span>Last Update: {channel.updated_at}</span>
+                    </div>
+                ))}
             </fieldset>
             <fieldset>
                 <legend>Messages</legend>
-                <p>{user.messages.length === 0 ? 'No Direct Messages yet' : user.messages.length}</p>
             </fieldset>
         </div>
     )

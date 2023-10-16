@@ -23,6 +23,9 @@
 - [ ] Settings for which name to use (firstname, nickname, or username).
 - [ ] Reactions for Chat
 
+## Project API
+- [API]()
+
 ## Component Tests
 1. App.js test on landing page
 ```jsx

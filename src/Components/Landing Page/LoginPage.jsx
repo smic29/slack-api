@@ -1,10 +1,11 @@
 import './LoginPage.css'
 import { useData } from '../../Context/DataProvider'
 import { useState } from 'react';
+import axios from 'axios';
 
 function LoginPage() {
-    const { userData, handleLogin, handleActiveModal } = useData();
-    const [ username, setUsername ] = useState('');
+    const { handleLogin, handleActiveModal, handleHeaders } = useData();
+    const [ email, setEmail ] = useState('');
     const [ password, setPassword ] = useState('');
     const [ visibility, setVisibility ] = useState(false);
 
@@ -12,20 +13,21 @@ function LoginPage() {
         setVisibility(!visibility)
     }
 
-    const handleFormSubmit = (e) => {
+    const handleFormSubmit = async(e) => {
         e.preventDefault();
 
-        const LoginUser = userData.find((userObj) => 
-        userObj.username === username &&
-        userObj.password === password)
+        
+        try {
+            const response = await axios.post('http://206.189.91.54/api/v1/auth/sign_in', { 
+                email, password,
+            })
 
-        if (LoginUser) {
-            handleLogin(LoginUser);
-            alert(`Welcome, ${LoginUser.username}!`)
-        } else {
-            alert('Incorrect Username/Password')
+            handleLogin(response.data);
+            handleHeaders(response.headers)
+            // console.table(response.headers)
+        } catch (error) {
+            alert(`Login failed`)
         }
-
     }
 
     return (
@@ -33,12 +35,12 @@ function LoginPage() {
         onSubmit={handleFormSubmit}>
             <fieldset>
                 <legend className='user-legend'>
-                    Username
+                    Email
                 </legend>
-                <input type='text' 
-                value={username}
-                placeholder='Enter username'
-                onChange={(e) => setUsername(e.target.value)}/>
+                <input type='email' 
+                value={email}
+                placeholder='Enter email'
+                onChange={(e) => setEmail(e.target.value)}/>
             </fieldset>
             <fieldset className='pw-field'>
                 <legend className='pass-legend'>
