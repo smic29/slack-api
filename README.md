@@ -22,3 +22,33 @@
 ## Personal Challenges
 - [ ] Settings for which name to use (firstname, nickname, or username).
 - [ ] Reactions for Chat
+
+## Component Tests
+1. App.js test on landing page
+```jsx
+test('Page loads to Landing Page', () => {
+  render(<App />);
+  const logInScreen = screen.getByText(/username/i);
+  expect(logInScreen).toBeInTheDocument();
+});
+```
+2. Login Successful
+```jsx
+global.alert = jest.fn();
+test('User is able to log in', () => {
+  render(<App />)
+  act(() => {
+      const userNameInput = screen.getByPlaceholderText(/username/i);
+      userEvent.type(userNameInput, 'USERNAME');
+
+      const passwordInput = screen.getByPlaceholderText('Enter password');
+      userEvent.type(passwordInput, 'PASSWORD');
+
+      const loginButton = screen.getByTestId('loginButton');
+      userEvent.click(loginButton);
+      
+      expect(global.alert).toHaveBeenCalledWith('Welcome, Spicy!');
+  })
+})
+```
+- This test would need to be updated once I remove alerts and switch to custom notifications.

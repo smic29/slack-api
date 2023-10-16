@@ -37,6 +37,7 @@ function LoginPage() {
                 </legend>
                 <input type='text' 
                 value={username}
+                placeholder='Enter username'
                 onChange={(e) => setUsername(e.target.value)}/>
             </fieldset>
             <fieldset className='pw-field'>
@@ -45,6 +46,7 @@ function LoginPage() {
                 </legend>
                 <input type={visibility ? 'text' : 'password'} 
                 value={password}
+                placeholder='Enter password'
                 onChange={(e) => setPassword(e.target.value)}/>
                 <span class="material-symbols-outlined"
                 onMouseEnter={toggleVisibility}
@@ -55,7 +57,8 @@ function LoginPage() {
             <p
             onClick={() => handleActiveModal('newUser')}>Create a new account!</p>
             <input type='submit' 
-            value='Login'/>
+            value='Login'
+            data-testid='loginButton'/>
         </form>
     )
 }
