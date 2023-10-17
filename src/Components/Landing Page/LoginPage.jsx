@@ -28,7 +28,7 @@ function LoginPage() {
             // console.table(response.headers)
             console.log(response.data)
         } catch (error) {
-            alert(`Login failed`)
+            alert(`${error.response.data.errors}`)
         }
     }
 

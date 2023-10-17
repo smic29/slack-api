@@ -32,6 +32,7 @@ function NewUserForm() {
             )
 
             alert(`Account Successfully created. Welcome ${nickName}!`)
+            handleActiveModal('')
         } catch (error) {
             const errorMsg = error.response.data;
             alert(`${errorMsg.errors.full_messages}`)

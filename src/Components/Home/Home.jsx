@@ -15,7 +15,7 @@ function Home() {
                 const response = await axios.get(url, {headers: userHeaders})
 
                 setChannelData(response.data.data)
-                // console.log(response.data.data)
+                // console.log(response.data)
             } catch (error) {
                 alert(`Failed: ${error.response.errors}`)
                 // console.log(userHeaders)
