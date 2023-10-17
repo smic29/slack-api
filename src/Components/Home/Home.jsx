@@ -13,10 +13,11 @@ function Home() {
                 const url = 'http://206.189.91.54/api/v1/channels'
                 const response = await axios.get(url, {headers: userHeaders})
 
-                setChannelData(response.data)
+                setChannelData(response.data.data)
+                // console.log(response.data.data)
             } catch (error) {
                 alert(`Failed: ${error}`)
-                console.log(userHeaders)
+                // console.log(userHeaders)
             }
         }
         fetchChannels();
@@ -30,8 +31,10 @@ function Home() {
             </fieldset>
             <fieldset>
                 <legend>Channels</legend>
-                <p>Total number of Channels: {channelData.data.length}</p>
-                {channelData.data.map(channel => (
+                {channelData.length > 0 ? (
+                <>
+                <p>Total number of Channels: {channelData.length}</p>
+                {channelData.map(channel => (
                     <div key={channel.id}>
                     <p>Channel: {channel.name}</p>
                     <span>Channel ID: {channel.id}</span>
@@ -39,6 +42,11 @@ function Home() {
                     <span>Last Update: {channel.updated_at}</span>
                     </div>
                 ))}
+                </>
+                ):(
+                    <p>Page is Loading...</p>
+                )
+                }
             </fieldset>
             <fieldset>
                 <legend>Messages</legend>
