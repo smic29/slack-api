@@ -25,6 +25,7 @@ function LoginPage() {
             handleLogin(response.data);
             handleHeaders(response.headers)
             // console.table(response.headers)
+            console.log(response.data)
         } catch (error) {
             alert(`Login failed`)
         }

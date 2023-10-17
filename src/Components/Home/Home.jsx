@@ -16,7 +16,7 @@ function Home() {
                 setChannelData(response.data.data)
                 // console.log(response.data.data)
             } catch (error) {
-                alert(`Failed: ${error}`)
+                alert(`Failed: ${error.response.errors}`)
                 // console.log(userHeaders)
             }
         }
@@ -31,7 +31,7 @@ function Home() {
             </fieldset>
             <fieldset>
                 <legend>Channels</legend>
-                {channelData.length > 0 ? (
+                {channelData && channelData.length > 0 ? (
                 <>
                 <p>Total number of Channels: {channelData.length}</p>
                 {channelData.map(channel => (
@@ -44,7 +44,7 @@ function Home() {
                 ))}
                 </>
                 ):(
-                    <p>Page is Loading...</p>
+                    <p>No Channels to Display. Create one!</p>
                 )
                 }
             </fieldset>

@@ -1,52 +1,39 @@
 import './NewUserForm.css'
 import { useData } from '../../Context/DataProvider'
 import { useState } from 'react';
+import axios from 'axios';
 
 function NewUserForm() {
-    const { handleAddNewUser, userData, handleActiveModal } = useData();
+    const { handleActiveModal } = useData();
     const [ firstName, setFirstName ] = useState('')
     const [ lastName, setLastName ] = useState('')
     const [ nickName, setNickName ] = useState('')
-    const [ username, setUsername ] = useState('')
-    const [ password, setPassword ] = useState('')
     const [ email, setEmail ] = useState('')
+    const [ password, setPassword ] = useState('')
+    const [ confirmPw, setConfirmPw ] = useState('')
     
-    const handleFormSubmit = (e) => {
+    const handleFormSubmit = async(e) => {
         e.preventDefault();
 
-        const isUnique = () => {
-            const userNameExists = userData.some((user) => user.username.toLowerCase() === username.toLowerCase())
-            const emailExists = userData.some((user) => user.email.toLowerCase() === email.toLowerCase())
-
-            return !userNameExists && !emailExists;
-        }
-
         const newUser = {
-            username: username,
-            password: password,
+            name: firstName + '' + lastName,
+            nickname: nickName,
             email: email,
-            firstName: firstName,
-            lastName: lastName,
-            nickName, nickName,
-            createdChannels: [],
-            joinedChannels: [],
-            messages: []
+            password: password,
+            password_confirmation: confirmPw
         }
-        if (isUnique()) {
-        handleAddNewUser(newUser);
-        alert(`Account Created. Welcome ${firstName}. Please Login to continue`)
-        setFirstName('');
-        setLastName('');
-        setNickName('');
-        setUsername('');
-        setPassword('');
-        setEmail('');
-        handleActiveModal('');
-        console.table(userData);
-        } else {
-            alert(`Username and/or Email is already taken`);
-            setEmail('');
-            setUsername('')
+        
+        const url = 'http://206.189.91.54/api/v1/auth/'
+
+        try {
+            const response = await axios.post(
+                url, newUser
+            )
+
+            alert(`Account Successfully created. Welcome ${nickName}!`)
+        } catch (error) {
+            const errorMsg = error.response.data;
+            alert(`${errorMsg.errors.full_messages}`)
         }
     }
 
@@ -74,20 +61,20 @@ function NewUserForm() {
                 </fieldset>
                 <fieldset>
                     <legend>Login Information</legend>
-                    <label>Username</label>
-                    <input type='text' 
-                    value={username}
-                    onChange={(e) => setUsername(e.target.value)}
+                    <label>Email</label>
+                    <input type='email' 
+                    value={email}
+                    onChange={(e) => setEmail(e.target.value)}
                     required />
                     <label>Password</label>
                     <input type='text' 
                     value={password}
                     onChange={(e) => setPassword(e.target.value)}
                     required/>
-                    <label>Email Address</label>
-                    <input type='email' 
-                    value={email}
-                    onChange={(e) => setEmail(e.target.value)}
+                    <label>Confirm Password</label>
+                    <input type='text' 
+                    value={confirmPw}
+                    onChange={(e) => setConfirmPw(e.target.value)}
                     required/>
                 </fieldset>
             </div>
