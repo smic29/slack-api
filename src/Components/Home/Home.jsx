@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { useData } from "../../Context/DataProvider"
 import './Home.css'
 import axios from "axios";
+import { API_URL } from "../../Constants/Constants";
 
 function Home() {
     const { user, userHeaders } = useData();
@@ -10,7 +11,7 @@ function Home() {
     useEffect(() => {
         const fetchChannels = async () => {
             try {
-                const url = 'http://206.189.91.54/api/v1/channels'
+                const url = `${API_URL}/channels`
                 const response = await axios.get(url, {headers: userHeaders})
 
                 setChannelData(response.data.data)

@@ -2,6 +2,7 @@ import './NewUserForm.css'
 import { useData } from '../../Context/DataProvider'
 import { useState } from 'react';
 import axios from 'axios';
+import { API_URL } from '../../Constants/Constants';
 
 function NewUserForm() {
     const { handleActiveModal } = useData();
@@ -23,7 +24,7 @@ function NewUserForm() {
             password_confirmation: confirmPw
         }
         
-        const url = 'http://206.189.91.54/api/v1/auth/'
+        const url = `${API_URL}/auth/`
 
         try {
             const response = await axios.post(

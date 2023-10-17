@@ -2,6 +2,7 @@ import './LoginPage.css'
 import { useData } from '../../Context/DataProvider'
 import { useState } from 'react';
 import axios from 'axios';
+import { API_URL } from '../../Constants/Constants';
 
 function LoginPage() {
     const { handleLogin, handleActiveModal, handleHeaders } = useData();
@@ -18,7 +19,7 @@ function LoginPage() {
 
         
         try {
-            const response = await axios.post('http://206.189.91.54/api/v1/auth/sign_in', { 
+            const response = await axios.post(`${API_URL}/auth/sign_in`, { 
                 email, password,
             })
 
