@@ -8,6 +8,7 @@ function Home() {
     const { user, userHeaders } = useData();
     const [ channelData, setChannelData ] = useState([]);
     const [ selectedChannel, setSelectedChannel ] = useState('');
+    const [ channelMembers, setChannelMembers ] = useState('');
 
     const handleChannelSelect = (e) => {
         setSelectedChannel(e.target.value);
@@ -21,13 +22,21 @@ function Home() {
 
                 setChannelData(response.data.data)
                 // console.log(response.data)
+
+                if (selectedChannel) {
+                    const membersUrl = `${API_URL}/channels/${selectedChannel}}`;
+                    const membersResponse = await axios.get(membersUrl, { headers: userHeaders })
+
+                    setChannelMembers(membersResponse.data.data.channel_members.length);
+                }
+
             } catch (error) {
                 alert(`Failed: ${error.response.errors}`)
                 // console.log(userHeaders)
             }
         }
         fetchChannels();
-    }, [])
+    }, [selectedChannel])
 
     return (
         <div className="home-container">
@@ -67,6 +76,7 @@ function Home() {
                                         <div key={channel.id}>
                                             <p>Created: {formatTimestamp(channel.created_at)}</p>
                                             <p>Last Update: {formatTimestamp(channel.updated_at)}</p>
+                                            <p>Total Members: {channelMembers}</p>
                                         </div>
                                     )
                                 }
