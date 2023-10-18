@@ -171,6 +171,26 @@ function Channels() {
 function ChannelMsgBox(props) {
     const { messages } = props;
     const { userHeaders } = useData();
+    const [ body, setBody ] = useState('');
+
+    const handleSend = async() => {
+        try {
+            const url = `${API_URL}/messages`
+            const sendData = {
+                'receiver_id': messages[0].receiver.id,
+                'receiver_class': "Channel",
+                'body': body,
+            }
+            const response = await axios.post(url, sendData, {headers:userHeaders})
+            
+            setBody('')
+            alert(`Message sent`)
+        } catch(error) {
+            alert(error)
+        }
+        
+        
+    }
 
     return (
         <div className='channel-chatbox'>
@@ -182,9 +202,17 @@ function ChannelMsgBox(props) {
                         </div>
                     ))}
                 </div>
+                <div className='send-message-box'>
                 <textarea
-                rows={4}
-                cols={80}></textarea>
+                rows={5}
+                cols={80}
+                value={body}
+                onChange={(e) => setBody(e.target.value)}>
+                </textarea>
+                <button className='send-button'
+                onClick={handleSend}
+                disabled={body === ''}>Send</button>
+                </div>
             </div>
     )
 }

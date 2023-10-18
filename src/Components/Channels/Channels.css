@@ -12,7 +12,7 @@
 .channel-chatbox {
     display: grid;
     grid-template-rows: 90% 10%;
-    height: 89vh;
+    height: 75vh;
     justify-content: center;
 }
 
@@ -21,8 +21,20 @@
     border-radius: 1rem;
 }
 
-.channel-chatbox input[type="textarea"] {
-    width: 85vw;
+.send-message-box {
+    position: relative
+}
+
+.send-message-box textarea {
+    padding: 1rem;
+    resize: none;
+}
+
+.send-button {
+    position: absolute;
+    right: 1.5%;
+    top: 40%;
+    padding: 1rem;
 }
 
 .create-channel {
