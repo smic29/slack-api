@@ -1,19 +1,54 @@
 import './Channels.css'
 import { useData } from '../../Context/DataProvider'
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { API_URL } from '../../Constants/Constants';
 import axios from 'axios';
 
 function Channels() {
-    const { user } = useData();
+    const { userHeaders } = useData();
     const [ currentChannel, setIsCurrentChannel ] = useState('');
+    const [ channelOnScreen, setChannelOnScreen ] = useState('');
+    const [ channelData, setChannelData ] = useState([]);
+    const [ messages, setMessages ] = useState([]);
+
+    useEffect(() => {
+        const fetchChannels = async () => {
+            try {
+                const url = `${API_URL}/channels`
+                const response = await axios.get(url, {headers: userHeaders})
+
+                setChannelData(response.data.data)
+            } catch (error) {
+                alert(`Failed: ${error.response.errors}`)
+            }
+
+            if (channelOnScreen) {
+                const msgUrl = `${API_URL}/messages?receiver_id=${channelOnScreen}&receiver_class=Channel`
+                const msgResponse = await axios.get(msgUrl, { headers: userHeaders})
+                
+                setMessages(msgResponse.data.data);
+            }
+        }
+        fetchChannels();
+    }, [channelOnScreen])
+
 
     function RenderChannel() {
         switch (currentChannel) {
             case 'createChannel':
                 return <CreateChannel />
+            case 'displayChannel':
+                return <ChannelMsgBox messages={messages} />
             default:
                 return null;
+        }
+    }
+
+    const handleChannelSelect = (e) => {
+        const newSelectedChannel = e.target.value;
+        if (newSelectedChannel !== channelOnScreen){
+            setChannelOnScreen(e.target.value);
+            setIsCurrentChannel('displayChannel')
         }
     }
 
@@ -112,19 +147,44 @@ function Channels() {
                 onClick={() => setIsCurrentChannel('createChannel')}>
                     Create a Channel
                 </span>
+                { channelData && channelData.length > 0 ?
+                (
+                <select value={channelOnScreen}
+                onChange={handleChannelSelect}>
+                    <option value='' disabled>Select a Channel</option>
+                    {channelData.map((channel) => (
+                        <option key={channel.id} value={channel.id}>
+                            {channel.name}
+                        </option>
+                    ))}
+                </select>
+                ) : (
+                    <p>You have no channels yet</p>
+                )
+                }
             </div>
             <RenderChannel />
         </div>
     )
 }
 
-function ChannelMsgBox() {
+function ChannelMsgBox(props) {
+    const { messages } = props;
+    const { userHeaders } = useData();
+
     return (
         <div className='channel-chatbox'>
                 <div className='msg-box'>
-
+                    {/* <button onClick={() => console.log(messages)}>Debug</button> */}
+                    {messages.map((message) => (
+                        <div key={message.id}>
+                            {message.body} - {message.sender.email}
+                        </div>
+                    ))}
                 </div>
-                <input type='textarea' />
+                <textarea
+                rows={4}
+                cols={80}></textarea>
             </div>
     )
 }
