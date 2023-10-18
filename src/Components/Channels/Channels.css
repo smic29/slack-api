@@ -19,6 +19,15 @@
 .msg-box {
     border: 2px solid black;
     border-radius: 1rem;
+    display: flex;
+    flex-direction: column;
+    max-height: 650px;
+    overflow-y: hidden;
+    transition: overflow-y 0.3s ease-in-out;
+}
+
+.msg-box:hover {
+    overflow-y: auto;
 }
 
 .send-message-box {
@@ -81,4 +90,32 @@
     justify-content: flex-start;
     width: min-content;
     margin: .25rem;
+}
+
+.user, .other {
+    display: flex;
+    flex-direction: column;
+    padding: 1rem;
+    width: fit-content;
+    border-radius: 1rem;
+    margin: .25rem;
+}
+
+.user span, .other span{
+    font-size: .75rem;
+    color: black;
+    opacity: .5;
+    text-align: right;
+}
+
+.user {
+    align-self: flex-end;
+    background-color: rgb(148, 226, 148);
+    border-bottom-right-radius: 0;
+}
+
+.other {
+    text-align: left;
+    background-color: lightblue;
+    border-bottom-left-radius: 0;
 }

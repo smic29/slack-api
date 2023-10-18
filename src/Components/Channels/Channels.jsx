@@ -1,6 +1,6 @@
 import './Channels.css'
 import { useData } from '../../Context/DataProvider'
-import { useEffect, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { API_URL } from '../../Constants/Constants';
 import axios from 'axios';
 
@@ -10,6 +10,7 @@ function Channels() {
     const [ channelOnScreen, setChannelOnScreen ] = useState('');
     const [ channelData, setChannelData ] = useState([]);
     const [ messages, setMessages ] = useState([]);
+    const [ hasSentAMsg, setHasSentAMsg ] = useState(false)
 
     useEffect(() => {
         const fetchChannels = async () => {
@@ -22,15 +23,16 @@ function Channels() {
                 alert(`Failed: ${error.response.errors}`)
             }
 
-            if (channelOnScreen) {
+            if (channelOnScreen || hasSentAMsg ) {
                 const msgUrl = `${API_URL}/messages?receiver_id=${channelOnScreen}&receiver_class=Channel`
                 const msgResponse = await axios.get(msgUrl, { headers: userHeaders})
                 
                 setMessages(msgResponse.data.data);
+                setHasSentAMsg(false)
             }
         }
         fetchChannels();
-    }, [channelOnScreen])
+    }, [channelOnScreen, hasSentAMsg])
 
 
     function RenderChannel() {
@@ -38,7 +40,9 @@ function Channels() {
             case 'createChannel':
                 return <CreateChannel />
             case 'displayChannel':
-                return <ChannelMsgBox messages={messages} />
+                return <ChannelMsgBox messages={messages} 
+                setHasSentAMsg={setHasSentAMsg}
+                channelOnScreen={channelOnScreen}/>
             default:
                 return null;
         }
@@ -169,21 +173,23 @@ function Channels() {
 }
 
 function ChannelMsgBox(props) {
-    const { messages } = props;
-    const { userHeaders } = useData();
+    const { messages, setHasSentAMsg, channelOnScreen } = props;
+    const { user, userHeaders } = useData();
     const [ body, setBody ] = useState('');
+    const msgContainerRef = useRef(null);
 
     const handleSend = async() => {
         try {
             const url = `${API_URL}/messages`
             const sendData = {
-                'receiver_id': messages[0].receiver.id,
+                'receiver_id': channelOnScreen,
                 'receiver_class': "Channel",
                 'body': body,
             }
             const response = await axios.post(url, sendData, {headers:userHeaders})
-            
+
             setBody('')
+            setHasSentAMsg(true);
             alert(`Message sent`)
         } catch(error) {
             alert(error)
@@ -192,13 +198,21 @@ function ChannelMsgBox(props) {
         
     }
 
+    useEffect(() => {
+        if (msgContainerRef.current) {
+            msgContainerRef.current.scrollTop = msgContainerRef.current.scrollHeight
+        }
+    }, [messages])
+
     return (
         <div className='channel-chatbox'>
-                <div className='msg-box'>
+                <div className='msg-box' ref={msgContainerRef}>
                     {/* <button onClick={() => console.log(messages)}>Debug</button> */}
                     {messages.map((message) => (
-                        <div key={message.id}>
-                            {message.body} - {message.sender.email}
+                        <div key={message.id}
+                        className={message.sender.id === user.data.id ? 'user' : 'other'}>
+                            {message.body}
+                            <span>{message.sender.email}</span>
                         </div>
                     ))}
                 </div>
@@ -213,6 +227,9 @@ function ChannelMsgBox(props) {
                 onClick={handleSend}
                 disabled={body === ''}>Send</button>
                 </div>
+                <button className='add-user'>
+                    Add a User to this channel
+                </button>
             </div>
     )
 }
