@@ -6,3 +6,13 @@
 .information-box p {
     text-align: left;
 }
+
+.channel-list {
+    display: flex;
+    justify-content: flex-start;
+}
+
+.channel-list select {
+    text-align: center;
+    margin-left: 1rem;
+}
