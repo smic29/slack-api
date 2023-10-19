@@ -120,6 +120,12 @@
     border-bottom-left-radius: 0;
 }
 
+.system-msg {
+    background-color: none;
+    color: lightslategray;
+    font-style: italic;
+}
+
 .channel-member-list {
     position: fixed;
     left: 12.5%;

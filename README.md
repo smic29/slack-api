@@ -21,7 +21,10 @@
 ## Personal Challenges
 - [ ] Settings for which name to use (firstname, nickname, or username).
 - [ ] Reactions for Chat
-- [ ] Added Users to channel text
+- [x] Added Users to channel text 
+  - Messages are sent after adding a user to the channel.
+  - Classes are added via a string indicator '..:"
+- [ ] Custom alerts and notifications
 
 ## Project API
 - [API]()

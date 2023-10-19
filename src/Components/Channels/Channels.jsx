@@ -5,7 +5,7 @@ import { API_URL } from '../../Constants/Constants';
 import axios from 'axios';
 
 function Channels() {
-    const { userHeaders, userBase } = useData();
+    const { userHeaders, userBase, user } = useData();
     const [ currentChannel, setIsCurrentChannel ] = useState('');
     const [ channelOnScreen, setChannelOnScreen ] = useState('');
     const [ channelData, setChannelData ] = useState([]);
@@ -177,6 +177,19 @@ function Channels() {
                 setIsAddingUser(false);
                 setNewChMemberId('')
                 // console.log(response);
+
+                try {
+                    const sysMsgUrl = `${API_URL}/messages`
+                    const newUserEmail = userBase.find((user) => user.id === parseInt(newChMemberId))
+                    const sysMsg = {
+                        'receiver_id': channelOnScreen,
+                        'receiver_class': "Channel",
+                        'body': `..: ${user.data.email} has added ${newUserEmail.email} to the Channel`
+                    }
+                    await axios.post (sysMsgUrl, sysMsg, {headers : userHeaders})
+                } catch(error) {
+                    alert(error)
+                }
             }
         } catch(error) {
             alert(`${error}`)
@@ -186,7 +199,7 @@ function Channels() {
     return (
         <div className='channel-page-container'>
             <div>
-                <h1>I am the Channels Page</h1>
+                <h1>{channelOnScreen !== '' ? `You are viewing CH ID: ${channelOnScreen}` : 'I am the Channels Page'}</h1>
                 <span className='create-channel'
                 onClick={() => setIsCurrentChannel('createChannel')}>
                     Create a Channel
@@ -216,7 +229,7 @@ function Channels() {
                         if(user) {
                             return (
                                 <span key={member.id}>
-                                    {user.email}
+                                    {user.id}: {user.email}
                                 </span>
                             )
                         }
@@ -285,9 +298,23 @@ function ChannelMsgBox(props) {
                     {/* <button onClick={() => console.log(messages)}>Debug</button> */}
                     {messages.map((message) => (
                         <div key={message.id}
-                        className={message.sender.id === user.data.id ? 'user' : 'other'}>
-                            {message.body}
-                            <span>{message.sender.email}</span>
+                        className={
+                            message.body.includes('..:') 
+                            ? 'system-msg'
+                            : message.sender.id === user.data.id 
+                            ? 'user' 
+                            : 'other'
+                            }>
+                            {message.body.includes("..:") ? (
+                                <>
+                                {message.body.replace('..:','')}
+                                </>
+                            ) : (
+                            <>
+                                {message.body}
+                                <span>{message.sender.email}</span>
+                            </>
+                            )}
                         </div>
                     ))}
                 </div>
