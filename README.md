@@ -7,7 +7,7 @@
 - [x] User is able to create his/her account with email and password
 - [x] User is able to login his/her credentials
 - [x] User is able to create new channel
-- [ ] User is able to add users on a channel
+- [x] User is able to add users on a channel
 - [ ] User is able to send message to otther user (Direct Message)
 - [x] User is able to send message to a channel
 - [x] User is able to receive message to a channel
@@ -21,6 +21,7 @@
 ## Personal Challenges
 - [ ] Settings for which name to use (firstname, nickname, or username).
 - [ ] Reactions for Chat
+- [ ] Added Users to channel text
 
 ## Project API
 - [API]()

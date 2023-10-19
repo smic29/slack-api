@@ -5,12 +5,13 @@ import { API_URL } from '../../Constants/Constants';
 import axios from 'axios';
 
 function Channels() {
-    const { userHeaders } = useData();
+    const { userHeaders, userBase } = useData();
     const [ currentChannel, setIsCurrentChannel ] = useState('');
     const [ channelOnScreen, setChannelOnScreen ] = useState('');
     const [ channelData, setChannelData ] = useState([]);
     const [ messages, setMessages ] = useState([]);
-    const [ hasSentAMsg, setHasSentAMsg ] = useState(false)
+    const [ hasSentAMsg, setHasSentAMsg ] = useState(false);
+    const [ memberList, setMemberList ] = useState([]);
 
     useEffect(() => {
         const fetchChannels = async () => {
@@ -27,6 +28,11 @@ function Channels() {
                 const msgUrl = `${API_URL}/messages?receiver_id=${channelOnScreen}&receiver_class=Channel`
                 const msgResponse = await axios.get(msgUrl, { headers: userHeaders})
                 
+                const memberUrl = `${API_URL}/channels/${channelOnScreen}`
+                const memberResponse = await axios.get(memberUrl, { headers: userHeaders})
+
+
+                setMemberList(memberResponse.data.data.channel_members)
                 setMessages(msgResponse.data.data);
                 setHasSentAMsg(false)
             }
@@ -143,6 +149,40 @@ function Channels() {
         )
     }
 
+    const [ isAddingUser, setIsAddingUser ] = useState(false);
+    const [ newChMemberId, setNewChMemberId ] = useState('');
+
+    const handleAddUserClick = () => {
+        setIsAddingUser(!isAddingUser)
+    }
+
+    const handleAddNewChMember = async(e) => {
+        e.preventDefault();
+
+        try {
+            const newUser = {
+                "id": channelOnScreen,
+                "member_id": newChMemberId
+            }
+            const url = `${API_URL}/channel/add_member`
+
+            const response = await axios.post(url, newUser, { headers: userHeaders })
+            if (response.data.errors){    
+                alert(`${response.data.errors}`)
+                // console.log(newUser)
+                setNewChMemberId('');
+            } else {
+                alert(`User added to channel Ch ID: ${channelOnScreen}`);
+                setHasSentAMsg(true);
+                setIsAddingUser(false);
+                setNewChMemberId('')
+                // console.log(response);
+            }
+        } catch(error) {
+            alert(`${error}`)
+        }
+    }
+
     return (
         <div className='channel-page-container'>
             <div>
@@ -168,6 +208,41 @@ function Channels() {
                 }
             </div>
             <RenderChannel />
+            {currentChannel !== '' && (
+                <div className='channel-member-list'>
+                    {memberList.map((member) => {
+                        const user = userBase.find((user) => user.id === member.user_id);
+
+                        if(user) {
+                            return (
+                                <span key={member.id}>
+                                    {user.email}
+                                </span>
+                            )
+                        }
+                    })}
+                    <button className='channel-add-btn'
+                    onClick={handleAddUserClick}>
+                        {isAddingUser ? 'Back' : 'Add a User'}</button>
+                    {isAddingUser && (
+                    <div className='new-channel-member-box'>
+                        <input type='text'
+                        placeholder='User ID'
+                        value={newChMemberId}
+                        onChange={(e) => {
+                            const inputValue = e.target.value;
+                            if (/^[0-9]*$/.test(inputValue)){
+                                setNewChMemberId(e.target.value)
+                            }
+                        }} />
+                        <span class="material-symbols-outlined"
+                        onClick={handleAddNewChMember}>
+                        add
+                        </span>
+                    </div>
+                    )}
+                </div>
+            )}
         </div>
     )
 }

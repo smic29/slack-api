@@ -44,13 +44,17 @@ const DataProvider = ({children}) => {
         setActiveModal(modalName)
     }
 
+    //UserBase Storage
+    const [ userBase , setUserBase ] = useState([]);
+
 
     return (
         <DataContext.Provider value={
             {isLoggedIn, handleLogin, handleLogout,
             handleHeaders, setLoginUser,
             userHeaders, user,
-            activeModal, handleActiveModal}}>
+            activeModal, handleActiveModal,
+            userBase, setUserBase}}>
             {children}
         </DataContext.Provider>
     )
