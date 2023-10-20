@@ -24,6 +24,8 @@
     max-height: 650px;
     overflow-y: hidden;
     transition: overflow-y 0.3s ease-in-out;
+    padding: 0.5rem;
+    padding-bottom: 1rem;
 }
 
 .msg-box:hover {
@@ -128,11 +130,18 @@
 
 .channel-member-list {
     position: fixed;
-    left: 12.5%;
+    left: 10%;
     display: flex;
     flex-direction: column;
     font-size: 0.80rem;
-    align-items: center;
+    align-items: flex-start;
+    padding: 0.5rem;
+    margin: 0.25rem;
+    text-overflow: ellipsis;
+}
+
+.channel-member-list span {
+    align-self: flex-start;
 }
 
 .channel-add-btn {

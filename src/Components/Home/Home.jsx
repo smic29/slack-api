@@ -5,7 +5,7 @@ import axios from "axios";
 import { API_URL, formatTimestamp } from "../../Constants/Constants";
 
 function Home() {
-    const { user, userHeaders } = useData();
+    const { user, userHeaders, userBase, messages, setMessages } = useData();
     const [ channelData, setChannelData ] = useState([]);
     const [ selectedChannel, setSelectedChannel ] = useState('');
     const [ channelMembers, setChannelMembers ] = useState('');
@@ -35,7 +35,35 @@ function Home() {
                 // console.log(userHeaders)
             }
         }
+
+        const fetchMsgs = async () => {
+            const dmsUrl = `${API_URL}/messages?`
+                const generateUrl = (userId) => {
+                    return `${dmsUrl}receiver_id=${userId}&receiver_class=User`
+                }
+
+                const accumulatedMessages = [];
+                const myId = parseInt(user.data.id);
+                
+                await Promise.all(
+                userBase
+                .filter((user) => user.id > 4000 && user.id !== myId)
+                .map(async (user) => {
+                    try {
+                        const response = await axios.get(generateUrl(user.id),{headers:userHeaders})
+
+                        if (response.data.data.length > 0 && !response.data.errors) {
+                            accumulatedMessages.push(...response.data.data);
+                        } 
+                    } catch (error) {
+                        console.error(error)
+                    }
+                }))
+
+                setMessages(accumulatedMessages);
+        }
         fetchChannels();
+        fetchMsgs();
     }, [selectedChannel])
 
     return (
@@ -87,6 +115,15 @@ function Home() {
             </fieldset>
             <fieldset>
                 <legend>Messages</legend>
+                <div>
+                    {messages.length > 0 ? messages.filter((msg) => msg.sender.id !== user.data.id)
+                    .map((msg) =>( 
+                        <>
+                        <p key={msg.id}><strong>{msg.body}</strong> from {msg.sender.id}</p>
+                        <span>{formatTimestamp(msg.created_at)}</span>
+                        </>
+                        )) : 'No Messages yet'}
+                </div>
             </fieldset>
         </div>
     )

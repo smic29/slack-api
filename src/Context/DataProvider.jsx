@@ -15,6 +15,7 @@ const DataProvider = ({children}) => {
         setisLoggedIn(false);
         setUser('');
         setUserHeaders('');
+        setMessages([]);
     }
 
     //User Related
@@ -46,7 +47,9 @@ const DataProvider = ({children}) => {
 
     //UserBase Storage
     const [ userBase , setUserBase ] = useState([]);
-
+    
+    //Message Storage
+    const [ messages, setMessages ] = useState([]);
 
     return (
         <DataContext.Provider value={
@@ -54,7 +57,8 @@ const DataProvider = ({children}) => {
             handleHeaders, setLoginUser,
             userHeaders, user,
             activeModal, handleActiveModal,
-            userBase, setUserBase}}>
+            userBase, setUserBase,
+            messages, setMessages}}>
             {children}
         </DataContext.Provider>
     )
