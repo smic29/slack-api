@@ -119,7 +119,7 @@ function Home() {
                     {messages.length > 0 ? messages.filter((msg) => msg.sender.id !== user.data.id)
                     .map((msg) =>( 
                         <>
-                        <p key={msg.id}><strong>{msg.body}</strong> from {msg.sender.id}</p>
+                        <p key={msg.id}><strong>{msg.body}</strong> from {msg.sender.email}</p>
                         <span>{formatTimestamp(msg.created_at)}</span>
                         </>
                         )) : 'No Messages yet'}

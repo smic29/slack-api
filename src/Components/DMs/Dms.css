@@ -1,0 +1,45 @@
+.Dms-CONTAINER {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.dm-msgbox {
+    width: 90%;
+    display: flex;
+    flex-direction: column;
+    padding: 1rem;
+    border: 2px solid black;
+    margin-top: 1rem;
+}
+
+.dm-user, .dm-other {
+    width: max-content;
+    padding: .75rem;
+    border-radius: 1rem;
+    margin-bottom: 1rem;
+}
+
+.dm-user span, .dm-other span {
+    font-style: italic;
+    opacity: .75;
+}
+
+.dm-user p, .dm-other p {
+    margin-bottom: .25rem;
+    margin: .25rem;
+}
+
+.dm-user {
+    text-align: right;
+    align-self: flex-end;
+    background-color: lightgreen;
+    border-bottom-right-radius: 0;
+}
+
+.dm-other{
+    text-align: left;
+    background-color: lightblue;
+    border-bottom-left-radius: 0;
+}
