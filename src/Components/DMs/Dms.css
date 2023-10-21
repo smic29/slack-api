@@ -43,3 +43,13 @@
     background-color: lightblue;
     border-bottom-left-radius: 0;
 }
+
+.dm-searchuser {
+    display: flex;
+    flex-direction: column;
+    margin: 1rem;
+}
+
+.dm-searchuser input {
+    text-align: center;
+}

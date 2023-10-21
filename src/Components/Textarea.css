@@ -1,6 +1,7 @@
 .Typebox-CONTAINER {
     position: fixed;
     bottom: 5%;
+    left: 25%;
 }
 
 .Typebox-CONTAINER textarea {

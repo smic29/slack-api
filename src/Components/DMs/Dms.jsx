@@ -36,12 +36,14 @@ function Dms() {
         <div className='Dms-CONTAINER'>
             <h1>{selectedDM !== '' ? `Viewing messages from ${selectedDM}`:'DMs Page'}</h1>
             <RenderList handleDMSelect={handleDMSelect} selectedDM={selectedDM}/>
-            {selectedDM !== '' ? (
+            {selectedDM !== '' && selectedDM !== 'newMsg' ? (
             <>
             <RenderDMBox selectedDM={selectedDM}/>
             <TypeBox body={body} setBody={setBody} handleSend={handleSend}/>
             </>
-            ) : null}
+            ) : selectedDM === 'newMsg' ?(
+                <RenderNewDM selectedDM={selectedDM} />
+            ): null}
         </div>
     )
 }
@@ -52,8 +54,9 @@ function RenderList(props) {
 
     const uniqueSenders = Array.from(
         new Set(messages
-            .map((msg) => 
-            msg.sender.email === user.data.email ? '' : msg.sender.email)
+            .flatMap((msg) => [
+            msg.sender.email === user.data.email ? '' : msg.sender.email,
+            msg.receiver.email === user.data.email ? '' : msg.receiver.email])
             .filter((email) => email !== ''))
     )
     
@@ -65,11 +68,9 @@ function RenderList(props) {
                 onClick={() => handleDMSelect(user)}>{user}</p>
             ))}
             <button onClick={() => handleDMSelect('')}>Erase</button>
-            {/* <button onClick={() => {
-                const convertID = userBase.find((user) => user.email === selectedDM);
-
-                console.log(convertID.id)
-            }}>Test</button> */}
+            <button
+            onClick={() => handleDMSelect('newMsg')}
+            >Send to New</button>
         </div>
     )
 }
@@ -89,6 +90,69 @@ function RenderDMBox(props) {
                 <span>{msg.sender.email}</span>
                 </div>
             ))}
+        </div>
+    )
+}
+
+function RenderNewDM(props) {
+    const { userBase, userHeaders } = useData();
+    const { selectedDM } = props;
+    const [ id, setID ] = useState('');
+    const [ body, setBody ] = useState('');
+    const [ canSendMsg, setCanSendMsg ] = useState(false);
+
+    const doesUserExist = () => {
+        if (id !== ''){
+            const user = userBase.find((user) => 
+                parseInt(id) === user.id
+            )
+            if (user) {
+                return user.email
+            }
+        } 
+        return 'Does not Exist'
+    }
+
+    const handleSend = async() => {
+        try {
+            const url = `${API_URL}/messages`
+            const sendData = {
+                'receiver_id': parseInt(id),
+                'receiver_class': "User",
+                'body': body,
+            }
+
+            await axios.post(url, sendData, { headers: userHeaders })
+
+            alert(`Message Sent`)
+            setBody('')
+            setCanSendMsg(false)
+        } catch(error) {
+            alert(error)
+        }
+    }
+
+    return (
+        <div className='dm-searchuser'>
+            <input 
+            type='text'
+            value={id}
+            onChange={(e) => {
+                const inputValue = e.target.value;
+                if (/^[0-9]*$/.test(inputValue)){
+                    setID(e.target.value)
+                }
+            }} />
+            <span>
+                {doesUserExist()}
+            </span>
+            <button
+            onClick={() => setCanSendMsg(true)}
+            disabled={doesUserExist() === 'Does not Exist'}>
+                Send this User a message</button>
+                <span>{body}</span>
+            {canSendMsg ? <TypeBox body={body} setBody={setBody}
+            handleSend={handleSend}/> : null}
         </div>
     )
 }
