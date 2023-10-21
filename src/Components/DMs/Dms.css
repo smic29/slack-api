@@ -6,12 +6,14 @@
 }
 
 .dm-msgbox {
-    width: 90%;
+    width: 80%;
     display: flex;
     flex-direction: column;
     padding: 1rem;
     border: 2px solid black;
     margin-top: 1rem;
+    max-height: 500px;
+    overflow-y: auto;
 }
 
 .dm-user, .dm-other {
@@ -52,4 +54,36 @@
 
 .dm-searchuser input {
     text-align: center;
+}
+
+.dms-renderlist {
+    display: flex;
+    justify-content: space-between;
+    flex-direction: column;
+}
+
+.dms-renderlist .msg-list {
+    display: flex;
+}
+
+.msg-list p {
+    margin-right: 1rem;
+    cursor: pointer;
+    user-select: none;
+    transition: transform 0.3s ease-in-out;
+    font-size: .75rem;
+}
+
+.msg-list p:hover {
+    color: lightcoral;
+}
+
+.msg-list p:active {
+    transform: scale(0.75);
+}
+
+.msg-list .selected {
+    color: green;
+    border: 2px solid black;
+    padding: 0.5rem;
 }

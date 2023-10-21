@@ -1,6 +1,6 @@
 import './Dms.css'
 import { useData } from '../../Context/DataProvider'
-import { useState } from 'react';
+import { useState, useRef, useEffect } from 'react';
 import TypeBox from '../Textarea';
 import { API_URL } from '../../Constants/Constants';
 import axios from 'axios';
@@ -61,16 +61,21 @@ function RenderList(props) {
     )
     
     return (
-        <div>
-            {uniqueSenders
-            .map((user,index) => (
-                <p key={index}
-                onClick={() => handleDMSelect(user)}>{user}</p>
-            ))}
-            <button onClick={() => handleDMSelect('')}>Erase</button>
-            <button
-            onClick={() => handleDMSelect('newMsg')}
-            >Send to New</button>
+        <div className='dms-renderlist'>
+            <div className='msg-list'>
+                {uniqueSenders
+                .map((user,index) => (
+                    <p key={index}
+                    onClick={() => handleDMSelect(user)}
+                    className={user === selectedDM ? 'selected' : ''}>{user}</p>
+                ))}
+            </div>
+            <div className='buttons'>
+                <button onClick={() => handleDMSelect('')}>Erase</button>
+                <button
+                onClick={() => handleDMSelect('newMsg')}
+                >Send to New</button>
+            </div>
         </div>
     )
 }
@@ -78,9 +83,16 @@ function RenderList(props) {
 function RenderDMBox(props) {
     const { messages, user } = useData();
     const { selectedDM } = props
+    const msgContainerRef = useRef(null);
+
+    useEffect(() => {
+        if (msgContainerRef.current) {
+            msgContainerRef.current.scrollTop = msgContainerRef.current.scrollHeight
+        }
+    }, [selectedDM])
     
     return (
-        <div className='dm-msgbox'>
+        <div className='dm-msgbox' ref={msgContainerRef}>
             {messages
             .filter((msgObj) => msgObj.sender.email === selectedDM || msgObj.receiver.email === selectedDM)
             .map((msg) => (
