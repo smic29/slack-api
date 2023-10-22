@@ -73,7 +73,7 @@ function RenderList(props) {
                 ))}
             </div>
             <div className='buttons'>
-                <button onClick={() => handleDMSelect('')}>Erase</button>
+                {/* <button onClick={() => handleDMSelect('')}>Erase</button> */}
                 <button
                 onClick={() => handleDMSelect('newMsg')}
                 >Send to New</button>

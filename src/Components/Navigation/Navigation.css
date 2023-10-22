@@ -1,9 +1,10 @@
 .navigation {
     display: grid;
     grid-template-areas: "navbar outlet";
-    grid-template-columns: 5% 90%;
-    justify-content: space-between;
+    grid-template-columns: 5% 95%;
+    /* justify-content: space-between; */
     height: 100vh;
+    position: relative;
 }
 
 .navbar-header {
@@ -16,7 +17,7 @@
     align-items: first baseline;
     color: whitesmoke;
     padding: 10px;
-    padding-right: 40px;
+    padding-right: 35px;
 }
 
 .navbar-header nav {
@@ -38,4 +39,7 @@
 
 .outlet {
     grid-area: outlet;
+    position: absolute;
+    left: 4%;
+    width: 95%;
 }

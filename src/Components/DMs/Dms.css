@@ -3,16 +3,17 @@
     flex-direction: column;
     justify-content: center;
     align-items: center;
+    position: relative;
 }
 
 .dm-msgbox {
-    width: 80%;
+    width: 63%;
     display: flex;
     flex-direction: column;
     padding: 1rem;
     border: 2px solid black;
     margin-top: 1rem;
-    max-height: 500px;
+    height: 610px;
     overflow-y: auto;
 }
 
@@ -60,10 +61,15 @@
     display: flex;
     justify-content: space-between;
     flex-direction: column;
+    position: absolute;
+    left: 0;
+    top: 40%;
 }
 
 .dms-renderlist .msg-list {
     display: flex;
+    flex-direction: column;
+    text-align: left;
 }
 
 .msg-list p {
@@ -86,4 +92,9 @@
     color: green;
     border: 2px solid black;
     padding: 0.5rem;
+}
+
+.buttons {
+    display: flex;
+    flex-direction: column;
 }

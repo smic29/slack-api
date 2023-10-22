@@ -3,6 +3,7 @@ import { useData } from '../../Context/DataProvider'
 import { useEffect, useRef, useState } from 'react';
 import { API_URL } from '../../Constants/Constants';
 import axios from 'axios';
+import TypeBox from '../Textarea';
 
 function Channels() {
     const { userHeaders, userBase, user } = useData();
@@ -54,10 +55,10 @@ function Channels() {
         }
     }
 
-    const handleChannelSelect = (e) => {
-        const newSelectedChannel = e.target.value;
+    const handleChannelSelect = (chId) => {
+        const newSelectedChannel = chId;
         if (newSelectedChannel !== channelOnScreen){
-            setChannelOnScreen(e.target.value);
+            setChannelOnScreen(chId);
             setIsCurrentChannel('displayChannel')
         }
     }
@@ -199,22 +200,33 @@ function Channels() {
     return (
         <div className='channel-page-container'>
             <div>
-                <h1>{channelOnScreen !== '' ? `You are viewing CH ID: ${channelOnScreen}` : 'I am the Channels Page'}</h1>
-                <span className='create-channel'
-                onClick={() => setIsCurrentChannel('createChannel')}>
-                    Create a Channel
-                </span>
+                <nav className='msg-box-nav'>
+                    <h1>{channelOnScreen !== '' ? `CH ID: ${channelOnScreen}` : 'I am the Channels Page'}</h1>
+                    {channelOnScreen !== '' && <div className='channel-headerbox'>
+                        <span class="material-symbols-outlined">
+                        group
+                        </span>
+                        <span><strong>{memberList.length}</strong></span>
+                    </div>}
+                </nav>
                 { channelData && channelData.length > 0 ?
                 (
-                <select value={channelOnScreen}
-                onChange={handleChannelSelect}>
-                    <option value='' disabled>Select a Channel</option>
+                <div className='channel-channellist'>
+                    <span className='create-channel'
+                onClick={() => {
+                    handleChannelSelect('')
+                    setIsCurrentChannel('createChannel')
+                    }}>
+                    Create a Channel
+                </span>
                     {channelData.map((channel) => (
-                        <option key={channel.id} value={channel.id}>
+                        <span key={channel.id} value={channel.id}
+                        onClick={() => handleChannelSelect(channel.id)}
+                        className={channelOnScreen === channel.id ? 'selected' : ''}>
                             {channel.name}
-                        </option>
+                        </span>
                     ))}
-                </select>
+                </div>
                 ) : (
                     <p>You have no channels yet</p>
                 )
@@ -318,20 +330,10 @@ function ChannelMsgBox(props) {
                         </div>
                     ))}
                 </div>
-                <div className='send-message-box'>
-                <textarea
-                rows={5}
-                cols={80}
-                value={body}
-                onChange={(e) => setBody(e.target.value)}>
-                </textarea>
-                <button className='send-button'
-                onClick={handleSend}
-                disabled={body === ''}>Send</button>
-                </div>
-                <button className='add-user'>
-                    Add a User to this channel
-                </button>
+                <TypeBox 
+                body={body}
+                setBody={setBody}
+                handleSend={handleSend}/>
             </div>
     )
 }
