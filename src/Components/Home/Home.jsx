@@ -114,9 +114,11 @@ function Home() {
                 </div>
             </fieldset>
             <fieldset>
-                <legend>Messages</legend>
+                <legend>Recent Messages</legend>
                 <div>
                     {messages.length > 0 ? messages.filter((msg) => msg.sender.id !== user.data.id)
+                    .sort((a,b) => new Date(b.created_at) - new Date(a.created_at))
+                    .slice(0,3)
                     .map((msg) =>( 
                         <>
                         <p key={msg.id}><strong>{msg.body}</strong> from {msg.sender.email}</p>
