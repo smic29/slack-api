@@ -1,7 +1,9 @@
 import './Textarea.css'
+import { useData } from '../Context/DataProvider';
 
 function TypeBox(props) {
     const { body, setBody, handleSend } = props
+    const { isLoadingMsgs } = useData();
 
     return(
         <div className="Typebox-CONTAINER">
@@ -13,7 +15,7 @@ function TypeBox(props) {
             onChange={(e) => setBody(e.target.value)}></textarea>
             <button className="Typebox-sendBtn"
             onClick={handleSend}
-            disabled={body === ''}>Send</button>
+            disabled={body === '' || isLoadingMsgs}>Send</button>
         </div>
     )
 }

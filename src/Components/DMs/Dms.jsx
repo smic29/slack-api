@@ -8,7 +8,7 @@ import axios from 'axios';
 function Dms() {
     const [ selectedDM, setSelectedDM ] = useState('');
     const [ body, setBody ] = useState('');
-    const { userBase, userHeaders } = useData();
+    const { userBase, userHeaders, setIsLoadingMsgs } = useData();
 
     const handleDMSelect = (email) => {
         setSelectedDM(email)
@@ -25,8 +25,10 @@ function Dms() {
             }
             await axios.post(url, sendData, { headers: userHeaders })
 
-            alert(`Message Sent`)
-            setBody('');
+            setIsLoadingMsgs(true)
+            setTimeout(() => {
+                setBody('');
+            }, 1500);
         } catch(error) {
             alert(error)
         }
@@ -89,7 +91,7 @@ function RenderDMBox(props) {
         if (msgContainerRef.current) {
             msgContainerRef.current.scrollTop = msgContainerRef.current.scrollHeight
         }
-    }, [selectedDM])
+    }, [selectedDM, messages])
     
     return (
         <div className='dm-msgbox' ref={msgContainerRef}>

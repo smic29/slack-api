@@ -278,7 +278,7 @@ function ChannelMsgBox(props) {
 
             setBody('')
             setHasSentAMsg(true);
-            alert(`Message sent`)
+            // alert(`Message sent`)
         } catch(error) {
             alert(error)
         }
