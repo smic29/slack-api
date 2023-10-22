@@ -49,6 +49,7 @@ const DataProvider = ({children}) => {
 
     //UserBase Storage
     const [ userBase , setUserBase ] = useState([]);
+    const [ isLoadingUB, setIsLoadingUB ] = useState(true);
     
     //Message Storage
     const [ messages, setMessages ] = useState([]);
@@ -80,11 +81,11 @@ const DataProvider = ({children}) => {
                 }))
 
                 setMessages(accumulatedMessages);
+                setIsLoadingMsgs(false)
         }
 
         if (isLoadingMsgs) {
             fetchMsgs()
-            setIsLoadingMsgs(false)
         }
     }, [isLoadingMsgs])
 
@@ -96,6 +97,7 @@ const DataProvider = ({children}) => {
             activeModal, handleActiveModal,
             userBase, setUserBase,
             messages, setMessages,
+            isLoadingUB, setIsLoadingUB,
             isLoadingMsgs, setIsLoadingMsgs}}>
             {children}
         </DataContext.Provider>

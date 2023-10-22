@@ -1,6 +1,7 @@
 .rotate {
     animation: spin 2s linear infinite;
     font-size: 2rem;
+    user-select: none;
 }
 
 @keyframes spin {

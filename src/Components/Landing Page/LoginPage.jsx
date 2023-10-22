@@ -5,7 +5,13 @@ import axios from 'axios';
 import { API_URL } from '../../Constants/Constants';
 
 function LoginPage() {
-    const { handleLogin, handleActiveModal, handleHeaders, setUserBase, setIsLoadingMsgs } = useData();
+    const { 
+        handleLogin, 
+        handleActiveModal, 
+        handleHeaders, 
+        setUserBase, 
+        setIsLoadingMsgs,
+        setIsLoadingUB } = useData();
     const [ email, setEmail ] = useState('');
     const [ password, setPassword ] = useState('');
     const [ visibility, setVisibility ] = useState(false);
@@ -29,9 +35,8 @@ function LoginPage() {
             const allUserResponse = await axios.get(`${API_URL}/users`, { headers : response.headers})
 
             setUserBase(allUserResponse.data.data);
+            setIsLoadingUB(false)
             setIsLoadingMsgs(true);
-            // console.table(response.headers)
-            // console.log(response.data)
         } catch (error) {
             alert(`${error.response.data.errors}`)
         }

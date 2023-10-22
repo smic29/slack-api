@@ -6,7 +6,7 @@ import { API_URL, formatTimestamp } from "../../Constants/Constants";
 import Loading from "../Loading";
 
 function Home() {
-    const { user, userHeaders, userBase, messages, setMessages, isLoadingMsgs } = useData();
+    const { user, userHeaders, messages, isLoadingMsgs, userBase, isLoadingUB } = useData();
     const [ channelData, setChannelData ] = useState([]);
     const [ selectedChannel, setSelectedChannel ] = useState('');
     const [ channelMembers, setChannelMembers ] = useState('');
@@ -89,7 +89,10 @@ function Home() {
             <fieldset>
                 <legend>Recent Messages</legend>
                 <div className="home-recentmsg-box">
-                    {messages.length > 0 ? messages.filter((msg) => msg.sender.id !== user.data.id)
+                    {
+                    isLoadingMsgs
+                    ? <Loading /> 
+                    :messages.length > 0 ? messages.filter((msg) => msg.sender.id !== user.data.id)
                     .sort((a,b) => new Date(b.created_at) - new Date(a.created_at))
                     .slice(0,3)
                     .map((msg) =>( 
@@ -97,7 +100,7 @@ function Home() {
                         <p key={msg.id}><strong>{msg.body}</strong> from {msg.sender.email}</p>
                         <span>{formatTimestamp(msg.created_at)}</span>
                         </>
-                        )) : isLoadingMsgs ? 'No Messages Yet' : <Loading />}
+                        )) : 'No Messages yet'}
                 </div>
             </fieldset>
         </div>
