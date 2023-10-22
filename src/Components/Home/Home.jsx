@@ -3,9 +3,10 @@ import { useData } from "../../Context/DataProvider"
 import './Home.css'
 import axios from "axios";
 import { API_URL, formatTimestamp } from "../../Constants/Constants";
+import Loading from "../Loading";
 
 function Home() {
-    const { user, userHeaders, userBase, messages, setMessages } = useData();
+    const { user, userHeaders, userBase, messages, setMessages, isLoadingMsgs } = useData();
     const [ channelData, setChannelData ] = useState([]);
     const [ selectedChannel, setSelectedChannel ] = useState('');
     const [ channelMembers, setChannelMembers ] = useState('');
@@ -35,35 +36,7 @@ function Home() {
                 // console.log(userHeaders)
             }
         }
-
-        const fetchMsgs = async () => {
-            const dmsUrl = `${API_URL}/messages?`
-                const generateUrl = (userId) => {
-                    return `${dmsUrl}receiver_id=${userId}&receiver_class=User`
-                }
-
-                const accumulatedMessages = [];
-                const myId = parseInt(user.data.id);
-                
-                await Promise.all(
-                userBase
-                .filter((user) => user.id > 4000 && user.id !== myId)
-                .map(async (user) => {
-                    try {
-                        const response = await axios.get(generateUrl(user.id),{headers:userHeaders})
-
-                        if (response.data.data.length > 0 && !response.data.errors) {
-                            accumulatedMessages.push(...response.data.data);
-                        } 
-                    } catch (error) {
-                        console.error(error)
-                    }
-                }))
-
-                setMessages(accumulatedMessages);
-        }
         fetchChannels();
-        fetchMsgs();
     }, [selectedChannel])
 
     return (
@@ -115,7 +88,7 @@ function Home() {
             </fieldset>
             <fieldset>
                 <legend>Recent Messages</legend>
-                <div>
+                <div className="home-recentmsg-box">
                     {messages.length > 0 ? messages.filter((msg) => msg.sender.id !== user.data.id)
                     .sort((a,b) => new Date(b.created_at) - new Date(a.created_at))
                     .slice(0,3)
@@ -124,7 +97,7 @@ function Home() {
                         <p key={msg.id}><strong>{msg.body}</strong> from {msg.sender.email}</p>
                         <span>{formatTimestamp(msg.created_at)}</span>
                         </>
-                        )) : 'No Messages yet'}
+                        )) : isLoadingMsgs ? 'No Messages Yet' : <Loading />}
                 </div>
             </fieldset>
         </div>

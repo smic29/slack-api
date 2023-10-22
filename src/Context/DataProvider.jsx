@@ -1,4 +1,6 @@
-import { useState, createContext, useContext } from "react";
+import { useState, createContext, useContext, useEffect } from "react";
+import { API_URL } from "../Constants/Constants";
+import axios from 'axios';
 
 const DataContext = createContext();
 
@@ -50,6 +52,41 @@ const DataProvider = ({children}) => {
     
     //Message Storage
     const [ messages, setMessages ] = useState([]);
+    const [ isLoadingMsgs, setIsLoadingMsgs] = useState(false);
+
+    useEffect(() => {
+        const fetchMsgs = async () => {
+            const dmsUrl = `${API_URL}/messages?`
+                const generateUrl = (userId) => {
+                    return `${dmsUrl}receiver_id=${userId}&receiver_class=User`
+                }
+
+                const accumulatedMessages = [];
+                const myId = parseInt(user.data.id);
+                
+                await Promise.all(
+                userBase
+                .filter((user) => user.id > 4000 && user.id !== myId)
+                .map(async (user) => {
+                    try {
+                        const response = await axios.get(generateUrl(user.id),{headers:userHeaders})
+
+                        if (response.data.data.length > 0 && !response.data.errors) {
+                            accumulatedMessages.push(...response.data.data);
+                        } 
+                    } catch (error) {
+                        console.error(error)
+                    }
+                }))
+
+                setMessages(accumulatedMessages);
+        }
+
+        if (isLoadingMsgs) {
+            fetchMsgs()
+            setIsLoadingMsgs(false)
+        }
+    }, [isLoadingMsgs])
 
     return (
         <DataContext.Provider value={
@@ -58,7 +95,8 @@ const DataProvider = ({children}) => {
             userHeaders, user,
             activeModal, handleActiveModal,
             userBase, setUserBase,
-            messages, setMessages}}>
+            messages, setMessages,
+            isLoadingMsgs, setIsLoadingMsgs}}>
             {children}
         </DataContext.Provider>
     )
