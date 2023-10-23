@@ -34,14 +34,20 @@ function Dms() {
         }
     }
 
+    const IdDisplay = userBase.find((user) => selectedDM === user.email);
+
     return (
         <div className='Dms-CONTAINER'>
-            <h1>{selectedDM !== '' ? `Viewing messages from ${selectedDM}`:'DMs Page'}</h1>
+            <nav className='dms-navbox'>
+            <h1>{selectedDM !== '' ? `${IdDisplay.id}: ${selectedDM}`:'Direct Messages'}</h1>
+            </nav>
             <RenderList handleDMSelect={handleDMSelect} selectedDM={selectedDM}/>
             {selectedDM !== '' && selectedDM !== 'newMsg' ? (
             <>
-            <RenderDMBox selectedDM={selectedDM}/>
-            <TypeBox body={body} setBody={setBody} handleSend={handleSend}/>
+            <RenderDMBox selectedDM={selectedDM}
+            body={body}
+            setBody={setBody}
+            handleSend={handleSend}/>
             </>
             ) : selectedDM === 'newMsg' ?(
                 <RenderNewDM selectedDM={selectedDM} />
@@ -84,7 +90,7 @@ function RenderList(props) {
 
 function RenderDMBox(props) {
     const { messages, user } = useData();
-    const { selectedDM } = props
+    const { selectedDM, body, setBody, handleSend } = props
     const msgContainerRef = useRef(null);
 
     useEffect(() => {
@@ -94,6 +100,7 @@ function RenderDMBox(props) {
     }, [selectedDM, messages])
     
     return (
+        <div className='dm-msgbox-Container'>
         <div className='dm-msgbox' ref={msgContainerRef}>
             {messages
             .filter((msgObj) => msgObj.sender.email === selectedDM || msgObj.receiver.email === selectedDM)
@@ -104,6 +111,8 @@ function RenderDMBox(props) {
                 <span>{msg.sender.email}</span>
                 </div>
             ))}
+        </div>
+        <TypeBox body={body} setBody={setBody} handleSend={handleSend}/>
         </div>
     )
 }
