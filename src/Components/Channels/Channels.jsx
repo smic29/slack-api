@@ -201,7 +201,7 @@ function Channels() {
         <div className='channel-page-container'>
             <div>
                 <nav className='msg-box-nav'>
-                    <h1>{channelOnScreen !== '' ? `CH ID: ${channelOnScreen}` : 'I am the Channels Page'}</h1>
+                    <h1>{channelOnScreen !== '' ? `CH ID: ${channelOnScreen}` : 'Channels'}</h1>
                     {channelOnScreen !== '' && <div className='channel-headerbox'>
                         <span class="material-symbols-outlined">
                         group

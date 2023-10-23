@@ -39,7 +39,9 @@ function Dms() {
     return (
         <div className='Dms-CONTAINER'>
             <nav className='dms-navbox'>
-            <h1>{selectedDM !== '' ? `${IdDisplay.id}: ${selectedDM}`:'Direct Messages'}</h1>
+            <h1>{selectedDM !== '' && selectedDM !== 'newMsg' 
+            ? `${IdDisplay ? IdDisplay.id : ''}: ${selectedDM}`
+            :'Direct Messages'}</h1>
             </nav>
             <RenderList handleDMSelect={handleDMSelect} selectedDM={selectedDM}/>
             {selectedDM !== '' && selectedDM !== 'newMsg' ? (
@@ -160,6 +162,7 @@ function RenderNewDM(props) {
             <input 
             type='text'
             value={id}
+            maxLength={4}
             onChange={(e) => {
                 const inputValue = e.target.value;
                 if (/^[0-9]*$/.test(inputValue)){
