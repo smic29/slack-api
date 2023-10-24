@@ -41,7 +41,10 @@ function Home() {
 
     return (
         <div className="home-container">
-            <h1>Welcome to your home page! </h1>
+            <div className="home-nav">
+                <h1>Dashboard </h1>
+            </div>
+            <div className="home-info-container">
             <fieldset className="information-box">
                 <legend>Information</legend>
                 <p>You are signed in as: {user.data.email}</p>
@@ -86,9 +89,9 @@ function Home() {
                     )}
                 </div>
             </fieldset>
-            <fieldset>
+            <fieldset className="home-recentmsg-box">
                 <legend>Recent Messages</legend>
-                <div className="home-recentmsg-box">
+                <div>
                     {
                     isLoadingMsgs
                     ? <Loading /> 
@@ -96,13 +99,14 @@ function Home() {
                     .sort((a,b) => new Date(b.created_at) - new Date(a.created_at))
                     .slice(0,3)
                     .map((msg) =>( 
-                        <>
-                        <p key={msg.id}><strong>{msg.body}</strong> from {msg.sender.email}</p>
-                        <span>{formatTimestamp(msg.created_at)}</span>
-                        </>
+                        <div className="home-rmMsgBox">
+                        <p key={msg.id}>{msg.body}</p>
+                        <span>{msg.sender.email} {formatTimestamp(msg.created_at)}</span>
+                        </div>
                         )) : 'No Messages yet'}
                 </div>
             </fieldset>
+            </div>             
         </div>
     )
 }

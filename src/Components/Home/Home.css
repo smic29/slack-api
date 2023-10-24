@@ -1,6 +1,45 @@
 .home-container {
     display: flex;
     flex-direction: column;
+    position: relative;
+    height: 100vh;
+    align-items: center;
+}
+
+.home-nav {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    background-color: lightblue;
+    margin: 0;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.home-nav h1 {
+    margin-left: 5px;
+    font-size: 1.50rem;
+}
+
+.home-info-container {
+    position: absolute;
+    width: 80%;
+    top: 10%;
+    display: grid;
+    grid-template-rows: 1fr auto;
+    grid-template-columns: 1fr 1fr;
+}
+
+.home-info-container fieldset {
+    border-radius: .75rem;
+    border-color: whitesmoke;
+}
+
+.home-info-container fieldset legend {
+    font-weight: bold;
+    color: rgb(125, 173, 189);
 }
 
 .information-box p {
@@ -15,4 +54,29 @@
 .channel-list select {
     text-align: center;
     margin-left: 1rem;
+}
+
+.home-recentmsg-box {
+    grid-column: 1 / 3;
+    text-align: left;
+}
+
+.home-recentmsg-box p {
+    margin-bottom: 0;
+    margin-top: .25rem;
+}
+
+.home-rmMsgBox {
+    width: max-content;
+    padding: .25rem;
+    border-radius: .125rem;
+}
+
+.home-rmMsgBox:hover {
+    background-color: whitesmoke;
+}
+
+.home-rmMsgBox span{
+    font-size: .70rem;
+    opacity: 0.5;
 }
