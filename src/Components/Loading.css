@@ -2,6 +2,8 @@
     animation: spin 2s linear infinite;
     font-size: 2rem;
     user-select: none;
+    position: absolute;
+    left: 47.5%;
 }
 
 @keyframes spin {

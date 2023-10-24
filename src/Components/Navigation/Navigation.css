@@ -14,32 +14,80 @@
     display: flex;
     flex-direction: column;
     justify-content: space-between;
-    align-items: first baseline;
     color: whitesmoke;
     padding: 10px;
-    padding-right: 35px;
 }
 
 .navbar-header nav {
     display: flex;
     flex-direction: column;
     justify-content: flex-start;
-    align-items: baseline;
+    align-items: center;
+    margin-top: 2.5rem;
 }
 
 .item {
     margin-inline: 10px;
     margin-bottom: 20px;
     text-decoration: none;
+    width: 100%;
+    border-radius: .75rem;
+    padding: .123rem;
+}
+
+.item:link, .item:visited {
+    text-decoration: none;
+    color: black;
 }
 
 .item:hover {
-    background-color: lightgray;
+    background-color: rgb(150, 200, 210);
+}
+
+.nav-selected {
+    background-color: rgb(150, 200, 210);
+    pointer-events: none;
+}
+
+.nav-selected .nav-iconbox {
+    color: whitesmoke;
+}
+
+.nav-iconbox {
+    display: flex;
+    flex-direction: column;
+    font-size: .75rem;
+}
+
+.nav-iconbox .material-symbols-outlined {
+    font-size: 2.25rem;
 }
 
 .outlet {
     grid-area: outlet;
     position: absolute;
-    left: 4%;
-    width: 95%;
+    left: 2%;
+    width: 98%;
+}
+
+.user-box .material-symbols-outlined {
+    font-size: 3.5rem;
+    color: black;
+    cursor: pointer;
+    user-select: none;
+}
+
+.user-box button {
+    visibility: hidden;
+    opacity: 0;
+    transition: visibility 0.2s ease-in-out, opacity 0.3s;
+}
+
+.user-box:hover button {
+    visibility: visible;
+    opacity: 1;
+}
+
+.user-box:hover span {
+    background-color: rgb(150, 200, 210);
 }

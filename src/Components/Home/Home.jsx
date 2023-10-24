@@ -91,7 +91,7 @@ function Home() {
             </fieldset>
             <fieldset className="home-recentmsg-box">
                 <legend>Recent Messages</legend>
-                <div>
+                <div className="loading-box-position">
                     {
                     isLoadingMsgs
                     ? <Loading /> 
