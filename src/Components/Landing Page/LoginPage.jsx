@@ -69,7 +69,9 @@ function LoginPage() {
                 </span>
             </fieldset>
             <p
-            onClick={() => handleActiveModal('newUser')}>Create a new account!</p>
+            onClick={() => handleActiveModal('newUser')}>
+                No account yet? <u>Sign Up here!</u>
+            </p>
             <input type='submit' 
             value='Login'
             data-testid='loginButton'/>

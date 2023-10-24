@@ -36,7 +36,18 @@
 .login-form p {
     margin: 0;
     margin-bottom: 1rem;
-    cursor: pointer;
     font-size: 0.75rem;
+}
+
+.login-form p u {
     text-decoration: double underline;
+    cursor: pointer;
+    user-select: none;
+    transition: text-decoration 0.3s, color 0.2s;
+}
+
+.login-form p u:hover {
+    color: lightgreen;
+    text-decoration: none;
+    font-weight: bolder;
 }
