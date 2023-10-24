@@ -42,6 +42,12 @@ const DataProvider = ({children}) => {
     
     //Modal Switch
     const [ activeModal, setActiveModal ] = useState('');
+    const [ isModalOpen, setIsModalOpen ] = useState(false);
+    const [ mobileModal, setMobileModal ] = useState('');
+    const [ modalPosition, setModalPosition ] = useState({
+        top: 0,
+        left: 0
+    })
 
     const handleActiveModal = (modalName) => {
         setActiveModal(modalName)
@@ -98,7 +104,9 @@ const DataProvider = ({children}) => {
             userBase, setUserBase,
             messages, setMessages,
             isLoadingUB, setIsLoadingUB,
-            isLoadingMsgs, setIsLoadingMsgs}}>
+            isLoadingMsgs, setIsLoadingMsgs,
+            isModalOpen, modalPosition, setModalPosition, setIsModalOpen,
+            mobileModal, setMobileModal}}>
             {children}
         </DataContext.Provider>
     )

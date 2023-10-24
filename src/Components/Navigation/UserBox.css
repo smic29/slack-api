@@ -1,0 +1,42 @@
+.userbox-container {
+    display: flex;
+    flex-direction: column;
+    width: max-content;
+    padding: 2.5px;
+}
+
+.userbox-login-info {
+    display: grid;
+    grid-template-columns: 1fr auto;
+    grid-template-rows: 1fr 1fr;
+    text-align: left;
+    padding-bottom: 0.25rem;
+    padding-left: 0.125rem;
+    padding-right: 0.5rem;
+    border-bottom: 2px solid darkgray;
+}
+
+.userbox-login-info .material-symbols-outlined {
+    grid-row: 1 / 3;
+    font-size: 2.5rem;
+    margin-right: 5px;
+}
+
+.userbox-logoutBox {
+    margin-top: 5px;
+}
+
+.userbox-logoutbtn {
+    cursor: pointer;
+    user-select: none;
+    padding: 5px;
+    width: inherit;
+    display: block;
+    transition: background-color 0.3s, font-weight 0.2s, color 0.1s;
+}
+
+.userbox-logoutbtn:hover {
+    background-color: lightblue;
+    color: white;
+    font-weight: bold;
+}
