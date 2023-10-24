@@ -64,6 +64,8 @@
 
 .loading-box-position {
     position: relative;
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
 }
 
 .home-recentmsg-box p {
@@ -73,8 +75,19 @@
 
 .home-rmMsgBox {
     width: max-content;
-    padding: .25rem;
-    border-radius: .125rem;
+    padding: 1rem;
+    padding-top: .5rem;
+    margin-bottom: 1rem;
+    border-radius: .5rem;
+    display: inline-block;
+}
+
+.home-rmMsgBox .rmMsgBox-legend {
+    color: rgb(125, 173, 189);
+    font-weight: 100;
+    font-size: .8rem;
+    text-align: left;
+    border-bottom: .1rem dotted lightslategray;
 }
 
 .home-rmMsgBox:hover {

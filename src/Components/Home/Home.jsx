@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { useData } from "../../Context/DataProvider"
 import './Home.css'
 import axios from "axios";
-import { API_URL, formatTimestamp } from "../../Constants/Constants";
+import { API_URL, formatTimestamp, timeSince } from "../../Constants/Constants";
 import Loading from "../Loading";
 
 function Home() {
@@ -95,15 +95,38 @@ function Home() {
                     {
                     isLoadingMsgs
                     ? <Loading /> 
-                    :messages.length > 0 ? messages.filter((msg) => msg.sender.id !== user.data.id)
-                    .sort((a,b) => new Date(b.created_at) - new Date(a.created_at))
-                    .slice(0,3)
-                    .map((msg) =>( 
-                        <div className="home-rmMsgBox">
-                        <p key={msg.id}>{msg.body}</p>
-                        <span>{msg.sender.email} {formatTimestamp(msg.created_at)}</span>
+                    :messages.length > 0 ? 
+                    // messages.filter((msg) => msg.sender.id !== user.data.id)
+                    // // .sort((a,b) => new Date(b.created_at) - new Date(a.created_at))
+                    // // .slice(0,10)
+                    // .map((msg, index, arr) =>{
+                    //     if (index === 0 || msg.sender.email !== arr[index -1].sender.email) {
+                    //         return ( 
+                    //         <div className="home-rmMsgBox" key={msg.id}>
+                    //         <legend className="rmMsgBox-legend">{msg.sender.email}</legend>
+                    //         <p>{msg.body}</p>
+                    //         <span>{timeSince(msg.created_at)}</span>
+                    //         </div>
+                    //         )
+                    //     } 
+                    //     }) 
+                    Object.values(
+                        messages
+                          .filter((msg) => msg.sender.id !== user.data.id)
+                          .reduce((uniqueMessages, msg) => {
+                            if (!uniqueMessages[msg.sender.email] || msg.created_at > uniqueMessages[msg.sender.email].created_at) {
+                              uniqueMessages[msg.sender.email] = msg;
+                            }
+                            return uniqueMessages;
+                          }, {})
+                      ).map((msg) => (
+                        <div className="home-rmMsgBox" key={msg.id}>
+                          <legend className="rmMsgBox-legend">{msg.sender.email}</legend>
+                          <p>{msg.body}</p>
+                          <span>{timeSince(msg.created_at)}</span>
                         </div>
-                        )) : 'No Messages yet'}
+                      ))
+                        : 'No Messages yet'}
                 </div>
             </fieldset>
             </div>             
