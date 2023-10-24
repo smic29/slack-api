@@ -22,6 +22,8 @@ function ModalTemplate() {
                 <RenderModal />
                 </div>
             </div>
+            <img className='login-logo'
+            src='./Assets/Slack_icon_2019.png'></img>
         </div>
     )
 }

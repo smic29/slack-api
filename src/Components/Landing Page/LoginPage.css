@@ -30,6 +30,7 @@
 .pw-field .material-symbols-outlined {
     position: absolute;
     right: 7.5%;
+    cursor: pointer;
 }
 
 .login-form p {
