@@ -6,7 +6,7 @@ import { API_URL, formatTimestamp, timeSince } from "../../Constants/Constants";
 import Loading from "../Loading";
 
 function Home() {
-    const { user, userHeaders, messages, isLoadingMsgs, userBase, isLoadingUB } = useData();
+    const { user, userHeaders, messages, isLoadingMsgs } = useData();
     const [ channelData, setChannelData ] = useState([]);
     const [ selectedChannel, setSelectedChannel ] = useState('');
     const [ channelMembers, setChannelMembers ] = useState('');
@@ -22,7 +22,6 @@ function Home() {
                 const response = await axios.get(url, {headers: userHeaders})
 
                 setChannelData(response.data.data)
-                // console.log(response.data)
 
                 if (selectedChannel) {
                     const membersUrl = `${API_URL}/channels/${selectedChannel}}`;
@@ -33,7 +32,6 @@ function Home() {
 
             } catch (error) {
                 alert(`Failed: ${error.response.errors}`)
-                // console.log(userHeaders)
             }
         }
         fetchChannels();
@@ -84,6 +82,7 @@ function Home() {
                                         </div>
                                     )
                                 }
+                                return null;
                             })}
                         </div>
                     )}
@@ -96,20 +95,6 @@ function Home() {
                     isLoadingMsgs
                     ? <Loading /> 
                     :messages.length > 0 ? 
-                    // messages.filter((msg) => msg.sender.id !== user.data.id)
-                    // // .sort((a,b) => new Date(b.created_at) - new Date(a.created_at))
-                    // // .slice(0,10)
-                    // .map((msg, index, arr) =>{
-                    //     if (index === 0 || msg.sender.email !== arr[index -1].sender.email) {
-                    //         return ( 
-                    //         <div className="home-rmMsgBox" key={msg.id}>
-                    //         <legend className="rmMsgBox-legend">{msg.sender.email}</legend>
-                    //         <p>{msg.body}</p>
-                    //         <span>{timeSince(msg.created_at)}</span>
-                    //         </div>
-                    //         )
-                    //     } 
-                    //     }) 
                     Object.values(
                         messages
                           .filter((msg) => msg.sender.id !== user.data.id)
