@@ -1,7 +1,8 @@
 .navigation {
     display: grid;
     grid-template-areas: "navbar outlet";
-    grid-template-columns: 5% 95%;
+    grid-template-columns: 6% auto;
+    justify-content: stretch;
     /* justify-content: space-between; */
     height: 100vh;
     position: relative;
@@ -15,7 +16,6 @@
     flex-direction: column;
     justify-content: space-between;
     color: whitesmoke;
-    padding: 10px;
 }
 
 .navbar-header nav {
@@ -23,7 +23,7 @@
     flex-direction: column;
     justify-content: flex-start;
     align-items: center;
-    margin-top: 2.5rem;
+    margin-top: 5rem;
 }
 
 .item {
@@ -31,8 +31,8 @@
     margin-bottom: 20px;
     text-decoration: none;
     width: 100%;
-    border-radius: .75rem;
-    padding: .123rem;
+    /* border-radius: .75rem; */
+    /* padding: .123rem; */
 }
 
 .item:link, .item:visited {
@@ -65,9 +65,10 @@
 
 .outlet {
     grid-area: outlet;
-    position: absolute;
+    /* position: absolute;
     left: 2%;
-    width: 98%;
+    width: 98%; */
+    /* border: 1px solid black; */
 }
 
 .user-box .material-symbols-outlined {
