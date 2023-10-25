@@ -51,26 +51,42 @@
     text-align: left;
 }
 
-.channel-channellist span {
+.ch-list {
     user-select: none;
     cursor: pointer;
-    transition: transform 0.3s;
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    gap: 5px;
+    margin-left: 2.5px;
+    padding: 2.5px;
+    transition: background-color 0.3s, font-weight 0.2s, color 0.1s
 }
 
-.channel-channellist span:hover {
-    color: lightgreen;
+.ch-list .material-symbols-outlined {
+    visibility: hidden;
 }
 
-.channel-channellist span:active {
+.material-symbols-outlined.show {
+    visibility: visible;
+}
+
+.ch-list:hover {
+    color: white;
+    font-weight: bold;
+    background-color: lightblue;
+}
+
+.ch-list:active {
     transform: scale(0.9);
 }
 
 .selected {
-    color: lightblue;
+    color: white;
+    font-weight: bold;
+    background-color: rgb(125, 173, 189);
     pointer-events: none;
     cursor: auto;
-    border: 2px solid black;
-    padding: 0.25rem;
 }
 
 .channel-add-form {
@@ -105,47 +121,24 @@
 }
 
 .create-channel {
-    margin-bottom: 1rem;
     cursor: pointer;
-    text-decoration: double underline;
+    display: flex;
+    justify-content: flex-start;
+    gap: 5px;
+    align-items: center;
+    padding: 5px;
+    user-select: none;
+    transition: background-color 0.3s, font-weight 0.2s, color 0.1s
 }
 
 .create-channel:hover {
-    color: lightgreen;
+    color: white;
+    font-weight: bold;
+    background-color: lightblue;
 }
 
-.create-channel-box {
-    position: absolute;
-    top: 30%;
-    width: 20%;
-    justify-self: center;
-    display: flex;
-    flex-direction: column;
-}
-
-.channel-field {
-    padding: .5rem;
-}
-
-.channel-field input {
-    padding: .15rem;
-    border: none;
-    border-bottom: 2px solid black;
-}
-
-.channel-field input:focus {
-    outline: none;
-}
-
-.users-to-add li {
-    display: flex;
-    justify-content: space-between;
-}
-
-.channel-box-back-button {
-    justify-content: flex-start;
-    width: min-content;
-    margin: .25rem;
+.channel-channellist .material-symbols-outlined {
+    font-size: 1.25rem;
 }
 
 .user, .other {

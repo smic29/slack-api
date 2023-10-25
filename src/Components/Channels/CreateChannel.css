@@ -1,0 +1,138 @@
+.create-channel-box {
+    display: flex;
+    justify-content: center;
+}
+
+.create-channel-box legend {
+    color: rgb(125, 173, 189);
+    text-align: left;
+    font-weight: bold;
+}
+
+.create-channel-box fieldset {
+    border-top: 1px solid rgb(125, 173, 189);
+}
+
+.channel-field, .addID-field {
+    border: none;
+    position: relative;
+}
+
+.channel-field {
+    height: 75px;
+    display: flex;
+    justify-content: center;
+    align-items: flex-end;
+    padding-bottom: 0;
+}
+
+.addID-field {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    align-items: center;
+    margin-top: 1rem;
+}
+
+.addID-inputBox {
+    position: relative;
+    display: block;
+}
+
+.addID-inputBox .material-symbols-outlined {
+    position: absolute;
+    right: 0;
+    top: 2.5%;
+    cursor: pointer;
+    align-self: center;
+}
+
+.addID-inputBox .material-symbols-outlined:hover {
+    color: lightseagreen;
+}
+
+.material-symbols-outlined.disabled {
+    color: lightslategrey;
+    pointer-events: none;
+}
+
+.channel-add-form input[type='text'] {
+    max-width: 200px;
+    padding: 0.125rem;
+    text-align: center;
+    background: transparent;
+    border-top: none;
+    border-right: none;
+    border-left: none;
+    font-size: 1.25rem;
+}
+
+.channel-add-form input[type='text']:focus {
+    outline: none;
+}
+
+.channel-add-form input[type='text']::placeholder {
+    opacity: 0.4;
+}
+
+.addID-checker {
+    font-size: .75rem;
+}
+
+.users-to-add {
+    width: 200px;
+    min-height: 100px;
+    max-height: 100px;
+    margin-left: 1rem;
+    overflow-y: auto;
+}
+
+.users-to-add::-webkit-scrollbar {
+    width: .25rem;
+    height: .5rem;
+}
+
+.users-to-add::-webkit-scrollbar-thumb {
+    border-radius:0.5rem;
+    background-color: rgba(0,0,0,0.3);
+}
+
+.users-to-add div{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: .125rem;
+    transition: background-color 0.2s;
+    font-size: 0.75rem;
+}
+
+.users-to-add div:hover {
+    background-color: lightblue;
+}
+
+.users-to-add .material-symbols-outlined {
+    font-size: 1.25rem;
+    cursor: pointer;
+    user-select: none;
+}
+
+.users-to-add .material-symbols-outlined:hover {
+    color: lightcoral;
+}
+
+.create-channel-button{
+    font-size: 1rem;
+    font-family: 'Montserrat';
+    background: transparent;
+    cursor: pointer;
+    user-select: none;
+    border: none;
+    padding: 5px;
+    display: inline-block;
+    transition: background-color 0.3s, font-weight 0.2s, color 0.1s;
+}
+
+.create-channel-button:hover {
+    color: white;
+    font-weight: bold;
+    background-color: lightblue;
+}

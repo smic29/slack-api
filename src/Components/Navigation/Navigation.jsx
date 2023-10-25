@@ -44,7 +44,7 @@ function Navigation() {
                         <span class="material-symbols-outlined">
                         chat
                         </span>
-                        <span>Channels</span>
+                        <span>Ch</span>
                         </div>
                         </NavLink>
                     <NavLink className={`item ${currentPage === 'dms' ? 'nav-selected' : ''}`} 
