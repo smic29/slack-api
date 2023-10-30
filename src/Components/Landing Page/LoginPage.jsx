@@ -76,6 +76,7 @@ function LoginPage() {
                 No account yet? <u>Sign Up here!</u>
             </p>
             <input type='submit' 
+            className='login-button'
             value='Login'
             data-testid='loginButton'/>
         </form>

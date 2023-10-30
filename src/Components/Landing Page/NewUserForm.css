@@ -6,18 +6,55 @@
     display: flex;
     flex-direction: column;
     text-align: start;
+    border-right: none;
+    border-left: none;
+    border-bottom: none;
 }
 
 .field-box {
     display: flex;
 }
 
+.field-box input{
+    margin-bottom: 5px;
+    padding: 5px;
+}
+
 .newUser-form {
     position: relative;
 }
 
-.newUser-form button {
+.newUser-label {
+    color: rgb(125, 173, 189);
+    text-align: center;
+}
+
+.newUser-form .material-symbols-outlined {
     position: absolute;
+    user-select: none;
+    cursor: pointer;
     left: 0;
     bottom: 0;
+    font-size: .90rem;
+    transition: color 0.2s;
+}
+
+.newUser-form .material-symbols-outlined:hover {
+    color: lightblue;
+}
+
+.newUser-submit-button {
+    font-family: 'Montserrat';
+    user-select: none;
+    background-color: transparent;
+    border: none;
+    outline: 1px solid black;
+    padding: 5px;
+    transition: background-color 0.3s, font-weight 0.2s, color 0.1s;
+}
+
+.newUser-submit-button:hover {
+    background-color: lightblue;
+    color: white;
+    font-weight: bold;
 }

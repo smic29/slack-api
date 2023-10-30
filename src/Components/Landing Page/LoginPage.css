@@ -13,16 +13,6 @@
     padding: 5px;
 }
 
-.login-form input[type='submit']{
-    padding: 5px;
-    border: 2px solid;
-    border-radius: 0.25rem;
-}
-
-.login-form input[type='submit']:hover{
-    background-color: lightgray;
-}
-
 .pw-field {
     position: relative;
 }
@@ -50,4 +40,22 @@
     color: lightgreen;
     text-decoration: none;
     font-weight: bolder;
+}
+
+.login-button {
+    font-family: 'Montserrat';
+    user-select: none;
+    background-color: transparent;
+    outline: 1px solid black;
+    transition: background-color 0.3s, font-weight 0.2s, color 0.1s;
+}
+
+.login-button:hover {
+    background-color: lightblue;
+    color: white;
+    font-weight: bold;
+}
+
+.login-button:active {
+    transform: scale(0.90);
 }

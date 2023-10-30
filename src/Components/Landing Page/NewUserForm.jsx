@@ -40,25 +40,31 @@ function NewUserForm() {
             <div className='field-box'>
                 <fieldset>
                     <legend>Login Information</legend>
-                    <label>Email</label>
+                    <label className='newUser-label'>Email</label>
                     <input type='email' 
                     value={email}
                     onChange={(e) => setEmail(e.target.value)}
                     required />
-                    <label>Password</label>
+                    <label className='newUser-label'>Password</label>
                     <input type='text' 
                     value={password}
                     onChange={(e) => setPassword(e.target.value)}
                     required/>
-                    <label>Confirm Password</label>
+                    <label className='newUser-label'>Confirm Password</label>
                     <input type='text' 
                     value={confirmPw}
                     onChange={(e) => setConfirmPw(e.target.value)}
                     required/>
                 </fieldset>
             </div>
-            <input type="submit" />
-            <button onClick={() => handleActiveModal('')}>back</button>
+            <input 
+            className='newUser-submit-button'
+            type="submit" 
+            value={'Create'}/>
+            <span
+            class='material-symbols-outlined' 
+            onClick={() => handleActiveModal('')}>
+                arrow_back_ios</span>
         </form>
     )
 }
