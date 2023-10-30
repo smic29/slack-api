@@ -6,9 +6,6 @@ import { API_URL } from '../../Constants/Constants';
 
 function NewUserForm() {
     const { handleActiveModal } = useData();
-    const [ firstName, setFirstName ] = useState('')
-    const [ lastName, setLastName ] = useState('')
-    const [ nickName, setNickName ] = useState('')
     const [ email, setEmail ] = useState('')
     const [ password, setPassword ] = useState('')
     const [ confirmPw, setConfirmPw ] = useState('')
@@ -17,8 +14,6 @@ function NewUserForm() {
         e.preventDefault();
 
         const newUser = {
-            name: firstName + '' + lastName,
-            nickname: nickName,
             email: email,
             password: password,
             password_confirmation: confirmPw
@@ -31,7 +26,7 @@ function NewUserForm() {
                 url, newUser
             )
 
-            alert(`Account Successfully created. Welcome ${nickName}!`)
+            alert(`Account Successfully created. Welcome ${email}!`)
             handleActiveModal('')
         } catch (error) {
             const errorMsg = error.response.data;
@@ -43,24 +38,6 @@ function NewUserForm() {
         <form className="newUser-form"
         onSubmit={handleFormSubmit}>
             <div className='field-box'>
-                <fieldset>
-                    <legend>Personal Information</legend>
-                    <label>First Name</label>
-                    <input type='text'
-                    value={firstName}
-                    onChange={(e) => setFirstName(e.target.value)} 
-                    required/>
-                    <label>Last Name</label>
-                    <input type='text'
-                    value={lastName}
-                    onChange={(e) => setLastName(e.target.value)}
-                    required/>
-                    <label>Nick Name</label>
-                    <input type='text' 
-                    value={nickName}
-                    onChange={(e) => setNickName(e.target.value)}
-                    required/>
-                </fieldset>
                 <fieldset>
                     <legend>Login Information</legend>
                     <label>Email</label>

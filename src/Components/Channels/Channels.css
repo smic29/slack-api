@@ -1,16 +1,30 @@
 .channel-page-container {
-    display: flex;
-    flex-direction: column;
-    /* justify-content: center; */
-    align-items: center;
+    /* display: flex;
+    flex-direction: column; */
+    display: grid;
+    grid-template-columns: 20% auto;
+    grid-template-rows: 7.5% auto;
+    align-items: baseline;
     position: relative;
     height: 100vh;
 }
 
+.channelpage-one {
+    grid-column: 1 / 3;
+}
+
+.channel-chatbox {
+    grid-column: 2;
+    position: relative;
+    display: grid;
+    height: 92.5vh;
+    /* grid-template-rows: 54% auto; */
+}
+
 .msg-box-nav {
-    position: absolute;
+    /* position: absolute;
     top: 0;
-    left: 0;
+    left: 0; */
     width: 100%;
     background-color: lightblue;
     margin: 0;
@@ -94,24 +108,20 @@
 }
 
 .msg-box {
-    border: 2px solid black;
+    /* border: 2px solid black; */
     border-radius: 1rem;
     display: flex;
     flex-direction: column;
-    height: 615px;
-    width: 615px;
-    overflow-y: hidden;
+    overflow-y: auto;
     transition: overflow-y 0.3s ease-in-out;
     padding: 0.5rem;
     padding-bottom: 1rem;
-    position: relative;
-    top: 15%;
-
+    /* max-height: 100vh; */
 }
 
-.msg-box:hover {
+/* .msg-box:hover {
     overflow-y: auto;
-}
+} */
 
 .send-button {
     position: absolute;

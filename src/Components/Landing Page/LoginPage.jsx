@@ -38,7 +38,10 @@ function LoginPage() {
             setIsLoadingUB(false)
             setIsLoadingMsgs(true);
         } catch (error) {
+            if (error.response){
             alert(`${error.response.data.errors}`)
+            }
+            alert(error);
         }
     }
 

@@ -121,7 +121,7 @@ function Channels() {
 
     return (
         <div className='channel-page-container'>
-            <div>
+            <div className='channelpage-one'>
                 <nav className='msg-box-nav'>
                     <h1>{channelOnScreen !== '' ? `CH ID: ${channelOnScreen}` : 'Channels'}</h1>
                     {channelOnScreen !== '' && <div className='channel-headerbox'>
@@ -239,35 +239,35 @@ function ChannelMsgBox(props) {
 
     return (
         <div className='channel-chatbox'>
-                <div className='msg-box' ref={msgContainerRef}>
-                    {/* <button onClick={() => console.log(messages)}>Debug</button> */}
-                    {messages.map((message) => (
-                        <div key={message.id}
-                        className={
-                            message.body.includes('..:') 
-                            ? 'system-msg'
-                            : message.sender.id === user.data.id 
-                            ? 'user' 
-                            : 'other'
-                            }>
-                            {message.body.includes("..:") ? (
-                                <>
-                                {message.body.replace('..:','')}
-                                </>
-                            ) : (
+            <div className='msg-box' ref={msgContainerRef}>
+                {/* <button onClick={() => console.log(messages)}>Debug</button> */}
+                {messages.map((message) => (
+                    <div key={message.id}
+                    className={
+                        message.body.includes('..:') 
+                        ? 'system-msg'
+                        : message.sender.id === user.data.id 
+                        ? 'user' 
+                        : 'other'
+                        }>
+                        {message.body.includes("..:") ? (
                             <>
-                                {message.body}
-                                <span>{message.sender.email}</span>
+                            {message.body.replace('..:','')}
                             </>
-                            )}
-                        </div>
-                    ))}
-                </div>
-                <TypeBox 
-                body={body}
-                setBody={setBody}
-                handleSend={handleSend}/>
+                        ) : (
+                        <>
+                            {message.body}
+                            <span>{message.sender.email}</span>
+                        </>
+                        )}
+                    </div>
+                ))}
             </div>
+            <TypeBox 
+            body={body}
+            setBody={setBody}
+            handleSend={handleSend}/>
+        </div>
     )
 }
 
