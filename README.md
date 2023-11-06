@@ -8,10 +8,10 @@
 - [x] User is able to login his/her credentials
 - [x] User is able to create new channel
 - [x] User is able to add users on a channel
-- [x] User is able to send message to otther user (Direct Message)
+- [x] User is able to send message to other users (Direct Message)
 - [x] User is able to send message to a channel
 - [x] User is able to receive message to a channel
-- [x] User is able to receive message from other user (Direct Message)
+- [x] User is able to receive message from other users (Direct Message)
 - [x] User is able to receive message from his/her channels
 
 ## Added Challenges
@@ -19,17 +19,13 @@
 - [ ] Themes for different users
 
 ## Personal Challenges
-- [ ] Settings for which name to use (firstname, nickname, or username).
 - [ ] Reactions for Chat
-- [x] Added Users to channel text 
+- [x] Messages rendered into system messages for adding users to a channel 
   - Messages are sent after adding a user to the channel.
   - Classes are added via a string indicator '..:"
 - [ ] Custom alerts and notifications
 
-## Project API
-- [API]()
-
-## Component Tests
+## Component Tests (Work In Progress)
 1. App.js test on landing page
 ```jsx
 test('Page loads to Landing Page', () => {
@@ -58,3 +54,9 @@ test('User is able to log in', () => {
 })
 ```
 - This test would need to be updated once I remove alerts and switch to custom notifications.
+
+## Acknowledgements
+Thanks to my Avion School Batch 31 batchmates for providing their keen insights and offering solutions to some of the coding problems I had:
+  - [Francis]()
+  - [Gars]()
+  - [Kervy](https://github.com/imjohnescalante)
