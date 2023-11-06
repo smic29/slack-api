@@ -1,7 +1,7 @@
 # Avion School Project - Slack API
 
 ## Made using:
-- React
+- ReactJS
 
 ## Project Requirements
 - [x] User is able to create his/her account with email and password
@@ -25,7 +25,7 @@
   - Classes are added via a string indicator '..:"
 - [ ] Custom alerts and notifications
 
-## Component Tests (Work In Progress)
+## Component Tests (Work In Progress, Tests below no longer applies to current commit)
 1. App.js test on landing page
 ```jsx
 test('Page loads to Landing Page', () => {
@@ -59,4 +59,4 @@ test('User is able to log in', () => {
 Thanks to my Avion School Batch 31 batchmates for providing their keen insights and offering solutions to some of the coding problems I had:
   - [Francis]()
   - [Gars]()
-  - [Kervy](https://github.com/imjohnescalante)
+  - <a href='https://github.com/imjohnescalante' target="_blank">Kervy</a>
