@@ -50,6 +50,7 @@
     border: none;
     outline: 1px solid black;
     padding: 5px;
+    cursor: pointer;
     transition: background-color 0.3s, font-weight 0.2s, color 0.1s;
 }
 
@@ -57,4 +58,18 @@
     background-color: lightblue;
     color: white;
     font-weight: bold;
+}
+
+.disabled {
+    pointer-events: none;
+    outline: none;
+    color: gray;
+}
+
+.newUser-confirmPW {
+    outline-color: lightgreen;
+}
+
+.newUser-notMatch {
+    outline-color: lightcoral;
 }

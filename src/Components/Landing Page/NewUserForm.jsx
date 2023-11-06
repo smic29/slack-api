@@ -52,13 +52,16 @@ function NewUserForm() {
                     required/>
                     <label className='newUser-label'>Confirm Password</label>
                     <input type='text' 
+                    className={`${password === confirmPw ? 'newUser-confirmPW' : 'newUser-notMatch'}`}
                     value={confirmPw}
                     onChange={(e) => setConfirmPw(e.target.value)}
                     required/>
                 </fieldset>
             </div>
             <input 
-            className='newUser-submit-button'
+            className={`newUser-submit-button 
+            ${email === '' || password === '' || password !== confirmPw ? 
+            'disabled' : ''}`}
             type="submit" 
             value={'Create'}/>
             <span
