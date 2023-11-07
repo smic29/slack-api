@@ -4,6 +4,7 @@ import { useEffect, useRef, useState } from 'react';
 import { API_URL } from '../../Constants/Constants';
 import axios from 'axios';
 import TypeBox from '../Textarea';
+import FunctionService from '../../Services/FunctionService';
 
 function Channels() {
     const { userHeaders, userBase, user,
@@ -237,10 +238,20 @@ function ChannelMsgBox(props) {
         }
     }, [messages])
 
+    const groupedMessages = FunctionService.groupMessagesByDate(messages);
+
     return (
         <div className='channel-chatbox'>
             <div className='msg-box' ref={msgContainerRef}>
                 {/* <button onClick={() => console.log(messages)}>Debug</button> */}
+                {Object.entries(groupedMessages).map(([date, messages]) => (
+                    <fieldset key={date} className='chatbox-fieldset'>
+                        <legend className={
+                            FunctionService.formatDate(date) === 'Today' ? 
+                            'date today'
+                            :'date'}>
+                            {FunctionService.formatDate(date)}
+                        </legend>
                 {messages.map((message) => (
                     <div key={message.id}
                     className={
@@ -261,6 +272,8 @@ function ChannelMsgBox(props) {
                         </>
                         )}
                     </div>
+                ))}
+                </fieldset>
                 ))}
             </div>
             <TypeBox 

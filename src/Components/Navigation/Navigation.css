@@ -2,9 +2,9 @@
     display: grid;
     grid-template-areas: "navbar outlet";
     grid-template-columns: 6% auto;
-    justify-content: stretch;
+    /* justify-content: stretch; */
     /* justify-content: space-between; */
-    height: 100vh;
+    height: 99.83vh;
     position: relative;
 }
 
@@ -27,7 +27,7 @@
 }
 
 .item {
-    margin-inline: 10px;
+    /* margin-inline: 10px; */
     margin-bottom: 20px;
     text-decoration: none;
     width: 100%;
@@ -65,6 +65,7 @@
 
 .outlet {
     grid-area: outlet;
+    height: inherit;
     /* position: absolute;
     left: 2%;
     width: 98%; */

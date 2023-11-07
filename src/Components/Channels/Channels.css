@@ -6,7 +6,7 @@
     grid-template-rows: 7.5% auto;
     align-items: baseline;
     position: relative;
-    height: 100vh;
+    height: inherit;
 }
 
 .channelpage-one {
@@ -17,7 +17,7 @@
     grid-column: 2;
     position: relative;
     display: grid;
-    height: 92.5vh;
+    height: calc(100vh - 7.5vh);
     /* grid-template-rows: 54% auto; */
 }
 
@@ -112,16 +112,26 @@
     border-radius: 1rem;
     display: flex;
     flex-direction: column;
-    overflow-y: auto;
+    overflow-y: hidden;
     transition: overflow-y 0.3s ease-in-out;
     padding: 0.5rem;
     padding-bottom: 1rem;
+    font-size: .8rem;
     /* max-height: 100vh; */
 }
 
-/* .msg-box:hover {
+.msg-box::-webkit-scrollbar {
+    width: .5rem;
+}
+
+.msg-box::-webkit-scrollbar-thumb {
+    border-radius:0.5rem;
+    background-color: rgba(0, 0, 0, 0.3);
+}
+
+.msg-box:hover {
     overflow-y: auto;
-} */
+}
 
 .send-button {
     position: absolute;
@@ -179,10 +189,19 @@
     border-bottom-left-radius: 0;
 }
 
+.other span {
+    text-align: left;
+}
+
+.user span {
+    text-align: right;
+}
+
 .system-msg {
     background-color: none;
     color: lightslategray;
     font-style: italic;
+    padding: 0.25rem;
 }
 
 .channel-member-list {
@@ -232,4 +251,26 @@
     max-width: 100px;
     padding: .125rem;
     text-align: center;
+}
+
+.chatbox-fieldset {
+    border-left: none;
+    border-right: none;
+    border-bottom: none;
+    border-color: rgba(0, 0, 0, 0.1);
+    display: flex;
+    flex-direction: column;
+}
+
+.date {
+    border-radius: 1rem;
+    border: 1px solid rgba(0, 0, 0, 0.1);
+    padding: 5px;
+    padding-left: 10px;
+    padding-right: 10px;
+    user-select: none;
+}
+
+.today {
+    font-weight: bold;
 }
