@@ -8,7 +8,7 @@ function TypeBox(props) {
     return(
         <div className="Typebox-CONTAINER">
             <textarea
-            placeholder="Hello World!"
+            placeholder=""
             rows={5}
             cols={80}
             value={body}
