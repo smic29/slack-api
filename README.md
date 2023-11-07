@@ -59,4 +59,4 @@ test('User is able to log in', () => {
 Thanks to my Avion School Batch 31 batchmates for providing their keen insights and offering solutions to some of the coding problems I had:
   - <a href='https://github.com/chrysspegenia' target="_blank">Francis</a>
   - <a href='https://github.com/Oak-Oak' target="_blank">Gars</a>
-  - <a href='https://github.com/imjohnescalante' target="_blank">Kervy</a>
+  - <a href='https://github.com/p3rc1us' target="_blank">Kervy</a>
