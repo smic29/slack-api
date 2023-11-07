@@ -1,0 +1,66 @@
+.channel-member-list {
+    display: flex;
+    flex-direction: column;
+    font-size: 1rem;
+    padding: 0.75rem;
+    margin: 0.25rem;
+    background-color: whitesmoke;
+    width: inherit;
+    /* border: 1px solid black; */
+}
+
+.member-box {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+    padding: 2.5px;
+    gap: 10px;
+    /* border: 1px solid black; */
+}
+
+.member-email {
+    font-size: 0.9rem;
+    /* max-width: 70%; */
+    text-overflow: ellipsis;
+    text-align: left;
+    white-space: nowrap;
+    width: 12rem;
+    overflow: hidden;
+}
+
+.member-id {
+    width: 20%;
+    text-align: center;
+    border: 1px dotted lightslategray;
+    border-radius: .5rem;
+    padding: 1px;
+    box-sizing: border-box;
+}
+
+.channel-add-btn {
+    font-size: 0.75rem;
+    margin-top: 1rem;
+    margin-bottom: .75rem;
+    width: max-content;
+}
+
+.new-channel-member-box {
+    position: relative;
+}
+
+.new-channel-member-box span{
+    position: absolute;
+    right: 0;
+    cursor: pointer;
+    user-select: none;
+}
+
+.new-channel-member-box span:hover {
+    color: lightgreen;
+}
+
+.new-channel-member-box input {
+    max-width: 100px;
+    padding: .125rem;
+    text-align: center;
+}

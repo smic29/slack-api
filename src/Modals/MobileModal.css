@@ -12,7 +12,7 @@
 
 .mobile-modal-content-box {
     background-color: whitesmoke;
-    width: min-content;
+    width: max-content;
     height: min-content;
     position: absolute;
     padding: 1rem;

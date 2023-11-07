@@ -9,12 +9,11 @@
     border-radius: 1rem;
     display: flex;
     flex-direction: column;
-    overflow-y: hidden;
+    overflow-y: auto;
     transition: overflow-y 0.3s ease-in-out;
     padding: 0.5rem;
     padding-bottom: 1rem;
     font-size: .8rem;
-    /* border: 1px solid black; */
     height: calc(100vh - 20vh);
     box-sizing: border-box;
 }
@@ -26,10 +25,6 @@
 .msg-box::-webkit-scrollbar-thumb {
     border-radius:0.5rem;
     background-color: rgba(0, 0, 0, 0.3);
-}
-
-.msg-box:hover {
-    overflow-y: auto;
 }
 
 .user, .other {

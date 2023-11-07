@@ -61,6 +61,9 @@ const DataProvider = ({children}) => {
     const [ messages, setMessages ] = useState([]);
     const [ isLoadingMsgs, setIsLoadingMsgs] = useState(false);
 
+    //Channel-Related
+    const [ memberList, setMemberList ] = useState([]);
+
     useEffect(() => {
         const fetchMsgs = async () => {
             const dmsUrl = `${API_URL}/messages?`
@@ -106,7 +109,9 @@ const DataProvider = ({children}) => {
             isLoadingUB, setIsLoadingUB,
             isLoadingMsgs, setIsLoadingMsgs,
             isModalOpen, modalPosition, setModalPosition, setIsModalOpen,
-            mobileModal, setMobileModal}}>
+            mobileModal, setMobileModal,
+            memberList, setMemberList
+            }}>
             {children}
         </DataContext.Provider>
     )

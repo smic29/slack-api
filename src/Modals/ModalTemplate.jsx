@@ -5,6 +5,7 @@ import { useData } from '../Context/DataProvider';
 
 function ModalTemplate() {
     const { activeModal } = useData();
+    const test = 'git error';
 
     function RenderModal() {
         switch (activeModal) {

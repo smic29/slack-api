@@ -3,6 +3,7 @@ import { useData } from '../Context/DataProvider';
 import { useEffect } from 'react';
 import UserBox from '../Components/Navigation/UserBox';
 import CreateChannel from '../Components/Channels/CreateChannel';
+import ChannelMemberList from '../Components/ChannelMemberList';
 
 function MobileModal() {
     const { isModalOpen, setIsModalOpen,
@@ -36,6 +37,8 @@ function MobileModal() {
                 return <UserBox />
             case 'createChannel':
                 return <CreateChannel />
+            case 'channelMembers':
+                return <ChannelMemberList />
             default:
                 return null;
         }
@@ -53,17 +56,5 @@ function MobileModal() {
         </div>
     )
 }
-
-// export const handleModalClicks = (e) => {
-    
-//     const buttonRect = e.target.getBoundingClient();
-//     const position = {
-//         top: buttonRect.bottom + 'px',
-//         left: buttonRect.left + 'px',
-//     }
-
-//     setModalPosition(position)
-//     setIsModalOpen(true)
-// }
 
 export default MobileModal

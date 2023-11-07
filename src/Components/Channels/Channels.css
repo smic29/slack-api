@@ -117,7 +117,7 @@
     font-size: 1.25rem;
 }
 
-.channel-member-list {
+/* .channel-member-list {
     position: fixed;
     right: 33%;
     top: 33%;
@@ -164,5 +164,5 @@
     max-width: 100px;
     padding: .125rem;
     text-align: center;
-}
+} */
 

@@ -1,19 +1,19 @@
 import './Channels.css'
 import { useData } from '../../Context/DataProvider'
-import { useEffect, useRef, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { API_URL } from '../../Constants/Constants';
 import axios from 'axios';
 import ChannelMsgBox from '../ChannelMsgBox';
 
 function Channels() {
     const { userHeaders, userBase, user,
-    setModalPosition, setIsModalOpen, setMobileModal } = useData();
+    setModalPosition, setIsModalOpen, setMobileModal, memberList, setMemberList 
+    } = useData();
     const [ currentChannel, setIsCurrentChannel ] = useState('');
     const [ channelOnScreen, setChannelOnScreen ] = useState('');
     const [ channelData, setChannelData ] = useState([]);
     const [ messages, setMessages ] = useState([]);
     const [ hasSentAMsg, setHasSentAMsg ] = useState(false);
-    const [ memberList, setMemberList ] = useState([]);
     const [ isExpanded, setIsExpanded ] = useState(false);
 
     useEffect(() => {
@@ -74,6 +74,18 @@ function Channels() {
         setIsModalOpen(true);
     }
 
+    const handleModalClickMembers = (e) => {
+        const buttonRect = e.target.getBoundingClientRect();
+        const position = {
+            top: buttonRect.top + 30 + 'px',
+            left: buttonRect.left - 290 + 'px',
+        };
+
+        setMobileModal('channelMembers');
+        setModalPosition(position);
+        setIsModalOpen(true);
+    }
+
     const [ isAddingUser, setIsAddingUser ] = useState(false);
     const [ newChMemberId, setNewChMemberId ] = useState('');
 
@@ -124,7 +136,9 @@ function Channels() {
             <div className='channelpage-one'>
                 <nav className='msg-box-nav'>
                     <h1>{channelOnScreen !== '' ? `CH ID: ${channelOnScreen}` : 'Channels'}</h1>
-                    {channelOnScreen !== '' && <div className='channel-headerbox'>
+                    {channelOnScreen !== '' && 
+                    <div className='channel-headerbox'
+                    onClick={handleModalClickMembers}>
                         <span class="material-symbols-outlined">
                         group
                         </span>
@@ -147,7 +161,7 @@ function Channels() {
                         onClick={() => handleChannelSelect(channel.id)}
                         className={channelOnScreen === channel.id ? 'ch-list selected' : 'ch-list'}>
                             <span class={channelOnScreen === channel.id ? 'material-symbols-outlined show' : 'material-symbols-outlined'}>
-                                check_circle
+                                chevron_right
                             </span>
                             <span>{channel.name}</span>
                         </div>
@@ -166,41 +180,6 @@ function Channels() {
                 }
             </div>
             <RenderChannel />
-            {currentChannel !== '' && (
-                <div className='channel-member-list'>
-                    {memberList.map((member) => {
-                        const user = userBase.find((user) => user.id === member.user_id);
-
-                        if(user) {
-                            return (
-                                <span key={member.id}>
-                                    {user.id}: {user.email}
-                                </span>
-                            )
-                        }
-                    })}
-                    <button className='channel-add-btn'
-                    onClick={handleAddUserClick}>
-                        {isAddingUser ? 'Back' : 'Add a User'}</button>
-                    {isAddingUser && (
-                    <div className='new-channel-member-box'>
-                        <input type='text'
-                        placeholder='User ID'
-                        value={newChMemberId}
-                        onChange={(e) => {
-                            const inputValue = e.target.value;
-                            if (/^[0-9]*$/.test(inputValue)){
-                                setNewChMemberId(e.target.value)
-                            }
-                        }} />
-                        <span class="material-symbols-outlined"
-                        onClick={handleAddNewChMember}>
-                        add
-                        </span>
-                    </div>
-                    )}
-                </div>
-            )}
         </div>
     )
 }
