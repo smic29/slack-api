@@ -109,13 +109,15 @@ function RenderDMBox(props) {
             }
 
             setHasSentAMsg(false);
+            console.log(`this code ran`)
         }
         if (hasSentAMsg) {
             fetchDMs();
         }
 
         fetchDMs();
-    }, [selectedDM, messages, hasSentAMsg])
+        // setInterval(() => fetchDMs(), 2000);
+    }, [selectedDM, hasSentAMsg])
     
     return (
         <ChannelMsgBox messages={messages} selectedDM={selectedDM}/>

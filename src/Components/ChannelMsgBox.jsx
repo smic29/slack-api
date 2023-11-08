@@ -44,7 +44,7 @@ function ChannelMsgBox(props) {
         if (msgContainerRef.current) {
             msgContainerRef.current.scrollTop = msgContainerRef.current.scrollHeight
         }
-    }, [selectedDM, messages])
+    }, [messages])
 
     const groupedMessages = FunctionService.groupMessagesByDate(messages);
 

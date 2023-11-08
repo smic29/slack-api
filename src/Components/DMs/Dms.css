@@ -1,22 +1,23 @@
 .Dms-CONTAINER {
-    display: flex;
-    flex-direction: column;
-    /* justify-content: center; */
-    align-items: center;
+    display: grid;
+    grid-template-columns: 20% auto;
+    grid-template-rows: 7.5% auto;
+    align-items: baseline;
     position: relative;
-    height: 100vh;
+    height: inherit;
 }
 
 .dms-navbox {
-    position: absolute;
+    /* position: absolute;
     top: 0;
-    left: 0;
+    left: 0; */
     width: 100%;
     margin: 0;
     display: flex;
     justify-content: space-between;
     align-items: center;
     background-color: lightblue;
+    grid-column: 1/3;
 }
 
 .dms-navbox h1 {
