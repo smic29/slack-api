@@ -63,6 +63,11 @@ const DataProvider = ({children}) => {
 
     //Channel-Related
     const [ memberList, setMemberList ] = useState([]);
+    const [ currentChannel, setIsCurrentChannel ] = useState(''); //Needs removal?
+    const [ channelOnScreen, setChannelOnScreen ] = useState('');
+
+    //Messaging Actions
+    const [ hasSentAMsg, setHasSentAMsg ] = useState(false);
 
     useEffect(() => {
         const fetchMsgs = async () => {
@@ -110,7 +115,10 @@ const DataProvider = ({children}) => {
             isLoadingMsgs, setIsLoadingMsgs,
             isModalOpen, modalPosition, setModalPosition, setIsModalOpen,
             mobileModal, setMobileModal,
-            memberList, setMemberList
+            memberList, setMemberList,
+            currentChannel, setIsCurrentChannel,
+            hasSentAMsg, setHasSentAMsg,
+            channelOnScreen, setChannelOnScreen
             }}>
             {children}
         </DataContext.Provider>
