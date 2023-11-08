@@ -53,6 +53,23 @@ function ChannelMemberList(props) {
         }
     }
 
+    const doesUserExist = () => {
+        if (newChMemberId !== ''){
+            const user = userBase.find((user) => 
+                parseInt(newChMemberId) === user.id
+            )
+
+            if(user){
+                if (memberList.find(member => member.user_id === user.id)) {
+                    return 'Already in this channel'
+                } else {
+                    return user.email;
+                }
+            }
+        } 
+        return 'Does not exist'
+    }
+
     return (
         <div className='channel-member-list'>
             {memberList.map((member) => {
@@ -67,9 +84,10 @@ function ChannelMemberList(props) {
                     )
                 }
             })}
-            <button className='channel-add-btn'
+            <div className='add-member-box'>
+            <button className='channel-add-btn material-symbols-outlined'
             onClick={handleAddUserClick}>
-                {isAddingUser ? 'Back' : 'Add a User'}</button>
+                {isAddingUser ? 'keyboard_backspace' : 'person_add'}</button>
             {isAddingUser && (
             <div className='new-channel-member-box'>
                 <input type='text'
@@ -82,12 +100,22 @@ function ChannelMemberList(props) {
                         setNewChMemberId(e.target.value)
                     }
                 }} />
-                <span class="material-symbols-outlined"
+                <span className={`material-symbols-outlined 
+                ${newChMemberId !== '' ? 
+                doesUserExist() === 'Does not exist' ||
+                doesUserExist() === 'Already in this channel' ? 
+                'cantadd' : 'canadd'
+                : ''
+                }`}
                 onClick={handleAddNewChMember}>
                 add
                 </span>
+                <p className='add-member-isExisting'>
+                    {newChMemberId !== '' && doesUserExist()}
+                </p>
             </div>
             )}
+            </div>
         </div>
     )
 }
