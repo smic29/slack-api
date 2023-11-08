@@ -1,14 +1,23 @@
-import { NavLink, Outlet } from "react-router-dom";
+import { NavLink, Outlet, useNavigate, useLocation } from "react-router-dom";
 import './Navigation.css'
 import { useData } from "../../Context/DataProvider";
 import ModalTemplate from "../../Modals/ModalTemplate";
 import { useState } from "react";
 import MobileModal from "../../Modals/MobileModal";
 
+const determineCurrentPage = (path) => {
+    const parts = path.split('/');
+    return parts[parts.length - 1] || 'home';
+}
+
 function Navigation() {
     const { isLoggedIn, isModalOpen, handleLogout,
     setIsModalOpen, setModalPosition, setMobileModal } = useData();
-    const [ currentPage, setCurrentPage ] = useState('home');
+    // const [ currentPage, setCurrentPage ] = useState('home');
+    const navigate = useNavigate();
+    const location = useLocation();
+    const pathName = location.pathname;
+    const currentPage = determineCurrentPage(pathName);
 
     const handleModalClicks = (e) => {
     
@@ -28,8 +37,7 @@ function Navigation() {
             <header className="navbar-header">
                 {isLoggedIn ? (<nav>
                     <NavLink className={`item ${currentPage === 'home' ? 'nav-selected' : ''}`} 
-                    to='/'
-                    onClick={() => setCurrentPage('home')}>
+                    to='/'>
                         <div className="nav-iconbox">
                         <span class="material-symbols-outlined">
                         home_app_logo
@@ -38,8 +46,7 @@ function Navigation() {
                         </div>
                         </NavLink>
                     <NavLink className={`item ${currentPage === 'channels' ? 'nav-selected' : ''}`} 
-                    to='channels'
-                    onClick={() => setCurrentPage('channels')}>
+                    to='channels'>
                     <div className="nav-iconbox">
                         <span class="material-symbols-outlined">
                         chat
@@ -48,8 +55,7 @@ function Navigation() {
                         </div>
                         </NavLink>
                     <NavLink className={`item ${currentPage === 'dms' ? 'nav-selected' : ''}`} 
-                    to='dms'
-                    onClick={() => setCurrentPage('dms')}>
+                    to='dms'>
                     <div className="nav-iconbox">
                         <span class="material-symbols-outlined">
                         forum
@@ -66,7 +72,7 @@ function Navigation() {
                 </div>
             </header>
             <div className="outlet">
-            {isLoggedIn ? (<Outlet />) : (<ModalTemplate />)}
+            {isLoggedIn ? (<Outlet />) : (<ModalTemplate navigate={navigate}/>)}
             </div>
             {isModalOpen ? <MobileModal /> : null}
         </div>

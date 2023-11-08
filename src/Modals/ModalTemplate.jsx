@@ -3,7 +3,8 @@ import LoginPage from '../Components/Landing Page/LoginPage';
 import NewUserForm from '../Components/Landing Page/NewUserForm';
 import { useData } from '../Context/DataProvider';
 
-function ModalTemplate() {
+function ModalTemplate(props) {
+    const { navigate } = props;
     const { activeModal } = useData();
     const error = 'github has an error with this file';
 
@@ -12,7 +13,7 @@ function ModalTemplate() {
             case 'newUser':
                 return <NewUserForm />
             default:
-                return <LoginPage />
+                return <LoginPage navigate={navigate} />
         }
     }
 

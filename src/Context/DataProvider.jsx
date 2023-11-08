@@ -18,6 +18,8 @@ const DataProvider = ({children}) => {
         setUser('');
         setUserHeaders('');
         setMessages([]);
+        setChannelOnScreen('');
+        setIsCurrentChannel('');
     }
 
     //User Related

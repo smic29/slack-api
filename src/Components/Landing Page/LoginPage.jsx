@@ -4,7 +4,8 @@ import { useState } from 'react';
 import axios from 'axios';
 import { API_URL } from '../../Constants/Constants';
 
-function LoginPage() {
+function LoginPage(props) {
+    const { navigate } = props;
     const { 
         handleLogin, 
         handleActiveModal, 
@@ -29,6 +30,7 @@ function LoginPage() {
                 email, password,
             })
 
+            navigate('/');
             handleLogin(response.data);
             handleHeaders(response.headers)
 
