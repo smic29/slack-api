@@ -61,6 +61,11 @@ const FunctionService = {
             ${date.toLocaleDateString(undefined, options2)} ${FormattedDay}
             `;
         }
+    },
+
+    determineCurrentPage:  function(path) {
+        const parts = path.split('/');
+        return parts[parts.length - 1] || 'home';
     }
 }
 

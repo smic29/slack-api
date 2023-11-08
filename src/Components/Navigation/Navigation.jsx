@@ -2,22 +2,17 @@ import { NavLink, Outlet, useNavigate, useLocation } from "react-router-dom";
 import './Navigation.css'
 import { useData } from "../../Context/DataProvider";
 import ModalTemplate from "../../Modals/ModalTemplate";
-import { useState } from "react";
 import MobileModal from "../../Modals/MobileModal";
-
-const determineCurrentPage = (path) => {
-    const parts = path.split('/');
-    return parts[parts.length - 1] || 'home';
-}
+import FunctionService from "../../Services/FunctionService";
 
 function Navigation() {
-    const { isLoggedIn, isModalOpen, handleLogout,
-    setIsModalOpen, setModalPosition, setMobileModal } = useData();
-    // const [ currentPage, setCurrentPage ] = useState('home');
+    const { isLoggedIn, isModalOpen,
+    setIsModalOpen, setModalPosition, setMobileModal,
+    } = useData();
     const navigate = useNavigate();
     const location = useLocation();
     const pathName = location.pathname;
-    const currentPage = determineCurrentPage(pathName);
+    const currentPage = FunctionService.determineCurrentPage(pathName);
 
     const handleModalClicks = (e) => {
     

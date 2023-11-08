@@ -4,6 +4,7 @@ import { useState, useRef, useEffect } from 'react';
 import TypeBox from '../Textarea';
 import { API_URL } from '../../Constants/Constants';
 import axios from 'axios';
+import ChannelMsgBox from '../ChannelMsgBox';
 
 function Dms() {
     const [ selectedDM, setSelectedDM ] = useState('');
@@ -90,31 +91,34 @@ function RenderList(props) {
 }
 
 function RenderDMBox(props) {
-    const { messages, user } = useData();
-    const { selectedDM, body, setBody, handleSend } = props
-    const msgContainerRef = useRef(null);
+    const { userHeaders, userBase, hasSentAMsg, setHasSentAMsg } = useData();
+    const { selectedDM } = props;
+    const [ messages, setMessages ] = useState([]);
 
     useEffect(() => {
-        if (msgContainerRef.current) {
-            msgContainerRef.current.scrollTop = msgContainerRef.current.scrollHeight
+        const fetchDMs = async () => {
+            try {
+                const convertID = userBase.find((user) => selectedDM === user.email); 
+                const url = `${API_URL}/messages?receiver_id=${convertID.id}&receiver_class=User`
+
+                const response = await axios.get(url, {headers:userHeaders})
+
+                setMessages(response.data.data);
+            } catch(error) {
+                console.error(error)
+            }
+
+            setHasSentAMsg(false);
         }
-    }, [selectedDM, messages])
+        if (hasSentAMsg) {
+            fetchDMs();
+        }
+
+        fetchDMs();
+    }, [selectedDM, messages, hasSentAMsg])
     
     return (
-        <div className='dm-msgbox-Container'>
-        <div className='dm-msgbox' ref={msgContainerRef}>
-            {messages
-            .filter((msgObj) => msgObj.sender.email === selectedDM || msgObj.receiver.email === selectedDM)
-            .map((msg) => (
-                <div key={msg.id}
-                className={msg.sender.email === user.data.email ? 'dm-user' : 'dm-other'}>
-                <p>{msg.body}</p>
-                <span>{msg.sender.email}</span>
-                </div>
-            ))}
-        </div>
-        <TypeBox body={body} setBody={setBody} handleSend={handleSend}/>
-        </div>
+        <ChannelMsgBox messages={messages} selectedDM={selectedDM}/>
     )
 }
 

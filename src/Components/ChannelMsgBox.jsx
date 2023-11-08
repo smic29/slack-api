@@ -5,25 +5,33 @@ import axios from 'axios';
 import TypeBox from './Textarea';
 import { useData } from '../Context/DataProvider';
 import { useState, useRef, useEffect } from 'react';
+import { useLocation } from 'react-router-dom';
 
 function ChannelMsgBox(props) {
-    const { messages, setHasSentAMsg, channelOnScreen } = props;
-    const { user, userHeaders } = useData();
+    const { messages, channelOnScreen,
+    selectedDM
+    } = props;
+    const { user, userHeaders, userBase, setIsLoadingMsgs,
+    setHasSentAMsg } = useData();
     const [ body, setBody ] = useState('');
     const msgContainerRef = useRef(null);
+    const location = useLocation();
+    const pathName = location.pathname;
+    const currentPage = FunctionService.determineCurrentPage(pathName);
 
     const handleSend = async() => {
         try {
             const url = `${API_URL}/messages`
+            const convertID = userBase.find((user) => selectedDM === user.email);
             const sendData = {
-                'receiver_id': channelOnScreen,
-                'receiver_class': "Channel",
+                'receiver_id': currentPage === 'dms'? convertID.id : channelOnScreen,
+                'receiver_class': currentPage === 'dms'? "User" : "Channel",
                 'body': body,
             }
             const response = await axios.post(url, sendData, {headers:userHeaders})
 
             setBody('')
-            setHasSentAMsg(true);
+            setHasSentAMsg(true)
             // alert(`Message sent`)
         } catch(error) {
             alert(error)
@@ -36,7 +44,7 @@ function ChannelMsgBox(props) {
         if (msgContainerRef.current) {
             msgContainerRef.current.scrollTop = msgContainerRef.current.scrollHeight
         }
-    }, [messages])
+    }, [selectedDM, messages])
 
     const groupedMessages = FunctionService.groupMessagesByDate(messages);
 
@@ -52,7 +60,31 @@ function ChannelMsgBox(props) {
                             :'date'}>
                             {FunctionService.formatDate(date)}
                         </legend>
-                {messages.map((message) => (
+                {currentPage === 'dms' ?
+                messages
+                .filter((msg) => msg.sender.email === selectedDM || msg.receiver.email === selectedDM)
+                .map((message) => (
+                    <div key={message.id}
+                    className={
+                        message.body.includes('..:') 
+                        ? 'system-msg'
+                        : message.sender.id === user.data.id 
+                        ? 'user' 
+                        : 'other'
+                        }>
+                        {message.body.includes("..:") ? (
+                            <>
+                            {message.body.replace('..:','')}
+                            </>
+                        ) : (
+                        <>
+                            {message.body}
+                            <span>{message.sender.email}</span>
+                        </>
+                        )}
+                    </div>
+                ))
+                :messages.map((message) => (
                     <div key={message.id}
                     className={
                         message.body.includes('..:') 
