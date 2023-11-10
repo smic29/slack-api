@@ -70,10 +70,12 @@ const DataProvider = ({children}) => {
             .filter((email) => email !== ''))
     )
 
-    //Channel-Related
+    //Channel-Related and DM-Related
     const [ memberList, setMemberList ] = useState([]);
     const [ currentChannel, setIsCurrentChannel ] = useState(''); //Needs removal?
     const [ channelOnScreen, setChannelOnScreen ] = useState('');
+    const [ selectedDM, setSelectedDM ] = useState('');
+    const [ isExpanded, setIsExpanded ] = useState(false);
 
     //Messaging Actions
     const [ hasSentAMsg, setHasSentAMsg ] = useState(false);
@@ -127,7 +129,9 @@ const DataProvider = ({children}) => {
             memberList, setMemberList,
             currentChannel, setIsCurrentChannel,
             hasSentAMsg, setHasSentAMsg,
-            channelOnScreen, setChannelOnScreen, uniqueSenders
+            channelOnScreen, setChannelOnScreen, uniqueSenders,
+            selectedDM, setSelectedDM,
+            isExpanded, setIsExpanded
             }}>
             {children}
         </DataContext.Provider>

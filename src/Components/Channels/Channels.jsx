@@ -9,11 +9,10 @@ function Channels() {
     const { userHeaders,
     setModalPosition, setIsModalOpen, setMobileModal, memberList, setMemberList,
     currentChannel, setIsCurrentChannel, hasSentAMsg, setHasSentAMsg,
-    channelOnScreen, setChannelOnScreen 
+    channelOnScreen, setChannelOnScreen, isExpanded, setIsExpanded
     } = useData();
     const [ channelData, setChannelData ] = useState([]);
     const [ messages, setMessages ] = useState([]);
-    const [ isExpanded, setIsExpanded ] = useState(false);
 
     useEffect(() => {
         const fetchChannels = async () => {

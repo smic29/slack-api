@@ -6,8 +6,7 @@ import axios from 'axios';
 import ChannelMsgBox from '../ChannelMsgBox';
 
 function Dms() {
-    const [ selectedDM, setSelectedDM ] = useState('');
-    const { userBase, uniqueSenders } = useData();
+    const { userBase, uniqueSenders, selectedDM, setSelectedDM } = useData();
 
     const handleDMSelect = (email) => {
         setSelectedDM(email)
@@ -23,17 +22,17 @@ function Dms() {
                 ? `New Message to `: IdDisplay.id}: ${selectedDM}`
             :'Direct Messages'}</h1>
             </nav>
-            <RenderList handleDMSelect={handleDMSelect} selectedDM={selectedDM}/>
+            <RenderList handleDMSelect={handleDMSelect}/>
             {selectedDM !== '' &&  (
-            <RenderDMBox selectedDM={selectedDM}/>
+            <RenderDMBox/>
             )}
         </div>
     )
 }
 
 function RenderList(props) {
-    const { uniqueSenders, user, userBase } = useData();
-    const { selectedDM, handleDMSelect } = props;
+    const { uniqueSenders, user, userBase, selectedDM } = useData();
+    const { handleDMSelect } = props;
     const [ isSendingNew, setIsSendingNew ] = useState(false);
     const [ id, setID ] = useState('');
 
@@ -122,9 +121,9 @@ function RenderList(props) {
     )
 }
 
-function RenderDMBox(props) {
-    const { userHeaders, userBase, hasSentAMsg, setHasSentAMsg } = useData();
-    const { selectedDM } = props;
+function RenderDMBox() {
+    const { userHeaders, userBase, hasSentAMsg, setHasSentAMsg,
+    selectedDM } = useData();
     const [ messages, setMessages ] = useState([]);
 
     useEffect(() => {
