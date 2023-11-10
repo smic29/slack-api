@@ -61,7 +61,8 @@ function Navigation() {
                 </nav>) : ''}
                 <div className="user-box">
                     <span class="material-symbols-outlined"
-                    onClick={handleModalClicks}>
+                    onClick={handleModalClicks}
+                    data-testid='user-modalTrigger'>
                     account_box
                     </span>
                 </div>

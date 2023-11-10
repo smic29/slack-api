@@ -63,7 +63,8 @@ function NewUserForm() {
             ${email === '' || password === '' || password !== confirmPw ? 
             'disabled' : ''}`}
             type="submit" 
-            value={'Create'}/>
+            value={'Create'}
+            data-testid='createButton'/>
             <span
             class='material-symbols-outlined' 
             onClick={() => handleActiveModal('')}>
