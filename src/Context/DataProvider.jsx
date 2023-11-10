@@ -62,6 +62,13 @@ const DataProvider = ({children}) => {
     //Message Storage
     const [ messages, setMessages ] = useState([]);
     const [ isLoadingMsgs, setIsLoadingMsgs] = useState(false);
+    const uniqueSenders = Array.from(
+        new Set(messages
+            .flatMap((msg) => [
+            msg.sender.email === user.data.email ? '' : msg.sender.email,
+            msg.receiver.email === user.data.email ? '' : msg.receiver.email])
+            .filter((email) => email !== ''))
+    )
 
     //Channel-Related
     const [ memberList, setMemberList ] = useState([]);
@@ -120,7 +127,7 @@ const DataProvider = ({children}) => {
             memberList, setMemberList,
             currentChannel, setIsCurrentChannel,
             hasSentAMsg, setHasSentAMsg,
-            channelOnScreen, setChannelOnScreen
+            channelOnScreen, setChannelOnScreen, uniqueSenders
             }}>
             {children}
         </DataContext.Provider>

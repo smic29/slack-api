@@ -9,7 +9,7 @@ import ChannelMsgBox from '../ChannelMsgBox';
 function Dms() {
     const [ selectedDM, setSelectedDM ] = useState('');
     const [ body, setBody ] = useState('');
-    const { userBase, userHeaders, setIsLoadingMsgs } = useData();
+    const { userBase, userHeaders, setIsLoadingMsgs, uniqueSenders } = useData();
 
     const handleDMSelect = (email) => {
         setSelectedDM(email)
@@ -41,7 +41,8 @@ function Dms() {
         <div className='Dms-CONTAINER'>
             <nav className='dms-navbox'>
             <h1>{selectedDM !== '' && selectedDM !== 'newMsg' 
-            ? `${IdDisplay ? IdDisplay.id : ''}: ${selectedDM}`
+            ? `${!uniqueSenders.find((email) => email === selectedDM) 
+                ? `New Message to `: IdDisplay.id}: ${selectedDM}`
             :'Direct Messages'}</h1>
             </nav>
             <RenderList handleDMSelect={handleDMSelect} selectedDM={selectedDM}/>
@@ -60,29 +61,78 @@ function Dms() {
 }
 
 function RenderList(props) {
-    const { messages, user } = useData();
+    const { uniqueSenders, user, userBase } = useData();
     const { selectedDM, handleDMSelect } = props;
+    const [ isSendingNew, setIsSendingNew ] = useState(false);
+    const [ id, setID ] = useState('');
 
-    const uniqueSenders = Array.from(
-        new Set(messages
-            .flatMap((msg) => [
-            msg.sender.email === user.data.email ? '' : msg.sender.email,
-            msg.receiver.email === user.data.email ? '' : msg.receiver.email])
-            .filter((email) => email !== ''))
-    )
+    useEffect(() => {
+        setIsSendingNew(false)
+    },[selectedDM])
+
+    const doesUserExist = () => {
+        if (id !== ''){
+            const userTarget = userBase.find((user) => 
+                parseInt(id) === user.id
+            )
+            if (userTarget) {
+                if (userTarget.id === user.data.id) {
+                    return 'This is you lol'
+                }
+                return userTarget.email
+            }
+        } 
+        return 'Does not Exist'
+    }
+
+    const handleNewMsg = () => {
+        const newMsgUser = userBase.find((user) => parseInt(id) === user.id)
+        handleDMSelect(newMsgUser.email)
+    }
     
     return (
         <div className='dms-renderlist'>
-            <div className='buttons'>
+            {isSendingNew === true ? 
+                <div className='dm-user-search'>
+                    <span className='material-symbols-outlined search-static'>
+                        search
+                    </span>
+                    <input 
+                    className='dm-search-input'
+                    placeholder='User ID'
+                    type='text'
+                    autoFocus
+                    value={id}
+                    maxLength={4}
+                    onChange={(e) => {
+                        const inputValue = e.target.value;
+                        if (/^[0-9]*$/.test(inputValue)){
+                            setID(e.target.value)
+                        }
+                    }}/>
+                    <span className={`search-exist 
+                    ${id === '' ? 'blank-input' : ''}
+                    `}>{id !== '' && doesUserExist()}</span>
+                    <span 
+                    onClick={handleNewMsg}
+                    className={`material-symbols-outlined go-button
+                    ${doesUserExist() !== 'Does not Exist' && doesUserExist() !== 'This is you lol'
+                     ? '' : 'cannot-send'}
+                    ${id === '' ? 'blank-input' : ''}`}>
+                        {doesUserExist() !== 'Does not Exist' && doesUserExist() !== 'This is you lol' ? 'keyboard_arrow_right'
+                        : 'block' }
+                    </span>
+                </div>
+            : <div className='buttons'>
                 <button
                 className='sendToNewUser'
-                onClick={() => handleDMSelect('newMsg')}
+                onClick={() => setIsSendingNew(true)}
                 >
                     <span className='material-symbols-outlined'>
                             person_search
                     </span>
                     Send to New</button>
-            </div>
+            </div>}
             <div className='msg-list'>
                 {uniqueSenders
                 .map((user,index) => (

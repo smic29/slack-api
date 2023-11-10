@@ -31,6 +31,7 @@ function ChannelMsgBox(props) {
             const response = await axios.post(url, sendData, {headers:userHeaders})
 
             setBody('')
+            setIsLoadingMsgs(true)
             setHasSentAMsg(true)
             // alert(`Message sent`)
         } catch(error) {

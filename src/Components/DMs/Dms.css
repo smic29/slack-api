@@ -74,11 +74,6 @@
     padding: 0;
 }
 
-.buttons {
-    display: flex;
-    flex-direction: column;
-}
-
 .sendToNewUser {
     display: flex;
     align-items: center;
@@ -100,4 +95,70 @@
     color: white;
     font-weight: bold;
     background-color: lightblue;
+}
+
+.dm-user-search {
+    position: relative;
+    margin-bottom: 1rem;
+}
+
+.dm-search-input {
+    font-family: 'Montserrat';
+    max-width: 170px;
+    text-align: center;
+    font-size: 1rem;
+    padding: 5px;
+}
+
+.material-symbols-outlined.search-static {
+    position: absolute;
+    left: 0;
+    top: 15%;
+    color: lightslategray;
+    margin-left: 1px;
+    user-select: none;
+}
+
+.material-symbols-outlined.go-button {
+    position: absolute;
+    right: 0;
+    top: 15%;
+    margin-right: 2px;
+    user-select: none;
+}
+
+.material-symbols-outlined.go-button:hover {
+    color: lightgreen;
+    cursor: pointer;
+}
+
+.cannot-send {
+    color: lightcoral;
+    pointer-events: none;
+}
+
+.search-exist {
+    position: absolute;
+    width: 100%;
+    bottom: -80%;
+    left: 0;
+    box-sizing: border-box;
+    border: 1px dotted lightslategray;
+    padding: 5px;
+    text-align: center;
+    font-size: .75rem;
+    background-color: whitesmoke;
+    text-overflow: ellipsis;
+    text-align: left;
+    white-space: nowrap;
+    overflow: hidden;
+    visibility: hidden;
+}
+
+.dm-search-input:focus + .search-exist{
+    visibility: visible;
+}
+
+.blank-input {
+    display: none;
 }
