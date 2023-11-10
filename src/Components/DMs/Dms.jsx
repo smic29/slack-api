@@ -60,7 +60,7 @@ function Dms() {
 }
 
 function RenderList(props) {
-    const { messages, user, userBase } = useData();
+    const { messages, user } = useData();
     const { selectedDM, handleDMSelect } = props;
 
     const uniqueSenders = Array.from(
@@ -73,18 +73,29 @@ function RenderList(props) {
     
     return (
         <div className='dms-renderlist'>
+            <div className='buttons'>
+                <button
+                className='sendToNewUser'
+                onClick={() => handleDMSelect('newMsg')}
+                >
+                    <span className='material-symbols-outlined'>
+                            person_search
+                    </span>
+                    Send to New</button>
+            </div>
             <div className='msg-list'>
                 {uniqueSenders
                 .map((user,index) => (
-                    <p key={index}
+                    <div key={index}
                     onClick={() => handleDMSelect(user)}
-                    className={user === selectedDM ? 'selected' : ''}>{user}</p>
+                    className={user === selectedDM ? 'selected' : ''}>
+                        {user === selectedDM && 
+                        <span class='material-symbols-outlined'>
+                                chevron_right
+                        </span>}
+                        <p>{user}</p>
+                    </div>
                 ))}
-            </div>
-            <div className='buttons'>
-                <button
-                onClick={() => handleDMSelect('newMsg')}
-                >Send to New</button>
             </div>
         </div>
     )
