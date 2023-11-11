@@ -15,7 +15,7 @@
 - [x] User is able to receive message from his/her channels
 
 ## Added Challenges
-- [ ] Have tests for each component
+- [x] Have Unit testing for components
 - [ ] Themes for different users
 
 ## Personal Challenges
@@ -25,35 +25,109 @@
   - Classes are added via a string indicator '..:"
 - [ ] Custom alerts and notifications
 
-## Component Tests (Work In Progress, Tests below no longer applies to current commit)
-1. App.js test on landing page
+## Component Tests
+### App.js Test Suite
+- The page defaults to Login
 ```jsx
-test('Page loads to Landing Page', () => {
+test('Defaults to login page', () => {
   render(<App />);
-  const logInScreen = screen.getByText(/username/i);
+  const logInScreen = screen.getByText(/email/i);
   expect(logInScreen).toBeInTheDocument();
 });
-```
-2. Login Successful
-```jsx
-global.alert = jest.fn();
-test('User is able to log in', () => {
-  render(<App />)
+
+test('login can switch to user-creation', () => {
+  render(<App />);
+  const createAccount = screen.getByText(/sign up here/i);
+  
   act(() => {
-      const userNameInput = screen.getByPlaceholderText(/username/i);
-      userEvent.type(userNameInput, 'USERNAME');
-
-      const passwordInput = screen.getByPlaceholderText('Enter password');
-      userEvent.type(passwordInput, 'PASSWORD');
-
-      const loginButton = screen.getByTestId('loginButton');
-      userEvent.click(loginButton);
-      
-      expect(global.alert).toHaveBeenCalledWith('Welcome, Spicy!');
+    userEvent.click(createAccount);
   })
+
+  const createUser = screen.getByText(/login information/i);
+  expect(createUser).toBeInTheDocument();
+  expect(createAccount).not.toBeInTheDocument()
 })
 ```
-- This test would need to be updated once I remove alerts and switch to custom notifications.
+- Create Button is disabled if inputs are empty
+```jsx
+test('create button is disabled if inputs are empty', () => {
+  render(<App />);
+  const createAccount = screen.getByText(/sign up here/i);
+  
+  act(() => {
+    userEvent.click(createAccount);
+  })
+
+  const createButton = screen.getByTestId('createButton');
+  expect(createButton).toHaveClass('disabled');
+})
+```
+- Back button in create user form returns the user to the login page
+```jsx
+test('back button returns to the login page', () => {
+  render(<App />);
+  const createAccount = screen.getByText(/sign up here/i);
+  
+  act(() => {
+    userEvent.click(createAccount);
+  })
+
+  const backButton = screen.getByTestId('backButton');
+  act(() => {
+    userEvent.click(backButton);
+  })
+  
+  const logInScreen = screen.getByText(/email/i);
+  expect(logInScreen).toBeInTheDocument();
+})
+```
+- User is able to log in using test account
+```jsx
+test('user is able to log in', async() => {
+  render(<App />);
+  act(() => {
+    const userNameInput = screen.getByPlaceholderText(/email/i);
+    const passwordInput = screen.getByPlaceholderText('Enter password');
+
+    userEvent.type(userNameInput, 'spicy@test3.com');
+    userEvent.type(passwordInput, '12345678')
+  })
+
+  const loginButton = screen.getByTestId('loginButton');
+
+  act(() => {
+    userEvent.click(loginButton);
+  })
+
+  await waitFor(() => {
+    const homepage = screen.getByText(/information/i);
+    expect(homepage).toBeInTheDocument();
+  })
+
+  const signedIn = screen.getByText(/you are signed in as/i);
+  expect(signedIn).toHaveTextContent('You are signed in as: spicy@test3.com')
+})
+```
+- User is able to log out
+```jsx
+test('user is able to log out', async() => {
+  await performLogin();
+
+  const modalTrigger = screen.getByTestId('user-modalTrigger');
+  expect(modalTrigger).toBeInTheDocument();
+
+  act(()=>{userEvent.click(modalTrigger)});
+
+  const logoutButton = screen.getByText('Sign Out of Slack');
+  expect(logoutButton).toBeInTheDocument();
+
+  act(()=>{userEvent.click(logoutButton)});
+
+  const logInScreen = screen.getByText(/email/i);
+  expect(logInScreen).toBeInTheDocument();
+})
+```
+I turned the login function from the previous test into a function that could be called by the final test suite test since I would be using the login process for other test suites. I saved it in `TestUtils.js` and imported that file in `App.test.js`.
 
 ## Acknowledgements
 Thanks to my Avion School Batch 31 batchmates for providing their keen insights and offering solutions to some of the coding problems I had:
