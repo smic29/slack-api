@@ -67,6 +67,7 @@ function NewUserForm() {
             data-testid='createButton'/>
             <span
             class='material-symbols-outlined' 
+            data-testid='backButton'
             onClick={() => handleActiveModal('')}>
                 arrow_back_ios</span>
         </form>
