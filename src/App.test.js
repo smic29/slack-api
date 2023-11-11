@@ -77,3 +77,20 @@ test('user is able to log in', async() => {
   const signedIn = screen.getByText(/you are signed in as/i);
   expect(signedIn).toHaveTextContent('You are signed in as: spicy@test3.com')
 })
+
+test('user is able to log out', async() => {
+  await performLogin();
+
+  const modalTrigger = screen.getByTestId('user-modalTrigger');
+  expect(modalTrigger).toBeInTheDocument();
+
+  act(()=>{userEvent.click(modalTrigger)});
+
+  const logoutButton = screen.getByText('Sign Out of Slack');
+  expect(logoutButton).toBeInTheDocument();
+
+  act(()=>{userEvent.click(logoutButton)});
+
+  const logInScreen = screen.getByText(/email/i);
+  expect(logInScreen).toBeInTheDocument();
+})
