@@ -10,3 +10,28 @@
     0% { transform: rotate(0deg);}
     100% { transform: rotate(360deg);}
 }
+
+.loading-container {
+    position: absolute;
+    width: inherit;
+    bottom: 0;
+    left: 0;
+}
+
+.loading-line {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    height: 2px;
+    background-color: darkblue;
+    animation: loadingAnimation 2s linear infinite;
+}
+
+@keyframes loadingAnimation {
+    0% {
+        width: 0;
+    }
+    100% {
+        width: 100%;
+    }
+}

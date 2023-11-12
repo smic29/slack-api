@@ -15,6 +15,7 @@
     align-items: center;
     background-color: lightblue;
     grid-column: 1/3;
+    position: relative;
 }
 
 .dms-navbox h1 {

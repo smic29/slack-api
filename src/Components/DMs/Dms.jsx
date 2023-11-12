@@ -4,9 +4,11 @@ import { useState, useEffect } from 'react';
 import { API_URL } from '../../Constants/Constants';
 import axios from 'axios';
 import ChannelMsgBox from '../ChannelMsgBox';
+import { LoadingLine } from '../Loading';
 
 function Dms() {
-    const { userBase, uniqueSenders, selectedDM, setSelectedDM } = useData();
+    const { userBase, uniqueSenders, selectedDM, setSelectedDM,
+    isLoadingMsgs } = useData();
 
     const handleDMSelect = (email) => {
         setSelectedDM(email)
@@ -21,6 +23,7 @@ function Dms() {
             ? `${!uniqueSenders.find((email) => email === selectedDM) 
                 ? `New Message to `: IdDisplay.id}: ${selectedDM}`
             :'Direct Messages'}</h1>
+            {isLoadingMsgs && <LoadingLine />}
             </nav>
             <RenderList handleDMSelect={handleDMSelect}/>
             {selectedDM !== '' &&  (

@@ -4,12 +4,13 @@ import { useEffect, useState } from 'react';
 import { API_URL } from '../../Constants/Constants';
 import axios from 'axios';
 import ChannelMsgBox from '../ChannelMsgBox';
+import { LoadingLine } from '../Loading';
 
 function Channels() {
     const { userHeaders,
     setModalPosition, setIsModalOpen, setMobileModal, memberList, setMemberList,
     currentChannel, setIsCurrentChannel, hasSentAMsg, setHasSentAMsg,
-    channelOnScreen, setChannelOnScreen, isExpanded, setIsExpanded
+    channelOnScreen, setChannelOnScreen, isExpanded, setIsExpanded, isLoadingMsgs
     } = useData();
     const [ channelData, setChannelData ] = useState([]);
     const [ messages, setMessages ] = useState([]);
@@ -97,6 +98,7 @@ function Channels() {
                         </span>
                         <span><strong>{memberList.length}</strong></span>
                     </div>}
+                    {isLoadingMsgs && <LoadingLine />}
                 </nav>
                 { channelData && channelData.length > 0 ?
                 (

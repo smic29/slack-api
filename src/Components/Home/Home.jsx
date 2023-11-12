@@ -3,7 +3,7 @@ import { useData } from "../../Context/DataProvider"
 import './Home.css'
 import axios from "axios";
 import { API_URL, formatTimestamp, timeSince } from "../../Constants/Constants";
-import Loading from "../Loading";
+import Loading, { LoadingLine } from "../Loading";
 import { useNavigateContext } from "../Navigation/Navigation";
 
 function Home() {
@@ -63,6 +63,7 @@ function Home() {
         <div className="home-container">
             <div className="home-nav">
                 <h1>Dashboard </h1>
+                {isLoadingMsgs && <LoadingLine />}
             </div>
             <div className="home-info-container">
             <fieldset className="information-box">

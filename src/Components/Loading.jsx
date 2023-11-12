@@ -8,4 +8,12 @@ function Loading() {
     )
 }
 
+export function LoadingLine() {
+    return (
+        <div className='loading-container'>
+        <div className='loading-line'></div>
+        </div>
+    )
+}
+
 export default Loading;
