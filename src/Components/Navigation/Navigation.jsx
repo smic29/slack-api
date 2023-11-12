@@ -4,6 +4,11 @@ import { useData } from "../../Context/DataProvider";
 import ModalTemplate from "../../Modals/ModalTemplate";
 import MobileModal from "../../Modals/MobileModal";
 import FunctionService from "../../Services/FunctionService";
+import { createContext, useContext } from "react";
+
+const NavigateContext = createContext();
+
+export const useNavigateContext = () => useContext(NavigateContext);
 
 function Navigation() {
     const { isLoggedIn, isModalOpen,
@@ -28,6 +33,7 @@ function Navigation() {
     }
 
     return (
+        <NavigateContext.Provider value={navigate}>
         <div className="navigation">
             <header className="navbar-header">
                 {isLoggedIn ? (<nav>
@@ -72,6 +78,7 @@ function Navigation() {
             </div>
             {isModalOpen ? <MobileModal /> : null}
         </div>
+        </NavigateContext.Provider>
     )
 }
 

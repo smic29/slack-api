@@ -4,15 +4,26 @@ import './Home.css'
 import axios from "axios";
 import { API_URL, formatTimestamp, timeSince } from "../../Constants/Constants";
 import Loading from "../Loading";
+import { useNavigateContext } from "../Navigation/Navigation";
 
 function Home() {
-    const { user, userHeaders, messages, isLoadingMsgs } = useData();
+    const { user, userHeaders, messages, isLoadingMsgs,
+        setIsExpanded, setChannelOnScreen, setIsCurrentChannel 
+     } = useData();
+    const navigate = useNavigateContext();
     const [ channelData, setChannelData ] = useState([]);
     const [ selectedChannel, setSelectedChannel ] = useState('');
     const [ channelMembers, setChannelMembers ] = useState('');
 
     const handleChannelSelect = (e) => {
         setSelectedChannel(e.target.value);
+    }
+
+    const handleGotoChannel = (chID) => {
+        setIsExpanded(true);
+        setChannelOnScreen(chID);
+        setIsCurrentChannel('displayChannel');
+        navigate('channels');
     }
 
     useEffect(() => {
@@ -57,7 +68,7 @@ function Home() {
                     onChange={handleChannelSelect}>
                     <option value='' 
                     disabled>
-                        Select a channel to display details</option>
+                        Select a channel</option>
                     {channelData.map((channel) => (
                         <option key={channel.id} value={channel.id}>
                             {channel.name}
@@ -77,8 +88,12 @@ function Home() {
                                     return (
                                         <div key={channel.id}>
                                             <p>Created: {formatTimestamp(channel.created_at)}</p>
-                                            <p>Last Update: {formatTimestamp(channel.updated_at)}</p>
                                             <p>Total Members: {channelMembers}</p>
+                                            <span 
+                                            onClick={() => handleGotoChannel(channel.id)}
+                                            className="go-to-channel-btn">
+                                                Go to Channel
+                                            </span>
                                         </div>
                                     )
                                 }
