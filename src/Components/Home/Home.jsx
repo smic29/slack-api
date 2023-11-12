@@ -8,12 +8,23 @@ import { useNavigateContext } from "../Navigation/Navigation";
 
 function Home() {
     const { user, userHeaders, messages, isLoadingMsgs,
-        setIsExpanded, setChannelOnScreen, setIsCurrentChannel 
+        setIsExpanded, setChannelOnScreen, setIsCurrentChannel, setSelectedDM,
+        userBase 
      } = useData();
     const navigate = useNavigateContext();
     const [ channelData, setChannelData ] = useState([]);
     const [ selectedChannel, setSelectedChannel ] = useState('');
     const [ channelMembers, setChannelMembers ] = useState('');
+    const [ selectedBox, setSelectedBox ] = useState('');
+
+    const handleBoxClick = (id) => {
+        setSelectedBox(id);
+    }
+
+    const handleGotoConvo = (email) => {
+        setSelectedDM(email);
+        navigate('dms');
+    }
 
     const handleChannelSelect = (e) => {
         setSelectedChannel(e.target.value);
@@ -120,10 +131,17 @@ function Home() {
                             return uniqueMessages;
                           }, {})
                       ).map((msg) => (
-                        <div className="home-rmMsgBox" key={msg.id}>
+                        <div className="home-rmMsgBox" key={msg.id}
+                        onMouseEnter={() => handleBoxClick(msg.sender.email)}
+                        onMouseLeave={() => handleBoxClick('')}>
                           <legend className="rmMsgBox-legend">{msg.sender.email}</legend>
                           <p>{msg.body}</p>
                           <span>{timeSince(msg.created_at)}</span>
+                          {selectedBox === msg.sender.email && 
+                          <button
+                          onClick={() => handleGotoConvo(msg.sender.email)} 
+                          className="go-to-convo-btn">
+                            Go to Conversation</button>}
                         </div>
                       ))
                         : 'No Messages yet'}
