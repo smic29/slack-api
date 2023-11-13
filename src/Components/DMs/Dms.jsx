@@ -1,6 +1,6 @@
 import './Dms.css'
 import { useData } from '../../Context/DataProvider'
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import { API_URL } from '../../Constants/Constants';
 import axios from 'axios';
 import ChannelMsgBox from '../ChannelMsgBox';
@@ -128,6 +128,15 @@ function RenderDMBox() {
     const { userHeaders, userBase, hasSentAMsg, setHasSentAMsg,
     selectedDM } = useData();
     const [ messages, setMessages ] = useState([]);
+    const isMounted = useRef(false);
+
+    useEffect(() => {
+        isMounted.current = true;
+
+        return () => {
+            isMounted.current = false;
+        };
+    }, []);
 
     useEffect(() => {
         const fetchDMs = async () => {
@@ -143,14 +152,18 @@ function RenderDMBox() {
             }
 
             setHasSentAMsg(false);
-            console.log(`this code ran`)
+            console.log(`Fetch DM useEffect triggered ${selectedDM}`)
         }
+        if (isMounted.current){
+            fetchDMs();
+        }
+
         if (hasSentAMsg) {
             fetchDMs();
         }
 
-        fetchDMs();
-        // setInterval(() => fetchDMs(), 2000);
+        const intervalId = setInterval(() => fetchDMs(),1000);
+        return () => clearInterval(intervalId);
     }, [selectedDM, hasSentAMsg])
     
     return (

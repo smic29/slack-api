@@ -1,6 +1,6 @@
 import './Channels.css'
 import { useData } from '../../Context/DataProvider'
-import { useEffect, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { API_URL } from '../../Constants/Constants';
 import axios from 'axios';
 import ChannelMsgBox from '../ChannelMsgBox';
@@ -27,28 +27,30 @@ function Channels() {
             }
 
             if (channelOnScreen || hasSentAMsg ) {
-                const msgUrl = `${API_URL}/messages?receiver_id=${channelOnScreen}&receiver_class=Channel`
-                const msgResponse = await axios.get(msgUrl, { headers: userHeaders})
+                // const msgUrl = `${API_URL}/messages?receiver_id=${channelOnScreen}&receiver_class=Channel`
+                // const msgResponse = await axios.get(msgUrl, { headers: userHeaders})
                 
                 const memberUrl = `${API_URL}/channels/${channelOnScreen}`
                 const memberResponse = await axios.get(memberUrl, { headers: userHeaders})
 
 
                 setMemberList(memberResponse.data.data.channel_members)
-                setMessages(msgResponse.data.data);
+                // setMessages(msgResponse.data.data);
                 setHasSentAMsg(false)
             }
         }
         fetchChannels();
+
+        // console.log(`Fetch Channels useEffect triggered: ${channelOnScreen}`)
+        // const intervalId = setInterval(() => fetchChannels(),1000);
+        // return () => clearInterval(intervalId);
     }, [channelOnScreen, hasSentAMsg])
 
 
     function RenderChannel() {
         switch (currentChannel) {
             case 'displayChannel':
-                return <ChannelMsgBox messages={messages} 
-                setHasSentAMsg={setHasSentAMsg}
-                channelOnScreen={channelOnScreen}/>
+                return <RenderChMsgBox />
             default:
                 return null;
         }
@@ -136,6 +138,51 @@ function Channels() {
             </div>
             <RenderChannel />
         </div>
+    )
+}
+
+function RenderChMsgBox () {
+    const [ messages, setMessages ] = useState([]);
+    const { channelOnScreen, setHasSentAMsg, hasSentAMsg, userHeaders } = useData();
+    const isMounted = useRef(false);
+
+    useEffect(() => {
+        isMounted.current = true;
+
+        return () => {
+            isMounted.current = false;
+        }
+    }, []);
+
+    useEffect(() => {
+        const fetchChMsgs = async () => {
+            try {
+                const msgUrl = `${API_URL}/messages?receiver_id=${channelOnScreen}&receiver_class=Channel`
+                const msgResponse = await axios.get(msgUrl, { headers: userHeaders})
+                
+                setMessages(msgResponse.data.data);
+                setHasSentAMsg(false)
+            } catch(error) {
+                console.error(error);
+            }
+            console.log(`Fetch ChMsgs useEffect triggered: ${channelOnScreen}`)
+        }
+
+        if(isMounted.current){
+            fetchChMsgs();
+        }
+
+        if (hasSentAMsg){
+            fetchChMsgs();
+        }
+
+        const intervalId = setInterval(() => fetchChMsgs(), 1500);
+        return () => clearInterval(intervalId);
+    }, [channelOnScreen, hasSentAMsg])
+
+    return (
+        <ChannelMsgBox messages={messages} channelOnScreen={channelOnScreen} 
+        setHasSentAMsg={setHasSentAMsg}/>
     )
 }
 

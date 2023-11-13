@@ -18,6 +18,7 @@ function ChannelMsgBox(props) {
     const location = useLocation();
     const pathName = location.pathname;
     const currentPage = FunctionService.determineCurrentPage(pathName);
+    const isInitialMount = useRef(true);
 
     const handleSend = async() => {
         try {
@@ -42,10 +43,12 @@ function ChannelMsgBox(props) {
     }
 
     useEffect(() => {
-        if (msgContainerRef.current) {
+        if (msgContainerRef.current && isInitialMount.current) {
             msgContainerRef.current.scrollTop = msgContainerRef.current.scrollHeight
+        } else {
+            isInitialMount.current = false;
         }
-    }, [messages])
+    }, [channelOnScreen, messages])
 
     const groupedMessages = FunctionService.groupMessagesByDate(messages);
 
