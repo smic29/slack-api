@@ -132,7 +132,16 @@ function Channels() {
                     </div>
                 </div>
                 ) : (
+                    <div className='channel-channellist'>
                     <p>You have no channels yet</p>
+                    <div className='create-channel two'
+                    onClick={handleModalClicks}>
+                        <span class="material-symbols-outlined">
+                        add_circle
+                        </span>
+                        <span>Add a Channel</span>
+                    </div>
+                    </div>
                 )
                 }
             </div>
