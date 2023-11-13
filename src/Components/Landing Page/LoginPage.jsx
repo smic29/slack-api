@@ -12,7 +12,8 @@ function LoginPage(props) {
         handleHeaders, 
         setUserBase, 
         setIsLoadingMsgs,
-        setIsLoadingUB } = useData();
+        setIsLoadingUB,
+    IsLoadingUB } = useData();
     const [ email, setEmail ] = useState('');
     const [ password, setPassword ] = useState('');
     const [ visibility, setVisibility ] = useState(false);
@@ -35,9 +36,8 @@ function LoginPage(props) {
             handleHeaders(response.headers)
 
             const allUserResponse = await axios.get(`${API_URL}/users`, { headers : response.headers})
-
-            setUserBase(allUserResponse.data.data);
             setIsLoadingUB(false)
+            setUserBase(allUserResponse.data.data);
             setIsLoadingMsgs(true);
         } catch (error) {
             if (error.response){
@@ -79,7 +79,7 @@ function LoginPage(props) {
             </p>
             <input type='submit' 
             className='login-button'
-            value='Login'
+            value={!IsLoadingUB ?`Login` : 'Logging In...'}
             data-testid='loginButton'/>
         </form>
     )

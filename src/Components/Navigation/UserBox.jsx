@@ -2,7 +2,7 @@ import './UserBox.css'
 import { useData } from '../../Context/DataProvider'
 
 function UserBox() {
-    const { user, handleLogout, setIsModalOpen } = useData();
+    const { user, handleLogout, setIsModalOpen, isLoadingMsgs, isLoadingUB } = useData();
 
     return (
         <div className='userbox-container'>
@@ -13,7 +13,7 @@ function UserBox() {
                 <span>{user.data.email}</span>
                 <span>{user.data.id}</span>
             </div>
-            <div className='userbox-logoutBox'>
+            <div className={`userbox-logoutBox ${isLoadingMsgs ? 'uB-disable' : ''}`}>
                 <span className='userbox-logoutbtn'
                 onClick={() =>{ 
                 setIsModalOpen(false)

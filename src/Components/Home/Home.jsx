@@ -9,7 +9,7 @@ import { useNavigateContext } from "../Navigation/Navigation";
 function Home() {
     const { user, userHeaders, messages, isLoadingMsgs,
         setIsExpanded, setChannelOnScreen, setIsCurrentChannel, setSelectedDM,
-        userBase 
+        isLoadingUB 
      } = useData();
     const navigate = useNavigateContext();
     const [ channelData, setChannelData ] = useState([]);

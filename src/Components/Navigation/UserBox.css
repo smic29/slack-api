@@ -40,3 +40,8 @@
     color: white;
     font-weight: bold;
 }
+
+.uB-disable {
+    pointer-events: none;
+    color: lightslategray;
+}
