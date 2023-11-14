@@ -27,34 +27,16 @@ function Channels() {
             }
 
             if (channelOnScreen || hasSentAMsg ) {
-                // const msgUrl = `${API_URL}/messages?receiver_id=${channelOnScreen}&receiver_class=Channel`
-                // const msgResponse = await axios.get(msgUrl, { headers: userHeaders})
-                
                 const memberUrl = `${API_URL}/channels/${channelOnScreen}`
                 const memberResponse = await axios.get(memberUrl, { headers: userHeaders})
 
 
                 setMemberList(memberResponse.data.data.channel_members)
-                // setMessages(msgResponse.data.data);
                 setHasSentAMsg(false)
             }
         }
         fetchChannels();
-
-        // console.log(`Fetch Channels useEffect triggered: ${channelOnScreen}`)
-        // const intervalId = setInterval(() => fetchChannels(),1000);
-        // return () => clearInterval(intervalId);
-    }, [channelOnScreen, hasSentAMsg])
-
-
-    function RenderChannel() {
-        switch (currentChannel) {
-            case 'displayChannel':
-                return <RenderChMsgBox />
-            default:
-                return null;
-        }
-    }
+    }, [channelOnScreen])
 
     const handleChannelSelect = (chId) => {
         const newSelectedChannel = chId;
@@ -145,7 +127,7 @@ function Channels() {
                 )
                 }
             </div>
-            <RenderChannel />
+            <RenderChMsgBox />
         </div>
     )
 }
@@ -170,10 +152,11 @@ function RenderChMsgBox () {
                 const msgResponse = await axios.get(msgUrl, { headers: userHeaders})
                 
                 setMessages(msgResponse.data.data);
-                setHasSentAMsg(false)
             } catch(error) {
                 console.error(error);
             }
+
+            setHasSentAMsg(false)
             console.log(`Fetch ChMsgs useEffect triggered: ${channelOnScreen}`)
         }
 
