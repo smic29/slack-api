@@ -43,12 +43,10 @@ function ChannelMsgBox(props) {
     }
 
     useEffect(() => {
-        if (msgContainerRef.current && isInitialMount.current) {
+        if (msgContainerRef.current) {
             msgContainerRef.current.scrollTop = msgContainerRef.current.scrollHeight
-        } else {
-            isInitialMount.current = false;
-        }
-    }, [channelOnScreen, messages])
+        } 
+    }, [messages])
 
     const groupedMessages = FunctionService.groupMessagesByDate(messages);
 

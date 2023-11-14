@@ -162,7 +162,7 @@ function RenderDMBox() {
             fetchDMs();
         }
 
-        const intervalId = setInterval(() => fetchDMs(),1000);
+        const intervalId = setInterval(() => fetchDMs(),5000);
         return () => clearInterval(intervalId);
     }, [selectedDM, hasSentAMsg])
     

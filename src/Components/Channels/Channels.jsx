@@ -185,7 +185,7 @@ function RenderChMsgBox () {
             fetchChMsgs();
         }
 
-        const intervalId = setInterval(() => fetchChMsgs(), 1500);
+        const intervalId = setInterval(() => fetchChMsgs(), 5000);
         return () => clearInterval(intervalId);
     }, [channelOnScreen, hasSentAMsg])
 
