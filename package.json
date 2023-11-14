@@ -1,6 +1,7 @@
 {
   "name": "slack-api",
   "version": "0.1.0",
+  "homepage": "https://smic29.github.io/slack-api/",
   "private": true,
   "dependencies": {
     "@testing-library/jest-dom": "^5.17.0",
@@ -16,6 +17,8 @@
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
+    "predeploy": "npm run build",
+    "deploy": "gh-pages -d build",
     "test": "react-scripts test",
     "eject": "react-scripts eject"
   },
@@ -43,6 +46,7 @@
     "@babel/preset-react": "^7.23.3",
     "babel-jest": "^29.7.0",
     "babel-plugin-transform-es2015-modules-commonjs": "^6.26.2",
+    "gh-pages": "^6.0.0",
     "identity-obj-proxy": "^3.0.0",
     "jest": "^27.5.1"
   },
