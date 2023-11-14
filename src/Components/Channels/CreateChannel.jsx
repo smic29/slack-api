@@ -8,7 +8,8 @@ function CreateChannel() {
     const [ channelName, setChannelName ] = useState('');
     const [ userIds, setUserIds ] = useState([]);
     const [ idInput, setIdInput ] = useState('');
-    const { userHeaders, userBase, user } = useData();
+    const { userHeaders, userBase, user, setHasCreatedAChannel,
+    setIsModalOpen } = useData();
 
     const handleAddId = () => {
         if (!userIds.includes(idInput)) {
@@ -33,7 +34,9 @@ function CreateChannel() {
             }, {headers: userHeaders})
             
             if (!response.data.errors){
-            alert(`Channel ${channelName} has been created!`)
+                setHasCreatedAChannel(true);
+                alert(`Channel ${channelName} has been created!`);
+                setIsModalOpen(false);
             } else {
                 alert(`${response.data.errors}`)
             }

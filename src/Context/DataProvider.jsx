@@ -76,6 +76,7 @@ const DataProvider = ({children}) => {
     const [ channelOnScreen, setChannelOnScreen ] = useState('');
     const [ selectedDM, setSelectedDM ] = useState('');
     const [ isExpanded, setIsExpanded ] = useState(false);
+    const [ hasCreatedAChannel, setHasCreatedAChannel ] = useState(false);
 
     //Messaging Actions
     const [ hasSentAMsg, setHasSentAMsg ] = useState(false);
@@ -131,7 +132,8 @@ const DataProvider = ({children}) => {
             hasSentAMsg, setHasSentAMsg,
             channelOnScreen, setChannelOnScreen, uniqueSenders,
             selectedDM, setSelectedDM,
-            isExpanded, setIsExpanded
+            isExpanded, setIsExpanded,
+            hasCreatedAChannel, setHasCreatedAChannel
             }}>
             {children}
         </DataContext.Provider>

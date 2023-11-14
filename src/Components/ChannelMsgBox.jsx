@@ -48,13 +48,13 @@ function ChannelMsgBox(props) {
         } 
     }, [messages])
 
-    const groupedMessages = FunctionService.groupMessagesByDate(messages);
+    const groupedMessages = messages && FunctionService.groupMessagesByDate(messages);
 
     return (
         <div className='channel-chatbox'>
             <div className='msg-box' ref={msgContainerRef}>
                 {/* <button onClick={() => console.log(messages)}>Debug</button> */}
-                {Object.entries(groupedMessages).map(([date, messages]) => (
+                {messages && Object.entries(groupedMessages).map(([date, messages]) => (
                     <fieldset key={date} className='chatbox-fieldset'>
                         <legend className={
                             FunctionService.formatDate(date) === 'Today' ? 

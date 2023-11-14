@@ -9,11 +9,11 @@ import { LoadingLine } from '../Loading';
 function Channels() {
     const { userHeaders,
     setModalPosition, setIsModalOpen, setMobileModal, memberList, setMemberList,
-    currentChannel, setIsCurrentChannel, hasSentAMsg, setHasSentAMsg,
-    channelOnScreen, setChannelOnScreen, isExpanded, setIsExpanded, isLoadingMsgs
+    setIsCurrentChannel, hasSentAMsg, setHasSentAMsg,
+    channelOnScreen, setChannelOnScreen, isExpanded, setIsExpanded, isLoadingMsgs,
+    hasCreatedAChannel, setHasCreatedAChannel
     } = useData();
     const [ channelData, setChannelData ] = useState([]);
-    const [ messages, setMessages ] = useState([]);
 
     useEffect(() => {
         const fetchChannels = async () => {
@@ -22,6 +22,7 @@ function Channels() {
                 const response = await axios.get(url, {headers: userHeaders})
 
                 setChannelData(response.data.data)
+                if (hasCreatedAChannel){ setHasCreatedAChannel(false)}
             } catch (error) {
                 alert(`Failed: ${error.response.errors}`)
             }
@@ -36,7 +37,7 @@ function Channels() {
             }
         }
         fetchChannels();
-    }, [channelOnScreen])
+    }, [channelOnScreen, hasCreatedAChannel])
 
     const handleChannelSelect = (chId) => {
         const newSelectedChannel = chId;
@@ -127,7 +128,7 @@ function Channels() {
                 )
                 }
             </div>
-            <RenderChMsgBox />
+            {channelData && channelData.length > 0 && <RenderChMsgBox />}
         </div>
     )
 }
