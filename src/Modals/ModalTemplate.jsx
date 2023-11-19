@@ -2,6 +2,7 @@ import './ModalTemplate.css'
 import LoginPage from '../Components/Landing Page/LoginPage';
 import NewUserForm from '../Components/Landing Page/NewUserForm';
 import { useData } from '../Context/DataProvider';
+import Info from '../Components/Info';
 
 function ModalTemplate(props) {
     const { navigate } = props;
@@ -25,7 +26,9 @@ function ModalTemplate(props) {
                 </div>
             </div>
             <img className='login-logo'
-            src='./Assets/Slack_icon_2019.png'></img>
+            src={process.env.PUBLIC_URL + '/Assets/Slack_icon_2019.png'}
+            alt='slack logo'></img>
+            <Info />
         </div>
     )
 }
