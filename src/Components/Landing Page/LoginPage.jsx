@@ -1,4 +1,3 @@
-import './LoginPage.css'
 import { useData } from '../../Context/DataProvider'
 import { useState } from 'react';
 import axios from 'axios';
@@ -12,8 +11,8 @@ function LoginPage(props) {
         handleHeaders, 
         setUserBase, 
         setIsLoadingMsgs,
-        setIsLoadingUB,
-    IsLoadingUB } = useData();
+        setIsLoadingUB
+    } = useData();
     const [ email, setEmail ] = useState('');
     const [ password, setPassword ] = useState('');
     const [ visibility, setVisibility ] = useState(false);
@@ -50,37 +49,60 @@ function LoginPage(props) {
     return (
         <form className='login-form'
         onSubmit={handleFormSubmit}>
-            <fieldset>
-                <legend className='user-legend'>
-                    Email
-                </legend>
-                <input type='email' 
+            <div className='input-group mb-3 form-floating'>
+                <i className='material-symbols-outlined input-group-text user-select-none'>
+                    alternate_email</i>
+                <div className='form-floating'>
+                <input 
+                id="emailInput"
+                className='form-control'
+                type='email' 
                 value={email}
-                placeholder='Enter email'
+                placeholder='Email Address'
                 onChange={(e) => setEmail(e.target.value)}/>
-            </fieldset>
-            <fieldset className='pw-field'>
-                <legend className='pass-legend'>
-                    Password
-                </legend>
-                <input type={visibility ? 'text' : 'password'} 
+                <label htmlFor="emailInput">Email Address</label>
+                </div>
+            </div>
+            <div className='input-group mb-3'>
+                <i className='material-symbols-outlined input-group-text user-select-none'>
+                    key
+                </i>
+                <div className='form-floating'>
+                <input 
+                id="pwInput"
+                className='form-control'
+                type={visibility ? 'text' : 'password'} 
                 value={password}
                 placeholder='Enter password'
                 onChange={(e) => setPassword(e.target.value)}/>
-                <span class="material-symbols-outlined"
+                <label 
+                htmlFor="pwInput"
+                className='form-label'>
+                    Password
+                </label>
+                </div>
+                <span 
+                className="material-symbols-outlined input-group-text user-select-none"
                 onMouseEnter={toggleVisibility}
                 onMouseLeave={toggleVisibility}>
                 {visibility ? 'visibility': 'visibility_off'}
                 </span>
-            </fieldset>
-            <p
-            onClick={() => handleActiveModal('newUser')}>
-                No account yet? <u>Sign Up here!</u>
+            </div>
+            <p>
+                No account yet? 
+                <a
+                className='link-success pe-auto link-offset-2 link-underline-opacity-100-hover ms-1
+                link-underline-opacity-25 user-select-none'
+                href='#'
+                onClick={() => handleActiveModal('newUser')}
+                >Sign Up here!</a>
             </p>
-            <input type='submit' 
-            className='login-button'
-            value={!IsLoadingUB ?`Login` : 'Logging In...'}
-            data-testid='loginButton'/>
+            <button type='submit' 
+            className={`btn ${email === '' || password === '' ? 'btn-secondary' : 'btn-primary'}`}
+            data-testid='loginButton'
+            disabled={email === '' || password === ''}>
+                Sign In 
+            </button>
         </form>
     )
 }
