@@ -49,18 +49,18 @@ function LoginPage(props) {
     return (
         <form className='login-form'
         onSubmit={handleFormSubmit}>
-            <div className='input-group mb-3 form-floating'>
+            <div className='input-group mb-3'>
                 <i className='material-symbols-outlined input-group-text user-select-none'>
                     alternate_email</i>
                 <div className='form-floating'>
-                <input 
-                id="emailInput"
-                className='form-control'
-                type='email' 
-                value={email}
-                placeholder='Email Address'
-                onChange={(e) => setEmail(e.target.value)}/>
-                <label htmlFor="emailInput">Email Address</label>
+                    <input 
+                    id="emailInput"
+                    className='form-control'
+                    type='email' 
+                    value={email}
+                    placeholder='Email Address'
+                    onChange={(e) => setEmail(e.target.value)}/>
+                    <label htmlFor="emailInput">Email Address</label>
                 </div>
             </div>
             <div className='input-group mb-3'>
@@ -68,18 +68,18 @@ function LoginPage(props) {
                     key
                 </i>
                 <div className='form-floating'>
-                <input 
-                id="pwInput"
-                className='form-control'
-                type={visibility ? 'text' : 'password'} 
-                value={password}
-                placeholder='Enter password'
-                onChange={(e) => setPassword(e.target.value)}/>
-                <label 
-                htmlFor="pwInput"
-                className='form-label'>
-                    Password
-                </label>
+                    <input 
+                    id="pwInput"
+                    className='form-control'
+                    type={visibility ? 'text' : 'password'} 
+                    value={password}
+                    placeholder='Enter password'
+                    onChange={(e) => setPassword(e.target.value)}/>
+                    <label 
+                    htmlFor="pwInput"
+                    className='form-label'>
+                        Password
+                    </label>
                 </div>
                 <span 
                 className="material-symbols-outlined input-group-text user-select-none"

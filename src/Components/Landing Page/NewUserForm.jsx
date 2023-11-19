@@ -1,4 +1,4 @@
-import './NewUserForm.css'
+// import './NewUserForm.css'
 import { useData } from '../../Context/DataProvider'
 import { useState } from 'react';
 import axios from 'axios';
@@ -35,29 +35,70 @@ function NewUserForm() {
     }
 
     return (
-        <form className="newUser-form"
-        onSubmit={handleFormSubmit}>
-            <div className='field-box'>
-                <fieldset>
-                    <legend>Login Information</legend>
-                    <label className='newUser-label'>Email</label>
-                    <input type='email' 
+        <form className="p-3"
+        onSubmit={handleFormSubmit}>    
+            <h1 className='h4'>Sign Up Sheet</h1>
+            <div className='input-group mb-3'>
+                <i className='material-symbols-outlined input-group-text user-select-none'>
+                    alternate_email
+                </i>
+                <div className='form-floating'>
+                    <input
+                    id="emailInput"
+                    className='form-control' 
+                    type='email' 
                     value={email}
+                    placeholder='Email Address'
                     onChange={(e) => setEmail(e.target.value)}
                     required />
-                    <label className='newUser-label'>Password</label>
-                    <input type='text' 
+                    <label 
+                    htmlFor='emailInput'>
+                        Email Address
+                    </label>
+                </div>
+            </div>
+
+            <div className='input-group'>
+                <i className='material-symbols-outlined input-group-text user-select-none'>
+                    key
+                </i>
+                <div className='form-floating'>
+                    <input 
+                    id='pwInput'
+                    className='form-control'
+                    type='text' 
                     value={password}
+                    placeholder='Enter a password'
                     onChange={(e) => setPassword(e.target.value)}
                     required/>
-                    <label className='newUser-label'>Confirm Password</label>
-                    <input type='text' 
-                    className={`${password === confirmPw ? 'newUser-confirmPW' : 'newUser-notMatch'}`}
+                    <label htmlFor='pwInput'>
+                        Password
+                    </label>
+                </div>
+            </div>
+            <div className='form-text mb-2'>
+                Password must be atleast 8 characters
+            </div>
+
+            <div className='input-group mb-3'>
+                <i className='material-symbols-outlined input-group-text user-select-none'>
+                    {password !== '' && password === confirmPw ? 'lock_open' : 'lock'}
+                </i>
+                <div className='form-floating'>    
+                    <input 
+                    id='confirmInput'
+                    className={`form-control 
+                    ${password !== '' && confirmPw !=='' ? 
+                    password === confirmPw ? 'is-valid': 'is-invalid' : ''}`}
+                    type='text' 
                     value={confirmPw}
+                    placeholder='confirm password'
                     onChange={(e) => setConfirmPw(e.target.value)}
                     required/>
-                </fieldset>
+                    <label htmlFor='confirmInput'>Confirm Password</label>
+                </div>
             </div>
+            
             <input 
             className={`newUser-submit-button 
             ${email === '' || password === '' || password !== confirmPw ? 
