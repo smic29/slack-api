@@ -3,12 +3,18 @@ import { useData } from '../../Context/DataProvider'
 import { useState } from 'react';
 import axios from 'axios';
 import { API_URL } from '../../Constants/Constants';
+import { useEffect } from 'react';
 
 function NewUserForm() {
     const { handleActiveModal } = useData();
     const [ email, setEmail ] = useState('')
     const [ password, setPassword ] = useState('')
     const [ confirmPw, setConfirmPw ] = useState('')
+    const [ showPw, setShowPw ] = useState(false);
+
+    const handleCheckboxSwitch = () => {
+        setShowPw(!showPw);
+    }
     
     const handleFormSubmit = async(e) => {
         e.preventDefault();
@@ -34,14 +40,31 @@ function NewUserForm() {
         }
     }
 
+    useEffect (() => {
+        'use strict'
+
+        const forms = document.querySelectorAll('.needs-validation');
+
+        Array.from(forms).forEach(form => {
+            form.addEventListener('submit', event => {
+                if (!form.checkValidity()) {
+                    event.preventDefault()
+                    event.stopPropagation()
+                }
+
+                form.classList.add('was-validated')
+            }, false)
+        })
+    })
+
     return (
-        <form className="p-3"
+        <form className="p-3 needs-validation" noValidate
         onSubmit={handleFormSubmit}>    
             <h1 className='h4'>Sign Up Sheet</h1>
             <div className='input-group mb-3'>
-                <i className='material-symbols-outlined input-group-text user-select-none'>
+                <span className='material-symbols-outlined input-group-text user-select-none'>
                     alternate_email
-                </i>
+                </span>
                 <div className='form-floating'>
                     <input
                     id="emailInput"
@@ -55,9 +78,12 @@ function NewUserForm() {
                     htmlFor='emailInput'>
                         Email Address
                     </label>
+                    <div className="invalid-feedback">
+                        Please enter a valid email address
+                    </div>
                 </div>
             </div>
-
+            
             <div className='input-group'>
                 <i className='material-symbols-outlined input-group-text user-select-none'>
                     key
@@ -66,7 +92,7 @@ function NewUserForm() {
                     <input 
                     id='pwInput'
                     className='form-control'
-                    type='text' 
+                    type={showPw ? 'text' : 'password'} 
                     value={password}
                     placeholder='Enter a password'
                     onChange={(e) => setPassword(e.target.value)}
@@ -90,7 +116,7 @@ function NewUserForm() {
                     className={`form-control 
                     ${password !== '' && confirmPw !=='' ? 
                     password === confirmPw ? 'is-valid': 'is-invalid' : ''}`}
-                    type='text' 
+                    type={showPw ? 'text' : 'password'} 
                     value={confirmPw}
                     placeholder='confirm password'
                     onChange={(e) => setConfirmPw(e.target.value)}
@@ -98,19 +124,32 @@ function NewUserForm() {
                     <label htmlFor='confirmInput'>Confirm Password</label>
                 </div>
             </div>
-            
-            <input 
-            className={`newUser-submit-button 
-            ${email === '' || password === '' || password !== confirmPw ? 
-            'disabled' : ''}`}
-            type="submit" 
-            value={'Create'}
-            data-testid='createButton'/>
-            <span
-            class='material-symbols-outlined' 
-            data-testid='backButton'
-            onClick={() => handleActiveModal('')}>
-                arrow_back_ios</span>
+            <div className="form-check form-switch d-flex justify-content-start mb-2">
+                <input 
+                type="checkbox" 
+                className="form-check-input"
+                id='NewUsercheckbox'
+                checked={showPw}
+                onChange={handleCheckboxSwitch}/>
+                <label htmlFor="NewUsercheckbox" 
+                className="form-check-label user-select-none ms-1"> 
+                Show Password</label>
+            </div>
+            <div className='d-flex align-items-center justify-content-between'>
+                <button
+                className='material-symbols-outlined pe-auto border-0 bg-transparent' 
+                data-testid='backButton'
+                onClick={() => handleActiveModal('')}>
+                    arrow_back_ios</button>
+                <input 
+                disabled={email === '' || password === '' || password !== confirmPw || password.length < 8}
+                className={`btn 
+                ${email !== '' && password !== '' && password === confirmPw && password.length >= 8 ?
+                    'btn-success' : 'btn-secondary'}`}
+                type="submit" 
+                value={'Create'}
+                data-testid='createButton'/>
+            </div>
         </form>
     )
 }
