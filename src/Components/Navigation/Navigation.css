@@ -1,38 +1,12 @@
-.navigation {
-    display: grid;
-    grid-template-areas: "navbar outlet";
-    grid-template-columns: 6% auto;
-    /* justify-content: stretch; */
-    /* justify-content: space-between; */
-    height: 99.83vh;
-    position: relative;
-}
-
-.navbar-header {
-    grid-area: navbar;
+#main-navbar {
     background-color: lightblue;
-    width: 100%;
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-    color: whitesmoke;
-}
-
-.navbar-header nav {
-    display: flex;
-    flex-direction: column;
-    justify-content: flex-start;
-    align-items: center;
-    margin-top: 5rem;
+    max-width: 4rem;
 }
 
 .item {
-    /* margin-inline: 10px; */
-    margin-bottom: 20px;
+    margin-bottom: 5rem;
     text-decoration: none;
     width: 100%;
-    /* border-radius: .75rem; */
-    /* padding: .123rem; */
 }
 
 .item:link, .item:visited {
@@ -57,19 +31,11 @@
     display: flex;
     flex-direction: column;
     font-size: .75rem;
+    margin-bottom: 1.5rem;
 }
 
 .nav-iconbox .material-symbols-outlined {
     font-size: 2.25rem;
-}
-
-.outlet {
-    grid-area: outlet;
-    height: inherit;
-    /* position: absolute;
-    left: 2%;
-    width: 98%; */
-    /* border: 1px solid black; */
 }
 
 .user-box .material-symbols-outlined {

@@ -34,10 +34,12 @@ function Navigation() {
 
     return (
         <NavigateContext.Provider value={navigate}>
-        <div className="navigation">
-            <header className="navbar-header">
-                {isLoggedIn ? (<nav>
-                    <NavLink className={`item ${currentPage === 'home' ? 'nav-selected' : ''}`} 
+        <div className="container-fluid row g-0">
+            <nav className="navbar-vertical col-1 d-flex flex-column py-2"
+            id="main-navbar">
+                {isLoggedIn ? (<nav className="mt-5">
+                    <NavLink className={`item
+                    ${currentPage === 'home' ? 'nav-selected' : ''}`} 
                     to='/'>
                         <div className="nav-iconbox">
                         <span class="material-symbols-outlined">
@@ -49,7 +51,7 @@ function Navigation() {
                     <NavLink className={`item ${currentPage === 'channels' ? 'nav-selected' : ''}`} 
                     to='channels'>
                     <div className="nav-iconbox">
-                        <span class="material-symbols-outlined">
+                        <span className="material-symbols-outlined">
                         chat
                         </span>
                         <span>Ch</span>
@@ -58,22 +60,22 @@ function Navigation() {
                     <NavLink className={`item ${currentPage === 'dms' ? 'nav-selected' : ''}`} 
                     to='dms'>
                     <div className="nav-iconbox">
-                        <span class="material-symbols-outlined">
+                        <span className="material-symbols-outlined">
                         forum
                         </span>
                         <span>DMs</span>
                         </div>
                         </NavLink>
                 </nav>) : ''}
-                <div className="user-box">
-                    <span class="material-symbols-outlined"
+                <div className="user-box align-self-center mt-auto">
+                    <span className="material-symbols-outlined"
                     onClick={handleModalClicks}
                     data-testid='user-modalTrigger'>
                     account_box
                     </span>
                 </div>
-            </header>
-            <div className="outlet">
+            </nav>
+            <div className="col-11 flex-grow-1">
             {isLoggedIn ? (<Outlet />) : (<ModalTemplate navigate={navigate}/>)}
             </div>
             {isModalOpen ? <MobileModal /> : null}
