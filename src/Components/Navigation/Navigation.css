@@ -1,6 +1,15 @@
+#main-container {
+    max-width: 100vw;
+    max-height: 100vh;
+}
+
 #main-navbar {
     background-color: lightblue;
     max-width: 4rem;
+}
+
+#main-outlet {
+    height: 100vh;
 }
 
 .item {

@@ -60,94 +60,98 @@ function Home() {
     }, [selectedChannel])
 
     return (
-        <div className="home-container">
-            <div className="home-nav">
-                <h1>Dashboard </h1>
+        <div className="container-fluid" 
+        id="Home-container">
+            <div className="row text-start" id="Home-navbar">
+                <h1 className="mt-1">Dashboard </h1>
                 {isLoadingMsgs && <LoadingLine />}
             </div>
-            <div className="home-info-container">
-            <fieldset className="information-box">
-                <legend>Information</legend>
-                <p>You are signed in as: {user.data.email}</p>
-                <p>User ID: {user.data.id}</p>
-            </fieldset>
-            <fieldset>
-                <legend>Channels</legend>
-                {channelData && channelData.length > 0 ? (
-                <div className="channel-list">
-                    <p>You have {channelData.length} Channels: </p>
-                    <select value={selectedChannel} 
-                    onChange={handleChannelSelect}>
-                    <option value='' 
-                    disabled>
-                        Select a channel</option>
-                    {channelData.map((channel) => (
-                        <option key={channel.id} value={channel.id}>
-                            {channel.name}
-                        </option>
-                    ))}
-                    </select>
+            <div className="row p-5 g-0">
+                <div className="col-6 border p-3 rounded text-start">
+                    <h4 className="mb-3 border rounded-pill text-center">Information</h4>
+                    <p>You are signed in as: <strong>{user.data.email}</strong></p>
+                    <p>User ID: <strong>{user.data.id}</strong></p>
                 </div>
-                ) : ( 
-                    <p>No Channels to display. Create or Join one.</p>
-                )}
-                <div>
-                    {selectedChannel !== '' && (
-                        <div>
-                            <p>Channel ID: {selectedChannel}</p>
-                            {channelData.map((channel) => {
-                                if (channel.id === parseInt(selectedChannel)) {
-                                    return (
-                                        <div key={channel.id}>
-                                            <p>Created: {formatTimestamp(channel.created_at)}</p>
-                                            <p>Total Members: {channelMembers}</p>
-                                            <span 
-                                            onClick={() => handleGotoChannel(channel.id)}
-                                            className="go-to-channel-btn">
-                                                Go to Channel
-                                            </span>
-                                        </div>
-                                    )
-                                }
-                                return null;
-                            })}
-                        </div>
+                <div className="col-6 border p-3 rounded">
+                    <h4 className="mb-3 border rounded-pill text-center">Channels</h4>
+                    {channelData && channelData.length > 0 ? (
+                    <div className="row mb-2">
+                        <p className="">You have 
+                            <span className="badge text-bg-success">{channelData.length}</span> 
+                            Channels: </p>
+                        <select className="form-select text-center"
+                        value={selectedChannel} 
+                        onChange={handleChannelSelect}>
+                            <option value='' 
+                            disabled>
+                                Select a channel</option>
+                            {channelData.map((channel) => (
+                                <option key={channel.id} value={channel.id}>
+                                    {channel.name}
+                                </option>
+                            ))}
+                        </select>
+                    </div>
+                    ) : ( 
+                        <p>No Channels to display. Create or Join one.</p>
                     )}
+                    <div>
+                        {selectedChannel !== '' && (
+                            <div className="text-start">
+                                <p>Channel ID: {selectedChannel}</p>
+                                {channelData.map((channel) => {
+                                    if (channel.id === parseInt(selectedChannel)) {
+                                        return (
+                                            <div key={channel.id}>
+                                                <p>Created: {timeSince(channel.created_at)}</p>
+                                                <p>Total Members: {channelMembers}</p>
+                                                <span 
+                                                onClick={() => handleGotoChannel(channel.id)}
+                                                className="go-to-channel-btn text-center border rounded-pill">
+                                                    Go to Channel
+                                                </span>
+                                            </div>
+                                        )
+                                    }
+                                    return null;
+                                })}
+                            </div>
+                        )}
+                    </div>
                 </div>
-            </fieldset>
-            <fieldset className="home-recentmsg-box">
-                <legend>Recent Messages</legend>
-                <div className="loading-box-position">
-                    {
-                    isLoadingMsgs
-                    ? <Loading /> 
-                    :messages.length > 0 ? 
-                    Object.values(
-                        messages
-                          .filter((msg) => msg.sender.id !== user.data.id)
-                          .reduce((uniqueMessages, msg) => {
-                            if (!uniqueMessages[msg.sender.email] || msg.created_at > uniqueMessages[msg.sender.email].created_at) {
-                              uniqueMessages[msg.sender.email] = msg;
-                            }
-                            return uniqueMessages;
-                          }, {})
-                      ).map((msg) => (
-                        <div className="home-rmMsgBox" key={msg.id}
-                        onMouseEnter={() => handleBoxClick(msg.sender.email)}
-                        onMouseLeave={() => handleBoxClick('')}>
-                          <legend className="rmMsgBox-legend">{msg.sender.email}</legend>
-                          <p>{msg.body}</p>
-                          <span>{timeSince(msg.created_at)}</span>
-                          {selectedBox === msg.sender.email && 
-                          <button
-                          onClick={() => handleGotoConvo(msg.sender.email)} 
-                          className="go-to-convo-btn">
-                            Go to Conversation</button>}
-                        </div>
-                      ))
-                        : 'No Messages yet'}
+                <div className="home-recentmsg-box border p-3 rounded mt-2">
+                    <h4 className="text-start border rounded-pill mb-3 text-center">Recent Messages</h4>
+                    <div className="loading-box-position">
+                        {
+                        isLoadingMsgs
+                        ? <Loading /> 
+                        :messages.length > 0 ? 
+                        Object.values(
+                            messages
+                            .filter((msg) => msg.sender.id !== user.data.id)
+                            .reduce((uniqueMessages, msg) => {
+                                if (!uniqueMessages[msg.sender.email] || msg.created_at > uniqueMessages[msg.sender.email].created_at) {
+                                uniqueMessages[msg.sender.email] = msg;
+                                }
+                                return uniqueMessages;
+                            }, {})
+                        ).map((msg) => (
+                            <div className="home-rmMsgBox" key={msg.id}
+                            onMouseEnter={() => handleBoxClick(msg.sender.email)}
+                            onMouseLeave={() => handleBoxClick('')}>
+                            <legend className="rmMsgBox-legend">{msg.sender.email}</legend>
+                            <p>{msg.body}</p>
+                            <span>{timeSince(msg.created_at)}</span>
+                            {selectedBox === msg.sender.email && 
+                            <button
+                            onClick={() => handleGotoConvo(msg.sender.email)} 
+                            className="go-to-convo-btn">
+                                Go to Conversation</button>}
+                            </div>
+                        ))
+                            : 'No Messages yet'}
+                    </div>
                 </div>
-            </fieldset>
             </div>             
         </div>
     )

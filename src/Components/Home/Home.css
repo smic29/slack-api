@@ -1,3 +1,14 @@
+#Home-navbar {
+    background-color: lightblue;
+    position: relative;
+    max-height: 3.5rem;
+}
+
+.border.rounded-pill {
+    background-color: rgb(125, 173, 189);
+    color: white;
+}
+
 .home-container {
     display: flex;
     flex-direction: column;

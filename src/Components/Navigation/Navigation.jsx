@@ -33,54 +33,57 @@ function Navigation() {
     }
 
     return (
-        <NavigateContext.Provider value={navigate}>
-        <div className="container-fluid row g-0">
-            <nav className="navbar-vertical col-1 d-flex flex-column py-2"
-            id="main-navbar">
-                {isLoggedIn ? (<nav className="mt-5">
-                    <NavLink className={`item
-                    ${currentPage === 'home' ? 'nav-selected' : ''}`} 
-                    to='/'>
-                        <div className="nav-iconbox">
-                        <span class="material-symbols-outlined">
-                        home_app_logo
-                        </span>
-                        <span>Home</span>
+        <div className="container-fluid g-0" id="main-container">
+            <NavigateContext.Provider value={navigate}>
+                <div className="row g-0 flex-wrap-none">
+                    <nav className="navbar-vertical col-1 d-flex flex-column py-2"
+                    id="main-navbar">
+                        {isLoggedIn ? (<nav className="mt-5">
+                            <NavLink className={`item
+                            ${currentPage === 'home' ? 'nav-selected' : ''}`} 
+                            to='/'>
+                                <div className="nav-iconbox">
+                                <span class="material-symbols-outlined">
+                                home_app_logo
+                                </span>
+                                <span>Home</span>
+                                </div>
+                                </NavLink>
+                            <NavLink className={`item ${currentPage === 'channels' ? 'nav-selected' : ''}`} 
+                            to='channels'>
+                            <div className="nav-iconbox">
+                                <span className="material-symbols-outlined">
+                                chat
+                                </span>
+                                <span>Ch</span>
+                                </div>
+                                </NavLink>
+                            <NavLink className={`item ${currentPage === 'dms' ? 'nav-selected' : ''}`} 
+                            to='dms'>
+                            <div className="nav-iconbox">
+                                <span className="material-symbols-outlined">
+                                forum
+                                </span>
+                                <span>DMs</span>
+                                </div>
+                                </NavLink>
+                        </nav>) : ''}
+                        <div className="user-box align-self-center mt-auto">
+                            <span className="material-symbols-outlined"
+                            onClick={handleModalClicks}
+                            data-testid='user-modalTrigger'>
+                            account_box
+                            </span>
                         </div>
-                        </NavLink>
-                    <NavLink className={`item ${currentPage === 'channels' ? 'nav-selected' : ''}`} 
-                    to='channels'>
-                    <div className="nav-iconbox">
-                        <span className="material-symbols-outlined">
-                        chat
-                        </span>
-                        <span>Ch</span>
-                        </div>
-                        </NavLink>
-                    <NavLink className={`item ${currentPage === 'dms' ? 'nav-selected' : ''}`} 
-                    to='dms'>
-                    <div className="nav-iconbox">
-                        <span className="material-symbols-outlined">
-                        forum
-                        </span>
-                        <span>DMs</span>
-                        </div>
-                        </NavLink>
-                </nav>) : ''}
-                <div className="user-box align-self-center mt-auto">
-                    <span className="material-symbols-outlined"
-                    onClick={handleModalClicks}
-                    data-testid='user-modalTrigger'>
-                    account_box
-                    </span>
+                    </nav>
+                    <div className="col-11 g-0 flex-grow-1"
+                    id="main-outlet">
+                    {isLoggedIn ? (<Outlet />) : (<ModalTemplate navigate={navigate}/>)}
+                    </div>
+                    {isModalOpen ? <MobileModal /> : null}
                 </div>
-            </nav>
-            <div className="col-11 flex-grow-1">
-            {isLoggedIn ? (<Outlet />) : (<ModalTemplate navigate={navigate}/>)}
-            </div>
-            {isModalOpen ? <MobileModal /> : null}
+            </NavigateContext.Provider>
         </div>
-        </NavigateContext.Provider>
     )
 }
 
