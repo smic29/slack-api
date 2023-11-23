@@ -17,18 +17,24 @@ function Dms() {
     const IdDisplay = userBase.find((user) => selectedDM === user.email);
 
     return (
-        <div className='Dms-CONTAINER'>
-            <nav className='dms-navbox'>
-            <h1>{selectedDM !== '' && selectedDM !== 'newMsg' 
-            ? `${!uniqueSenders.find((email) => email === selectedDM) 
-                ? `New Message to `: IdDisplay.id}: ${selectedDM}`
-            :'Direct Messages'}</h1>
-            {isLoadingMsgs && <LoadingLine />}
+        <div className='container-fluid' id='Dms-CONTAINER'>
+            <nav className='dms-navbox row text-start'>
+                <h1>{selectedDM !== '' && selectedDM !== 'newMsg' 
+                ? `${!uniqueSenders.find((email) => email === selectedDM) 
+                    ? `New Message to `: IdDisplay.id}: ${selectedDM}`
+                :'Direct Messages'}</h1>
+                {isLoadingMsgs && <LoadingLine />}
             </nav>
-            <RenderList handleDMSelect={handleDMSelect}/>
-            {selectedDM !== '' &&  (
-            <RenderDMBox/>
-            )}
+            <div className='row height-auto'>
+                <div className='col-3 my-auto'>
+                    <RenderList handleDMSelect={handleDMSelect}/>
+                </div>
+                <div className='col-9'>
+                    {selectedDM !== '' &&  (
+                    <RenderDMBox/>
+                    )}
+                </div>
+            </div>
         </div>
     )
 }
@@ -64,7 +70,7 @@ function RenderList(props) {
     }
     
     return (
-        <div className='dms-renderlist'>
+        <div className='container'>
             {isSendingNew === true ? 
                 <div className='dm-user-search'>
                     <span className='material-symbols-outlined search-static'>

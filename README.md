@@ -2,6 +2,7 @@
 
 ## Made using:
 - ReactJS
+- Bootstrap 5
 
 ## Project Requirements
 - [x] User is able to create his/her account with email and password

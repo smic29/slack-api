@@ -111,10 +111,10 @@ function ChannelMsgBox(props) {
                 ))}
             </div>
             <div className='row height-20'>
-            <TypeBox 
-            body={body}
-            setBody={setBody}
-            handleSend={handleSend}/>
+                {messages && <TypeBox 
+                body={body}
+                setBody={setBody}
+                handleSend={handleSend}/>}
             </div>
         </div>
     )
