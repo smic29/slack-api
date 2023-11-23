@@ -55,7 +55,7 @@ function ChannelMsgBox(props) {
             <div className='msg-box height-80' ref={msgContainerRef}>
                 {/* <button onClick={() => console.log(messages)}>Debug</button> */}
                 {messages && Object.entries(groupedMessages).map(([date, messages]) => (
-                    <fieldset key={date} className='chatbox-fieldset'>
+                <fieldset key={date} className='chatbox-fieldset'>
                         <legend className={
                             FunctionService.formatDate(date) === 'Today' ? 
                             'date today'

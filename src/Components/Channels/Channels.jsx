@@ -74,7 +74,7 @@ function Channels() {
         <div className='container-fluid'>
             <div className='row'>
                 <nav className='msg-box-nav'>
-                    <h1>{channelOnScreen !== '' ? `CH ID: ${channelOnScreen}` : 'Channels'}</h1>
+                    <h1 className='mt-1'>{channelOnScreen !== '' ? `CH ID: ${channelOnScreen}` : 'Channels'}</h1>
                     {channelOnScreen !== '' && 
                     <div className='channel-headerbox'
                     onClick={handleModalClickMembers}>
