@@ -1,5 +1,10 @@
 # Avion School Project - Slack API
 
+## Github Pages link:
+<a href='https://smic29.github.io/slack-api/' target='_blank'>Slack API</a>
+
+As of 23/11/23, live site is still unable to perform the axios requests included with the code. It's recommended to clone the project and use `npm start`.
+
 ## Made using:
 - ReactJS
 - Bootstrap 5
@@ -11,6 +16,7 @@ This project was presented on November 14th, 2023. For some added personal chang
   - I spent time trying to learn bootstrap just for some added knowledge in styling. I found it really interesting and I think I'll continue using it moving forward. Using it alongside React was somewhat of a challenge, but I think continued use will let me get a hang of it.
 - [ ] Organize code and file structure
 - [ ] Some more features
+- [ ] Test data to be able to use gh-pages site
 - [ ] Find a way to have live site be able to do axios requests.
 
 ## Project Requirements (Completed 14/11/23)
