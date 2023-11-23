@@ -51,8 +51,8 @@ function ChannelMsgBox(props) {
     const groupedMessages = messages && FunctionService.groupMessagesByDate(messages);
 
     return (
-        <div className='channel-chatbox'>
-            <div className='msg-box' ref={msgContainerRef}>
+        <div className='row max-height'>
+            <div className='msg-box height-80' ref={msgContainerRef}>
                 {/* <button onClick={() => console.log(messages)}>Debug</button> */}
                 {messages && Object.entries(groupedMessages).map(([date, messages]) => (
                     <fieldset key={date} className='chatbox-fieldset'>
@@ -110,10 +110,12 @@ function ChannelMsgBox(props) {
                 </fieldset>
                 ))}
             </div>
+            <div className='row height-20'>
             <TypeBox 
             body={body}
             setBody={setBody}
             handleSend={handleSend}/>
+            </div>
         </div>
     )
 }

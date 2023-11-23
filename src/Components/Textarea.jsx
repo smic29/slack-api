@@ -8,8 +8,8 @@ function TypeBox(props) {
     return(
         <div className="Typebox-CONTAINER">
             <textarea
+            className='form-control'
             placeholder=""
-            rows={5}
             cols={80}
             value={body}
             onChange={(e) => setBody(e.target.value)}></textarea>

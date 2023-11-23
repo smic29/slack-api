@@ -71,8 +71,8 @@ function Channels() {
     }
 
     return (
-        <div className='channel-page-container'>
-            <div className='channelpage-one'>
+        <div className='container-fluid'>
+            <div className='row'>
                 <nav className='msg-box-nav'>
                     <h1>{channelOnScreen !== '' ? `CH ID: ${channelOnScreen}` : 'Channels'}</h1>
                     {channelOnScreen !== '' && 
@@ -85,9 +85,11 @@ function Channels() {
                     </div>}
                     {isLoadingMsgs && <LoadingLine />}
                 </nav>
-                { channelData && channelData.length > 0 ?
+            </div>
+            <div className='row'>
+            { channelData && channelData.length > 0 ?
                 (
-                <div className='channel-channellist'>
+                <div className='col-3 my-auto'>
                     <div className='create-channel'
                     onClick={() => setIsExpanded(!isExpanded)}>
                         <span class='material-symbols-outlined'>
@@ -115,7 +117,7 @@ function Channels() {
                     </div>
                 </div>
                 ) : (
-                    <div className='channel-channellist'>
+                    <div className='col-3'>
                     <p>You have no channels yet</p>
                     <div className='create-channel two'
                     onClick={handleModalClicks}>
@@ -127,8 +129,10 @@ function Channels() {
                     </div>
                 )
                 }
+                <div className='col-9'>
+                    {channelData && channelData.length > 0 && <RenderChMsgBox />}
+                </div>
             </div>
-            {channelData && channelData.length > 0 && <RenderChMsgBox />}
         </div>
     )
 }
