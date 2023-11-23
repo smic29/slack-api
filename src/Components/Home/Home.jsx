@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { useData } from "../../Context/DataProvider"
 import './Home.css'
 import axios from "axios";
-import { API_URL, formatTimestamp, timeSince } from "../../Constants/Constants";
+import { API_URL, timeSince } from "../../Constants/Constants";
 import Loading, { LoadingLine } from "../Loading";
 import { useNavigateContext } from "../Navigation/Navigation";
 
@@ -69,8 +69,8 @@ function Home() {
             <div className="row p-5 g-0">
                 <div className="col-6 border p-3 rounded text-start">
                     <h4 className="mb-3 border rounded-pill text-center">Information</h4>
-                    <p>You are signed in as: <strong>{user.data.email}</strong></p>
-                    <p>User ID: <strong>{user.data.id}</strong></p>
+                    <p className="d-flex justify-content-between">You are signed in as: <strong className="me-3">{user.data.email}</strong></p>
+                    <p className="d-flex justify-content-between">User ID: <strong className="me-3">{user.data.id}</strong></p>
                 </div>
                 <div className="col-6 border p-3 rounded">
                     <h4 className="mb-3 border rounded-pill text-center">Channels</h4>
@@ -98,12 +98,12 @@ function Home() {
                     <div>
                         {selectedChannel !== '' && (
                             <div className="text-start">
-                                <p>Channel ID: {selectedChannel}</p>
+                                <p className="m-0">Channel ID: {selectedChannel}</p>
                                 {channelData.map((channel) => {
                                     if (channel.id === parseInt(selectedChannel)) {
                                         return (
                                             <div key={channel.id}>
-                                                <p>Created: {timeSince(channel.created_at)}</p>
+                                                <p className="m-0">Created: {timeSince(channel.created_at)}</p>
                                                 <p>Total Members: {channelMembers}</p>
                                                 <span 
                                                 onClick={() => handleGotoChannel(channel.id)}
