@@ -4,7 +4,16 @@
 - ReactJS
 - Bootstrap 5
 
-## Project Requirements
+## Continued Development
+This project was presented on November 14th, 2023. For some added personal changes, I chose to continue with development and add features that I think would make the project better.
+
+- [x] Integrated Bootstrap 5 [Completed 23/11/23]
+  - I spent time trying to learn bootstrap just for some added knowledge in styling. I found it really interesting and I think I'll continue using it moving forward. Using it alongside React was somewhat of a challenge, but I think continued use will let me get a hang of it.
+- [ ] Organize code and file structure
+- [ ] Some more features
+- [ ] Find a way to have live site be able to do axios requests.
+
+## Project Requirements (Completed 14/11/23)
 - [x] User is able to create his/her account with email and password
 - [x] User is able to login his/her credentials
 - [x] User is able to create new channel
